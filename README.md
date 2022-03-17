@@ -13,20 +13,22 @@
 ## 역할 분배 및 기여자
 
 
+### Front-End
+
+- **강성엽**
+- **이수은**
+  
+  - HTML5, CSS3, JavaScript
+
 
 ### Back-End
 
-- 서울 10반 **임승민**
+- **임승민**
   
-  - Java, Spring Boot, H2
+  - Java, Spring Framework, JPA, H2
   
   
 
-### Front-End
-
-- 서울 10반 **강성엽**
-  
-  - HTML5, CSS3, JavaScript
 
 
 
