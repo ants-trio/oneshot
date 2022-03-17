@@ -15,7 +15,7 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public String login(String email, String password) {
 		return memberRepository.findByEmail(email)
-			.filter(member -> member.validatePassword(password))
+			.filter(member -> member.isValidatePassword(password))
 			.map(Member::getEmail)
 			.orElse("");
 	}

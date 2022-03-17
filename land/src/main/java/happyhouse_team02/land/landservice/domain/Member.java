@@ -45,16 +45,16 @@ public class Member {
 	}
 
 	public void updateName(Name name, String password) {
-		validatePassword(password);
+		isValidatePassword(password);
 		this.name = name;
 	}
 
 	public void updatePassword(String updatePassword, String originalPassword) {
-		validatePassword(originalPassword);
+		isValidatePassword(originalPassword);
 		this.password = updatePassword;
 	}
 
-	public boolean validatePassword(String password) {
+	public boolean isValidatePassword(String password) {
 		return getPassword().equals(password);
 	}
 
