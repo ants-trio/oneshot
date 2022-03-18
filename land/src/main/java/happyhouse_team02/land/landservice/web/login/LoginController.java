@@ -1,7 +1,5 @@
 package happyhouse_team02.land.landservice.web.login;
 
-import static happyhouse_team02.land.landservice.web.session.SessionConst.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -22,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginController {
 
 	private final LoginService loginService;
+	private final LoginValidator loginValidator;
 
 	@GetMapping("/login")
 	public String loginForm(@ModelAttribute("loginForm") LoginForm form) {
@@ -33,23 +32,16 @@ public class LoginController {
 						HttpServletRequest request) {
 
 		if (bindingResult.hasErrors()) {
-			log.info("bindingResult={}", bindingResult.getAllErrors());
-			return "login";
-		}
-		// TODO
-		String loginEmail = loginService.login(form.getEmail(), form.getPassword());
-		if (loginEmail.isBlank()) {
-			bindingResult.reject("validateFail");
 			return "login";
 		}
 
-		addMemberToSession(request, loginEmail);
+		loginValidator.validateLogin(form, bindingResult);
+		if (bindingResult.hasErrors()) {
+			return "login";
+		}
+
+		loginService.login(request, form.getEmail());
 		return "redirect:/";
-	}
-
-	private void addMemberToSession(HttpServletRequest request, String loginEmail) {
-		HttpSession session = request.getSession();
-		session.setAttribute(LOGIN_MEMBER, loginEmail);
 	}
 
 	@GetMapping("/logout")

@@ -1,5 +1,10 @@
 package happyhouse_team02.land.landservice.service;
 
+import static happyhouse_team02.land.landservice.web.session.SessionConst.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
 
 import happyhouse_team02.land.landservice.domain.Member;
@@ -13,10 +18,9 @@ public class LoginServiceImpl implements LoginService {
 	private final MemberRepository memberRepository;
 
 	@Override
-	public String login(String email, String password) {
-		return memberRepository.findByEmail(email)
-			.filter(member -> member.validatePassword(password))
-			.map(Member::getEmail)
-			.orElse("");
+	public void login(HttpServletRequest request, String email) {
+		String findEmail = memberRepository.findByEmail(email).map(Member::getEmail).orElse("");
+		HttpSession session = request.getSession();
+		session.setAttribute(LOGIN_MEMBER, findEmail);
 	}
 }
