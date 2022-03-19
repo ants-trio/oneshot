@@ -1,21 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Tables - SB Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+        crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="js/board.js"></script>
+    <script src="./js/board.js"></script>
     <script src="https://kit.fontawesome.com/3c26041fb8.js" crossorigin="anonymous"></script>
 </head>
 
@@ -23,7 +23,7 @@
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-white hd_nav justify-content-between">
         <div class="nav_box d-flex align-items-center">
             <!-- Navbar Brand-->
-            <a class="hd_logo pl-4" href="index.html">One Shot</a>
+            <a class="hd_logo pl-4" href="../templates/index.html">One Shot</a>
             <!-- Sidebar Toggle-->
             <!-- <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                     class="fas fa-bars"></i></button> -->
@@ -55,7 +55,7 @@
                     <p class="mb-0"><i class="fa-solid fa-user d-flex align-items-first"></i></p>
                     <form class="nav_user_info_wrap position-absolute rounded bg-white">
                         <div class="input-group rounded">
-                            <a class="nav-link rounded" href="login.html" th:href="@{/login}" ><i class="fa-solid fa-right-to-bracket mr-2"></i>Login</a>
+                            <a class="nav-link rounded" href="login.html" th:href="@{/templates/login}" ><i class="fa-solid fa-right-to-bracket mr-2"></i>Login</a>
                             <a class="nav-link rounded" href="register.html" th:href="@{/member/new}"><i class="fa-solid fa-registered mr-2"></i>Register</a>
                         </div>
                     </form>
@@ -64,7 +64,7 @@
                     <p class="mb-0"><i class="fa-solid fa-bars d-flex align-items-first"></i></p>
                     <form class="nav_user_submenu_wrap position-absolute rounded bg-white">
                         <div class="input-group rounded">
-                            <a class="nav-link rounded" href="index.html" >
+                            <a class="nav-link rounded" href="../templates/index.html" >
                                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                     <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                                   </svg>
@@ -101,7 +101,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading" style="visibility: hidden;">Core</div>
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="../templates/index.html">
                             <div class="sb-nav-link-icon">
                                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
