@@ -15,7 +15,7 @@
   <nav class="sb-topnav navbar navbar-expand navbar-dark bg-white hd_nav justify-content-between px-3">
     <div class="nav_box d-flex align-items-center">
         <!-- Navbar Brand-->
-        <a class="hd_logo pl-4" href="../index.html">One Shot</a>
+        <a class="hd_logo pl-4" href="index.html">One Shot</a>
         <!-- Sidebar Toggle-->
         <!-- <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                 class="fas fa-bars"></i></button> -->
@@ -39,21 +39,29 @@
                 </p>
             </li> -->
             <li class="nav_user_icon icon2 mx-2 ">
-                <svg class="w-5 h-5 d-flex align-items-first" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-5 h-5 d-flex align-items-first" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" style="position: relative; top:3px;">
                     <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
                   </svg>
             </li>
             <li class="nav_user_icon icon3 mx-2 position-relative ">
-                <p class="mb-0"><i class="fa-solid fa-user d-flex align-items-first"></i></p>
+                <p class="mb-0">
+                  <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                  </svg>
+                </p>
                 <form class="nav_user_info_wrap position-absolute rounded bg-white">
                     <div class="input-group rounded">
-                        <a class="nav-link rounded d-flex align-items-center" href="../test/login.html" th:href="@{/login}" ><i class="fa-solid fa-right-to-bracket"></i><p class="mb-0 mx-2">Login</p></a>
-                        <a class="nav-link rounded d-flex align-items-center" href="../test/register.html" th:href="@{/member/new}"><i class="fa-solid fa-registered"></i><p class="mb-0 mx-2">Register</p></a>
+                        <a class="nav-link rounded d-flex align-items-center" href="../templates/login/login.html" th:href="@{/login}" ><i class="fa-solid fa-right-to-bracket"></i><p class="mb-0 mx-2">Login</p></a>
+                        <a class="nav-link rounded d-flex align-items-center" href="" th:href="@{/member/new}"><i class="fa-solid fa-registered"></i><p class="mb-0 mx-2">Register</p></a>
                     </div>
                 </form>
             </li>
             <li class="nav_user_icon icon4 mx-2 position-relative ">
-                <p class="mb-0"><i class="fa-solid fa-bars d-flex align-items-first"></i></p>
+                <p class="mb-0">
+                    <svg class="w-5 h-5 purple" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                    </svg>
+                </p>
                 <form class="nav_user_submenu_wrap position-absolute rounded bg-white">
                     <div class="input-group rounded">
                         <a class="nav-link rounded" href="index.html" >

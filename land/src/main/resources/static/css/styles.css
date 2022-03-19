@@ -12022,6 +12022,7 @@ body {
 .user_wrap .nav_user_icon.icon4 i{
   font-size:18px;
 }
+.user_wrap .nav_user_icon.icon4 svg.purple {color:#7E3AF2}
 .user_wrap .nav_user_icon.icon4 svg {
   width: 20px;
   color: #4c4f52;
@@ -12127,6 +12128,17 @@ body {
 .card_bnr .btn_arr {color: #edebfe;}
 .bookmark_icon {color:#707275}
 .card_board_icon svg {width: 20px;color: #707275;}
+
+.main_bkmark_tb .bkmark_btn {
+  background: none;
+  border: none;
+  font-size: 13px;
+  border: 1px solid #707275;
+  color: #707275;
+  border-radius: 3px;
+}
+
+
 .sb-topnav {
   padding-left: 0;
   height: 70px;
