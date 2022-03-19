@@ -121,7 +121,6 @@ $(function () {
     dataType: "json",
 
     success: function (resource) {
-      console.log(resource);
       $.each(resource.regcodes, function () {
         let cityName = $(this)[0].name;
         let cityOption = ``;
@@ -339,7 +338,7 @@ $(function () {
 
   // test용 response 객체
   let responseTest = [
-    { id: "유저정보", city: "서울", region: "관악구" },
+    { id: "유저정보", city: "서울특별시", region: "관악구" },
     { id: "유저정보", city: "경기도", region: "성남시 분당구" },
   ];
 
@@ -348,7 +347,7 @@ $(function () {
 
   function initiateBookmark() {
     $.each(responseTest, function () {
-      let regionName = `${$(this).city} ${$(this).region}`;
+      let regionName = `${$(this)[0].city} ${$(this)[0].region}`;
       bookmarks.push(regionName);
     });
     expressBookmark();
@@ -361,7 +360,7 @@ $(function () {
       <tr>
         <td>
           <div class="row">
-            <div class="col-7" style="font-size: 12px">${regionName}</div>
+            <div class="col-7" style="font-size: 12px">${bookmarks[i]}</div>
             <div class="col-2">
               <input type="button" id="btn-bookmark-use" value="조회" style="font-size: 6px">
             </div>
@@ -403,11 +402,11 @@ $(function () {
     addBoorkmark(regionName);
   });
 
-  $("#btn-bookmark-use").on("click", function () {
+  $(document).on("click", "#btn-bookmark-use", function () {
     useBookmark($(this));
   });
 
-  $("#btn-bookmark-del").on("click", function () {
+  $(document).on("click", "#btn-bookmark-del", function () {
     delBookmark($(this));
   });
 
@@ -435,6 +434,11 @@ $(function () {
   }
 
   function delBookmark(button) {
+    let temp = button.parent().parent().children().eq(0).text();
+    for (let i = 0; i < bookmarks.length; i++) {
+      if (bookmarks[i] == temp) {
+      }
+    }
     // 배열에서 삭제하는 기능
     // DB에서 삭제하는 기능
 
