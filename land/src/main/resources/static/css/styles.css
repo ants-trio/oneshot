@@ -93,6 +93,19 @@
   font-weight: 600;
   font-style: normal;
 }
+.intel_500 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+}
+
+.intel_400 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+.intel_600 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
 *,
 *::before,
 *::after {
@@ -11920,6 +11933,8 @@ body {
   z-index: 1039;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
 }
+.hd_nav {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);}
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav {
   width: 255px;
   height: 100vh;
@@ -12392,6 +12407,14 @@ body {
   width: 20px !important;
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
+}
+
+/*로그인 페이지*/
+.input_custom {
+  border-color: #e2e8f0;
+    border-width: 1px;
+    border-radius: 0.25rem;
+    padding: 0.5rem 0.75rem;
 }
 
 /*반응형작업*/
