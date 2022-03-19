@@ -17,6 +17,9 @@ public class LoginValidatorImpl implements LoginValidator {
 
 	@Override
 	public void validateLogin(LoginForm loginForm, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return;
+		}
 		validateEmailAndPassword(loginForm, bindingResult);
 	}
 
@@ -30,8 +33,9 @@ public class LoginValidatorImpl implements LoginValidator {
 	}
 
 	private void validatePassword(Member member, String password, BindingResult bindingResult) {
-		if(!member.isValidatePassword(password)){
+		if (!member.isValidatePassword(password)) {
 			bindingResult.reject("validateFail");
-		};
+		}
+		;
 	}
 }

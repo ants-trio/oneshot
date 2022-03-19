@@ -24,13 +24,13 @@ public class PostController {
 	private final PostService postService;
 
 	@GetMapping
-	public String postList(@SessionAttribute(name = LOGIN_MEMBER, required = false) String loginMemberId,
+	public String postList(@SessionAttribute(name = LOGIN_MEMBER_EMAIL, required = false) String loginMemberId,
 						   Model model) {
 		validateLogin(model, loginMemberId);
 
 		List<PostSummaryDto> posts = postService.findPostsSummary();
 		model.addAttribute("posts", posts);
-		return "tables";
+		return "post/postList";
 	}
 
 	private void validateLogin(Model model, String loginMemberId) {
@@ -42,9 +42,9 @@ public class PostController {
 	}
 
 	@GetMapping("/new")
-	public String postForm(@SessionAttribute(name = LOGIN_MEMBER, required = false) String loginMemberId,
+	public String postForm(@SessionAttribute(name = LOGIN_MEMBER_EMAIL, required = false) String loginMemberId,
 						   Model model) {
-		return "write";
+		return "post/postWrite";
 	}
 
 }

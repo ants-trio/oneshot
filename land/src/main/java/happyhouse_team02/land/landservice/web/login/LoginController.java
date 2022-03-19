@@ -24,20 +24,17 @@ public class LoginController {
 
 	@GetMapping("/login")
 	public String loginForm(@ModelAttribute("loginForm") LoginForm form) {
-		return "login";
+		return "login/login";
 	}
 
 	@PostMapping("/login")
-	public String login(@Validated @ModelAttribute("loginForm") LoginForm form, BindingResult bindingResult,
+	public String login(@Validated @ModelAttribute("loginForm") LoginForm form,
+						BindingResult bindingResult,
 						HttpServletRequest request) {
-
-		if (bindingResult.hasErrors()) {
-			return "login";
-		}
 
 		loginValidator.validateLogin(form, bindingResult);
 		if (bindingResult.hasErrors()) {
-			return "login";
+			return "login/login";
 		}
 
 		loginService.login(request, form.getEmail());

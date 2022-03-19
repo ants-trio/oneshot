@@ -29,7 +29,7 @@ public class MemberController {
 	@GetMapping("/new")
 	public String createForm(Model model) {
 		model.addAttribute("memberForm", new MemberForm());
-		return "register";
+		return "login/register";
 	}
 
 	@PostMapping("/new")
@@ -37,7 +37,7 @@ public class MemberController {
 		validateMember(form, bindingResult);
 
 		if (bindingResult.hasErrors()) {
-			return "register";
+			return "login/register";
 		}
 
 		Name name = new Name(form.getFirstName(), form.getLastName());

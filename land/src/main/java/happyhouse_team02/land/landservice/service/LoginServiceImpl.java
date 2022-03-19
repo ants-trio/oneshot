@@ -21,6 +21,6 @@ public class LoginServiceImpl implements LoginService {
 	public void login(HttpServletRequest request, String email) {
 		String findEmail = memberRepository.findByEmail(email).map(Member::getEmail).orElse("");
 		HttpSession session = request.getSession();
-		session.setAttribute(LOGIN_MEMBER, findEmail);
+		session.setAttribute(LOGIN_MEMBER_EMAIL, findEmail);
 	}
 }
