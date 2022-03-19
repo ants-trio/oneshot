@@ -11985,7 +11985,7 @@ body {
   outline: 3px solid #E3D7FD;
   background-color: white;
 }
-.nav_search_icon_box {margin-top:5px}
+.nav_search_icon_box {margin-top:5px; margin-left:9px;}
 .nav_search_icon {
   color: #7e3af2;
   width:16px;
@@ -12099,8 +12099,6 @@ body {
 }
 
 /* 메인 */
-.main {}
-.main_title {}
 .main_title svg { width:25px;}
 .main_title p {font-family: 'Pretendard-SemiBold';}
 
@@ -12129,6 +12127,7 @@ body {
 .sb-topnav.navbar-light #sidebarToggle {
   color: #212529;
 }
+
 
 .sb-sidenav {
   display: flex;
@@ -12398,7 +12397,9 @@ body {
 /*반응형작업*/
 @media (max-width:1024px) {
   .nav_search {width:380px;}
+  .sb-nav-fixed #layoutSidenav #layoutSidenav_nav {display: none;}
+  .sb-nav-fixed #layoutSidenav #layoutSidenav_content {padding-left: 0px;margin-left: 0px;}
 }
 @media (max-width:761px) {
-  .nav_search {width: 280px;}
+  .nav_search {width: 260px;}
 }
