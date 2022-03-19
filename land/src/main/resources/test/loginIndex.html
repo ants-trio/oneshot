@@ -5,10 +5,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Dashboard - SB Admin</title>
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-
-  <!-- <link th:href="@{css/styles.css}" rel="stylesheet" /> -->
-  <link href="css/styles.css" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link th:href="@{css/styles.css}" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"
     integrity="sha512-MMmVaQGDVI3Wouc5zT5G7k/snN9gPqquIhZsHgIIHVDlRgYTYGxrwu6w482iIhAq8n5R6+pcBgpGgxFFBz7rZA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -17,8 +15,7 @@
 
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9c08e2ee9e73c9dc52029ca96bd586e3"></script>
   <script src="https://kit.fontawesome.com/966416824b.js" crossorigin="anonymous"></script>
-  <!-- <script src="../js/main.js"></script> -->
-  <script src="js/main.js"></script>
+  <script src="../js/main.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
     crossorigin="anonymous"></script>
 </head>
@@ -153,10 +150,9 @@
                           </form>
                         </div>
                         <div class="col-4" style="text-align: right;">
-                          <form action="POST">
-                            <button type="button" class="btn" id="btn-bookmark"
-                              style="border-color: sienna; color: sienna; font-weight: bold;">북마크
-                              추가</button>
+                          <form method="POST">
+                            <button type="button" class="btn" id="btn-bookmark" th:name="${loginMemberId}"
+                              style="border-color: sienna; color: sienna; font-weight: bold;">북마크 추가</button>
                           </form>
                         </div>
                       </div>
