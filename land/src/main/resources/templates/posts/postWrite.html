@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="../../static/css/styles.css" th:href="@{css/styles.css}">
+  <link rel="stylesheet" href="../../static/css/styles.css" th:href="@{../css/styles.css}" >
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
   <link href="../static/css/styles.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"
@@ -75,7 +75,7 @@
                 </p>
                 <form class="nav_user_submenu_wrap position-absolute rounded bg-white">
                     <div class="input-group rounded">
-                        <a class="nav-link rounded d-flex align-items-center href="index.html" >
+                        <a class="nav-link rounded d-flex align-items-center" href="index.html" >
                             <svg class="w-5 h-5 me-2" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                               </svg>
@@ -140,17 +140,21 @@
     <div id="layoutSidenav_content">
       <div class="container grid px-6 mx-auto">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-          게시글 보기
+          게시글 작성
         </h2>
         <div class="card">
           <div class="card-header">
             <div class="form-group">
-              <p>제목</p>
+              <form action="" id="title">
+                <input type="email" class="form-control" placeholder="제목을 입력해주세요.">
+              </form>
             </div>
           </div>
           <div class="card-body" style="height:500px;">
             <div class="form-group">
-              <p>내용</p>
+              <form action="" id="article">
+                <textarea class="form-control" rows="5" style="height: 450px;"></textarea>
+              </form>
             </div>
           </div>
           <div class="card-footer">
@@ -159,18 +163,13 @@
               </div>
               <div class="col-2" style="text-align: right; padding-right: 100px;">
                 <button type="button" class="btn btn-primary" id="article-register">
-                  수정하기
+                  글쓰기
                 </button>
                 <a href="postList.html" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit">
                   <svg class="w-5 h-5 purple" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                     <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
                 </svg>
                 </a>
-                <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete">
-                  <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                  </svg>
-                </button>
               </div>
             </div>
           </div>

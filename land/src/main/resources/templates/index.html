@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Dashboard - SB Admin</title>
@@ -74,7 +73,7 @@
                     </p>
                     <form class="nav_user_submenu_wrap position-absolute rounded bg-white">
                         <div class="input-group rounded">
-                            <a class="nav-link rounded" href="index.html" >
+                            <a class="nav-link rounded" href="index.html" th:href="@{~/}" >
                                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                     <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                                   </svg>
@@ -111,14 +110,14 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading" style="visibility: hidden;">Core</div>
-                        <a class="nav-link active" href="index.html">
+                        <a class="nav-link active" href="index.html" th:href="@{~/}">
                             <div class="sb-nav-link-icon">
                                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                               </svg>
                             </div>
                             아파트 거래 정보
-                        </a><a class="nav-link" href="post/postList.html">
+                        </a><a class="nav-link" href="posts/postList.html" th:href="@{/posts}">
                             <div class="sb-nav-link-icon">
                               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
@@ -178,7 +177,7 @@
                                             <div class=" d-flex align-items-center">
                                                 <div class="me-4">
                                                     <form action="get">
-                                                        <label for="" class="pb-0 mb-0 me-1">시/도</label>
+                                                        <label for="city-select" class="pb-0 mb-0 me-1">시/도</label>
                                                         <select name="city" id="city-select" style="font-size: 14px;">
                                                             <option value="none">==시/도==</option>
                                                             <!-- 여기다 option을 붙이는 식 -->
@@ -187,7 +186,7 @@
                                                 </div>
                                                 <div class="">
                                                     <form action="get">
-                                                        <label for="" class="pb-0 mb-0 me-1">시/군/구</label>
+                                                        <label for="region-select" class="pb-0 mb-0 me-1">시/군/구</label>
                                                         <select name="region" id="region-select"
                                                             style="font-size: 14px;">
                                                             <option value="none">==시/군/구==</option>
