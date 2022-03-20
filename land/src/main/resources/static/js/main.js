@@ -359,13 +359,11 @@ $(function () {
       $("#region-bookmark").append(`
       <tr>
         <td>
-          <div class="row">
-            <div class="col-7" style="font-size: 12px">${bookmarks[i]}</div>
-            <div class="col-2">
-              <input type="button" id="btn-bookmark-use" value="조회" style="font-size: 6px">
-            </div>
-            <div class="col-2">
-              <input type="button" id="btn-bookmark-del" value="삭제" style="font-size: 6px">
+          <div class="row align-items-center">
+            <div class="col-7" style="font-size: 13px">${bookmarks[i]}</div>
+            <div class="col-5 d-flex align-items-center justify-content-end">
+              <input type="button" class="bkmark_btn" id="btn-bookmark-use" value="조회">
+              <input type="button" class="bkmark_btn ms-1" id="btn-bookmark-del" value="삭제">
             </div>
           </div>
         </td>
@@ -390,7 +388,7 @@ $(function () {
       alert("지역을 선택해주세요.");
       return;
     }
-    let regionName = `${cityName}<br> ${regName}`;
+    let regionName = `${cityName} ${regName}`;
 
     // 북마크 추가 유효성 검사
     for (let i = 0; i < bookmarks.length; i++) {
@@ -435,10 +433,10 @@ $(function () {
 
   function delBookmark(button) {
     let temp = button.parent().parent().children().eq(0).text();
-    for (let i = 0; i < bookmarks.length; i++) {
-      if (bookmarks[i] == temp) {
-      }
-    }
+    // for (let i = 0; i < bookmarks.length; i++) {
+    //   if (bookmarks[i] == temp) {
+    //   }
+    // }
     // 배열에서 삭제하는 기능
     // DB에서 삭제하는 기능
 
