@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-public class PostSummaryDto {
+public class PostSummaryDTO {
 
 	private Long id;
 	private String title;

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class PostServiceImpl implements PostService{
 
 	@Override
-	public List<PostSummaryDto> findPostsSummary() {
+	public List<PostSummaryDTO> findPostsSummary() {
 		return null;
 	}
 

@@ -16,6 +16,10 @@ public interface MemberService {
 	 */
 	List<Member> findMembers();
 
+	Long addBookmarkToMember(BookmarkDTO bookmark, String email);
+
+	Long deleteBookmarkFromMember(Long bookmarkId, String email);
+
 	Optional<Member> findOne(Long id);
 
 	Optional<Member> findOne(String email);
