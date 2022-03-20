@@ -30,6 +30,16 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public Long addBookmarkToMember(BookmarkDTO bookmarkDTO, String email) {
+		return null;
+	}
+
+	@Override
+	public Long deleteBookmarkFromMember(Long bookmarkId, String email) {
+		return null;
+	}
+
+	@Override
 	public Optional<Member> findOne(Long id) {
 		return memberRepository.findById(id);
 	}

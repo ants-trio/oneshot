@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface PostService {
 
-	List<PostSummaryDto> findPostsSummary();
+	List<PostSummaryDTO> findPostsSummary();
 
 	PostDto findOne();
 

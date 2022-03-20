@@ -1,25 +1,18 @@
 package happyhouse_team02.land.landservice.api;
 
-import static java.util.stream.Collectors.*;
-
-import java.util.List;
+import static happyhouse_team02.land.landservice.api.ApiMessage.*;
 
 import javax.validation.constraints.NotEmpty;
 
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import happyhouse_team02.land.landservice.domain.Area;
-import happyhouse_team02.land.landservice.domain.Bookmark;
-import happyhouse_team02.land.landservice.domain.Member;
-import happyhouse_team02.land.landservice.exception.ExceptionMessage;
-import happyhouse_team02.land.landservice.exception.NoSuchMemberException;
+import happyhouse_team02.land.landservice.service.BookmarkDTO;
 import happyhouse_team02.land.landservice.service.MemberService;
+import happyhouse_team02.land.landservice.web.argumentresolver.LoginEmail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -30,33 +23,23 @@ public class BookmarkApiController {
 
 	private final MemberService memberService;
 
-	@GetMapping("/bookmarks")
-	public ResponseResult getBookmarks(@PathVariable Long memberId) {
-		// TODO Member 검증해야함
-		Member findMember = memberService.findOne(memberId).get();
+	@GetMapping("/bookmark/new")
+	public ResponseResult addBookmark(@LoginEmail String loginEmail,
+									  @Validated @RequestBody AddBookmarkRequest request) {
 
-		List<BookmarkDto> bookmarks = findMember.getBookmarks().stream()
-			.map(Bookmark::getArea)
-			.map(BookmarkDto::new)
-			.collect(toList());
+		BookmarkDTO bookmarkDTO = new BookmarkDTO(request.getCity(), request.getRegion());
+		Long bookmarkId = memberService.addBookmarkToMember(bookmarkDTO, loginEmail);
 
-		return new ResponseResult(bookmarks);
+		return new ResponseResult(new AddBookmarkResponse(bookmarkId));
 	}
 
-	@PostMapping("/bookmark/new")
-	public ResponseResult saveBookmark(@Validated @RequestBody BookMarkForm bookMarkForm, BindingResult bindingResult) {
-		Member findMember = memberService.findOne(bookMarkForm.getEmail())
-			.orElseThrow(() -> new NoSuchMemberException(ExceptionMessage.NO_SUCH_MEMBER_MASSAGE));
+	@PostMapping("/bookmark")
+	public ResponseResult deleteBookmark(@LoginEmail String loginEmail,
+										 @Validated @RequestBody DeleteBookmarkRequest request) {
 
-		Area area = new Area(bookMarkForm.getCity(), bookMarkForm.getRegion());
-		addBookmarkToMember(area, findMember);
+		memberService.deleteBookmarkFromMember(request.getBookmarkId(), loginEmail);
 
-		BookmarkDto bookmark = new BookmarkDto(area);
-		return new ResponseResult(bookmark);
-	}
-
-	private void addBookmarkToMember(Area area, Member member) {
-		Bookmark bookmark = new Bookmark(member, area);
+		return new ResponseResult(new DeleteBookmarkResponse(SC_OK));
 	}
 
 	@Data
@@ -66,10 +49,30 @@ public class BookmarkApiController {
 	}
 
 	@Data
-	@AllArgsConstructor
-	static class BookmarkDto {
+	static class AddBookmarkRequest {
 		@NotEmpty
-		Area area;
+		private String city;
+
+		@NotEmpty
+		private String region;
+	}
+
+	@Data
+	@AllArgsConstructor
+	static class AddBookmarkResponse {
+		private Long id;
+	}
+
+	@Data
+	static class DeleteBookmarkRequest {
+		@NotEmpty
+		private Long bookmarkId;
+	}
+
+	@Data
+	@AllArgsConstructor
+	static class DeleteBookmarkResponse {
+		private int message;
 	}
 
 }

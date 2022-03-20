@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import happyhouse_team02.land.landservice.service.PostService;
-import happyhouse_team02.land.landservice.service.PostSummaryDto;
+import happyhouse_team02.land.landservice.service.PostSummaryDTO;
 import happyhouse_team02.land.landservice.web.argumentresolver.LoginEmail;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class PostController {
 						   Model model) {
 		validateLogin(model, loginEmail);
 		log.info("loginEmail={}", loginEmail);
-		List<PostSummaryDto> posts = postService.findPostsSummary();
+		List<PostSummaryDTO> posts = postService.findPostsSummary();
 		model.addAttribute("posts", posts);
 		return "posts/postList";
 	}
