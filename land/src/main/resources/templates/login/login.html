@@ -8,7 +8,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="../../static/css/styles.css" th:href="@{css/styles.css}">
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-  <link href="../static/css/styles.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"
       integrity="sha512-MMmVaQGDVI3Wouc5zT5G7k/snN9gPqquIhZsHgIIHVDlRgYTYGxrwu6w482iIhAq8n5R6+pcBgpGgxFFBz7rZA=="
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -21,12 +20,18 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
       crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/3c26041fb8.js" crossorigin="anonymous"></script>
+    <style>
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
 </head>
 <body>
   <nav class="sb-topnav navbar navbar-expand navbar-dark bg-white hd_nav justify-content-between px-3">
     <div class="nav_box d-flex align-items-center">
         <!-- Navbar Brand-->
-        <a class="hd_logo pl-4" href="../index.html">One Shot</a>
+        <a class="hd_logo pl-4" href="../index.html" th:href="@{~/}">One Shot</a>
         <!-- Sidebar Toggle-->
         <!-- <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                 class="fas fa-bars"></i></button> -->
@@ -75,7 +80,7 @@
                 </p>
                 <form class="nav_user_submenu_wrap position-absolute rounded bg-white">
                     <div class="input-group rounded">
-                        <a class="nav-link rounded d-flex align-items-center href="index.html" >
+                        <a class="nav-link rounded d-flex align-items-center" href="index.html" th:href="@{~/}">
                             <svg class="w-5 h-5 me-2" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                               </svg>
@@ -110,26 +115,36 @@
     <div class="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800">
       <div class="flex flex-col overflow-y-auto md:flex-row">
         <div class="h-32 md:h-auto md:w-1/2">
-          <img aria-hidden="true" class="object-cover w-full h-full dark:hidden" src="../../static/assets/img/login-office.jpg" alt="Office">
+          <img aria-hidden="true" class="object-cover w-full h-full dark:hidden" src="../../static/assets/img/login-office.jpg" th:src="@{assets/img/login-office.jpg}" alt="Office">
         </div>
         <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
           <div class="w-full">
             <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200 intel_500">
               Login
             </h1>
-            <label class="block text-sm">
-              <span class="text-gray-700 dark:text-gray-400 intel_400">Email</span>
-              <input class="input_custom block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Seoungmin Lee">
-            </label>
-            <label class="block mt-3 text-sm">
-              <span class="text-gray-700 dark:text-gray-400 intel_400">Password</span>
-              <input class="input_custom block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="***************" type="password">
-            </label>
+              <form action="" th:action method="POST" th:object="${loginForm}">
+                  <div th:if="${#fields.hasGlobalErrors()}">
+                      <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+                         th:text="${err}">전체 오류 메시지</p>
+                  </div>
+                <label class="block text-sm">
+                  <span class="text-gray-700 dark:text-gray-400 intel_400">Email</span>
+                  <input name="email" th:field="*{email}" class="input_custom block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="이메일을 입력하세요.">
+                    <div class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                    <div th:unless="${#fields.hasErrors('email')}"> </div>
+                </label>
+                <label class="block mt-3 text-sm">
+                  <span class="text-gray-700 dark:text-gray-400 intel_400">Password</span>
+                  <input name="password" class="input_custom block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="비밀번호를 입력하세요" type="password">
+                    <div class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                    <div th:unless="${#fields.hasErrors('password')}"> </div>
+                </label>
 
-            <!-- You should use a button here, as the anchor is only used for the example  -->
-            <a class="block w-full px-4 py-2 mt-3 intel_400 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" href="../index.html">
-              Log in
-            </a>
+                <!-- You should use a button here, as the anchor is only used for the example  -->
+                <button class="block w-full px-4 py-2 mt-3 intel_400 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                  Log in
+                </button>
+              </form>
 
             <hr class="my-8">
 
@@ -152,7 +167,7 @@
               </a>
             </p>
             <p class="mt-1">
-              <a class="text-sm font-medium text-purple-600 intel_600 dark:text-purple-400 hover:underline" href="./create-account.html">
+              <a class="text-sm font-medium text-purple-600 intel_600 dark:text-purple-400 hover:underline" href="./create-account.html" th:href="@{/member/new}">
                 Create account
               </a>
             </p>

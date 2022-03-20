@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import happyhouse_team02.land.landservice.service.PostService;
 import happyhouse_team02.land.landservice.service.PostSummaryDto;
+import happyhouse_team02.land.landservice.web.argumentresolver.LoginEmail;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,13 +25,13 @@ public class PostController {
 	private final PostService postService;
 
 	@GetMapping
-	public String postList(@SessionAttribute(name = LOGIN_MEMBER_EMAIL, required = false) String loginMemberId,
+	public String postList(@LoginEmail String loginEmail,
 						   Model model) {
-		validateLogin(model, loginMemberId);
-
+		validateLogin(model, loginEmail);
+		log.info("loginEmail={}", loginEmail);
 		List<PostSummaryDto> posts = postService.findPostsSummary();
 		model.addAttribute("posts", posts);
-		return "post/postList";
+		return "posts/postList";
 	}
 
 	private void validateLogin(Model model, String loginMemberId) {
@@ -44,7 +45,7 @@ public class PostController {
 	@GetMapping("/new")
 	public String postForm(@SessionAttribute(name = LOGIN_MEMBER_EMAIL, required = false) String loginMemberId,
 						   Model model) {
-		return "post/postWrite";
+		return "posts/postWrite";
 	}
 
 }

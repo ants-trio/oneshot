@@ -33,6 +33,7 @@ public class LoginController {
 						HttpServletRequest request) {
 
 		loginValidator.validateLogin(form, bindingResult);
+
 		if (bindingResult.hasErrors()) {
 			return "login/login";
 		}

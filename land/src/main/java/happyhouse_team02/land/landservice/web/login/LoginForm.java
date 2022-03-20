@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class LoginForm {
 
-	@Email
+	@Email (message = "이메일 형식이 아닙니다.")
 	@NotEmpty
 	private String email;
 
