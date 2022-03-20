@@ -11876,11 +11876,11 @@ body {
   display: flex;
 }
 #layoutSidenav #layoutSidenav_nav {
-  flex-basis: 225px;
+  flex-basis: 255px;
   flex-shrink: 0;
   transition: transform 0.15s ease-in-out;
   z-index: 1038;
-  transform: translateX(-225px);
+  transform: translateX(-255px);
 }
 #layoutSidenav #layoutSidenav_content {
   position: relative;
@@ -11890,7 +11890,7 @@ body {
   min-width: 0;
   flex-grow: 1;
   min-height: calc(100vh - 56px);
-  margin-left: -225px;
+  margin-left: -255px;
   background: #F9FAFB;
 }
 
@@ -11941,6 +11941,9 @@ body {
   height: 100vh;
   z-index: 1038;
   background-color: #fff;
+}
+#layoutSidenav #layoutSidenav_nav {
+  width: 255px;
 }
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav {
   padding-top:70px;
@@ -12432,6 +12435,9 @@ body {
     border-radius: 0.25rem;
     padding: 0.5rem 0.75rem;
 }
+
+/*게시판페이지*/
+.n_hover:hover {color:#f3e8ff;}
 
 /*반응형작업*/
 @media (max-width:1024px) {
