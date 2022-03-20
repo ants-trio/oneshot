@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +44,7 @@ public class BookmarkApiController {
 	}
 
 	@PostMapping("/bookmark/new")
-	public ResponseResult saveBookmark(@Validated @RequestBody BookMarkForm bookMarkForm) {
+	public ResponseResult saveBookmark(@Validated @RequestBody BookMarkForm bookMarkForm, BindingResult bindingResult) {
 		Member findMember = memberService.findOne(bookMarkForm.getEmail())
 			.orElseThrow(() -> new NoSuchMemberException(ExceptionMessage.NO_SUCH_MEMBER_MASSAGE));
 

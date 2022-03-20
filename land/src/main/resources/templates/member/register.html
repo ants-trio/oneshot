@@ -129,23 +129,21 @@
                          th:text="${err}">전체 오류 메시지</p>
                   </div>
 
-                <label class="block text-sm">
-                  <span class="text-gray-700 dark:text-gray-400">Email</span>
-                  <input name="email" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Jane Doe">
-                    <div class="field-error" th:errors="*{email}"></div>
-                </label>
-                <label class="block mt-4 text-sm">
-                  <span class="text-gray-700 dark:text-gray-400">Password</span>
-                  <input name="password" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="***************" type="password">
-                    <div class="field-error" th:errors="*{password}"></div>
-                </label>
-                <label class="block mt-4 text-sm">
-                  <span class="text-gray-700 dark:text-gray-400">
-                    Confirm password
-                  <div class="field-error" th:errors="*{confirmPassword}"></div>
-                  </span>
-                  <input name="confirmPassword" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="***************" type="password">
-                </label>
+                  <label class="block text-sm">
+                      <span class="text-gray-700 dark:text-gray-400 intel_400">Email</span>
+                      <input name="email" th:field="*{email}" class="input_custom block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="이메일을 입력하세요.">
+                      <div class="field-error" th:errors="*{email}"></div>
+                  </label>
+                  <label class="block mt-3 text-sm">
+                      <span class="text-gray-700 dark:text-gray-400 intel_400">Password</span>
+                      <input name="password" class="input_custom block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="비밀번호를 입력하세요" type="password">
+                      <div class="field-error" th:errors="*{password}"></div>
+                  </label>
+                  <label class="block mt-3 text-sm">
+                      <span class="text-gray-700 dark:text-gray-400 intel_400">confirmPassword</span>
+                      <input name="confirmPassword" class="input_custom block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="비밀번호확인을 입력하세요" type="password">
+                      <div class="field-error" th:errors="*{confirmPassword}"></div>
+                  </label>
 
                 <div class="flex mt-6 text-sm">
                   <label class="flex items-center dark:text-gray-400">
