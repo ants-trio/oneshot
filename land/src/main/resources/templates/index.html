@@ -22,6 +22,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/3c26041fb8.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -35,13 +36,10 @@
             <!-- Navbar Search-->
         </div>
         <form action="" class="ml-3">
-            <div
-                class="position-absolute inset-y-0 flex align-items-center justify-content-center pl-2 nav_search_icon_box">
-                <svg class="w-4 h-4 nav_search_icon" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                        clip-rule="evenodd"></path>
-                </svg>
+            <div class="position-absolute  flex align-items-center justify-content-center nav_search_icon_box">
+                <svg class="w-4 h-4 nav_search_icon" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" style="margin-top:6px;">
+                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+                  </svg>
             </div>
             <input class="nav_search rounded" type="text" placeholder="Search for House">
         </form>
@@ -55,19 +53,15 @@
                     </p>
                 </li> -->
                 <li class="nav_user_icon icon2 mx-2 ">
-                    <svg class="w-5 h-5 d-flex align-items-first" aria-hidden="true" fill="currentColor"
-                        viewBox="0 0 20 20" style="position: relative; top:3px;">
-                        <path
-                            d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-                        </path>
-                    </svg>
+                    <svg class="w-5 h-5 d-flex align-items-first" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
+                      </svg>
                 </li>
                 <li class="nav_user_icon icon3 mx-2 position-relative ">
                     <p class="mb-0">
-                        <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="mr-3" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" style="width: 20px;">
                             <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
+                          </svg>
                     </p>
                     <form class="nav_user_info_wrap position-absolute rounded bg-white">
                         <div class="input-group rounded">
@@ -168,15 +162,15 @@
             <main class="main">
                 <div class="container-fluid px-4">
                     <div class="row mb-3 justify-content-center">
-                        <div class="col-12 col-md-11 col-xl-9">
-                            <h2 class="mt-4 main_title d-flex align-items-center">
+                        <div class="col-12 col-md-11 col-xl-10">
+                            <h2 class="mt-4 main_title d-flex align-items-center text-2xl">
                                 <!-- <svg class="me-2" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                     <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                                 </svg> -->
                                 <p class="pb-0 mb-0">아파트 거래 정보</p>
                             </h2>
                         </div>
-                        <div class="col-12 col-md-11 col-xl-9 mt-3">
+                        <div class="col-12 col-md-11 col-xl-10 mt-3">
                             <div class="card text-white card_bnr">
                                 <div class="card-body">
                                     <div class="row">
@@ -202,9 +196,32 @@
                         </div>
                     </div>
                     <div class="row justify-content-center" id="outline">
-                        <div class="col-12 col-md-11 col-xl-9">
-                            <div class="row">
-                                <div class="col-8">
+                        <div class="col-12 col-md-11 col-xl-10 row">
+                            <div class="card mb-4 col-7 px-0">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-4 col-md-2 d-flex align-items-center">
+                                            <i class="fa-solid fa-location-dot me-2"></i>
+                                            <p class="pb-0 mb-0">위치</p>
+                                        </div>
+                                        <div class="col-4 col-md-6" id="map-header-region">
+                                        </div>
+                                        <div class="col-4" style="text-align: right;">
+                                            <button type="button" id="map-header-btn" class="btn"
+                                                style="font-size: 12px; border-color: #707275; color:#707275; font-weight: bold;">마커
+                                                전부 삭제</button>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="card-body">
+                                    <div id="map" style="width:100%; height:100%;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5 pe-0 ps-4">
+                                <div>
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             <div class=" d-flex align-items-center">
@@ -232,18 +249,18 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-body" style="height: 350px; overflow: auto">
+                                        <div class="card-body" style="height: 250px; overflow: auto">
                                             <table class="table table-hover" id="apt-outline">
                                                 <!-- 간단정보가 표로 입력됨 -->
                                             </table>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div>
                                     <div class="card mb-4">
                                         <div class="card-header" style="word-break:keep-all;"><i
                                                 class="fa-solid fa-bookmark bookmark_icon me-2"></i> 지역 북마크</div>
-                                        <div class="card-body" style="height: 350px; overflow: auto">
+                                        <div class="card-body" style="height: 250px; overflow: auto">
                                             <table id="region-bookmark" class="main_bkmark_tb w-100">
                                                 <tr>
                                                     <td>
@@ -251,9 +268,9 @@
                                                             <div class="col-7" style="font-size: 14px">서울특별시 관악구</div>
                                                             <div
                                                                 class="col-5 d-flex align-items-center justify-content-end">
-                                                                <input type="button" class="bkmark_btn"
+                                                                <input type="button" class="bkmark_btn bkmark_btn1"
                                                                     id="btn-bookmark-use" value="조회">
-                                                                <input type="button" class="bkmark_btn ms-1"
+                                                                <input type="button" class="bkmark_btn bkmark_btn2 ms-1"
                                                                     id="btn-bookmark-del" value="삭제">
                                                             </div>
                                                         </div>
@@ -264,6 +281,8 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-12 col-md-11 col-xl-10">
                             <div class="row">
                                 <div class="col-12" id="detail-apt">
                                     <div class="card mb-4">
@@ -278,31 +297,6 @@
                                                 <!-- 아파트 상세정보가 테이블로 입력됨 -->
                                             </table>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-11 col-xl-9">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <div class="row">
-                                        <div class="col-4 col-md-2 d-flex align-items-center">
-                                            <i class="fa-solid fa-location-dot me-2"></i>
-                                            <p class="pb-0 mb-0">위치</p>
-                                        </div>
-                                        <div class="col-4 col-md-6" id="map-header-region">
-                                        </div>
-                                        <div class="col-4" style="text-align: right;">
-                                            <button type="button" id="map-header-btn" class="btn"
-                                                style="font-size: 12px; border-color: #707275; color:#707275; font-weight: bold;">마커
-                                                전부 삭제</button>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="card-body">
-                                    <div id="map" style="width:100%; height:500px;">
                                     </div>
                                 </div>
                             </div>

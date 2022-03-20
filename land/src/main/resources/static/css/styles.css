@@ -11891,6 +11891,7 @@ body {
   flex-grow: 1;
   min-height: calc(100vh - 56px);
   margin-left: -225px;
+  background: #F9FAFB;
 }
 
 .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
@@ -12132,12 +12133,13 @@ body {
 .card_board_icon svg {width: 20px;color: #707275;}
 
 .main_bkmark_tb .bkmark_btn {
-  background: none;
-  border: none;
-  font-size: 13px;
-  border: 1px solid #707275;
-  color: #707275;
-  border-radius: 3px;
+  background: #f4f5f7;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #24262d;
 }
 
 
