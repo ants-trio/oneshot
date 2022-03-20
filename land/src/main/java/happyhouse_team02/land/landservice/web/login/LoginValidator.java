@@ -7,6 +7,6 @@ public interface LoginValidator {
 	/**
 	 * 로그인이 가능한지 검사합니다.
 	 */
-	void validateLogin(LoginForm loginForm, BindingResult bindingResult);
+	void validate(LoginForm loginForm, BindingResult bindingResult);
 
 }
