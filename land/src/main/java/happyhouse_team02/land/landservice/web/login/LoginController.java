@@ -32,10 +32,10 @@ public class LoginController {
 						BindingResult bindingResult,
 						HttpServletRequest request) {
 
-		loginValidator.validateLogin(form, bindingResult);
+		loginValidator.validate(form, bindingResult);
 
 		if (bindingResult.hasErrors()) {
-			return "login/login";
+			return "member/login";
 		}
 
 		loginService.login(request, form.getEmail());

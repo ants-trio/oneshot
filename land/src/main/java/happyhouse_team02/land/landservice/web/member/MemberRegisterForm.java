@@ -1,7 +1,6 @@
 package happyhouse_team02.land.landservice.web.member;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
@@ -9,17 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MemberForm {
-
-	@NotBlank
-	// TODO
-	// @Pattern(regexp = "/^[가-힣a-zA-Z]+$/", message = "한글또는 영어만 입력가능합니다.")
-	private String firstName;
-
-	@NotBlank
-	// TODO
-	// @Pattern(regexp = "/^[가-힣a-zA-Z]+$/", message = "한글또는 영어만 입력가능합니다.")
-	private String lastName;
+public class MemberRegisterForm {
 
 	@Email
 	@NotEmpty(message = "이메일을 입력해주세요.")
