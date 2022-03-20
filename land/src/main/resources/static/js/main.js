@@ -282,6 +282,8 @@ $(function () {
       numOfRows: "1000",
     };
 
+    // city(시도), region(시군구)
+
     $.ajax({
       url: "http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTradeDev",
       type: "GET",
@@ -338,8 +340,8 @@ $(function () {
 
   // test용 response 객체
   let responseTest = [
-    { id: "유저정보", city: "서울특별시", region: "관악구" },
-    { id: "유저정보", city: "경기도", region: "성남시 분당구" },
+    { city: "서울특별시", region: "관악구" },
+    { city: "경기도", region: "성남시 분당구" },
   ];
 
   // 초기상태 구현
