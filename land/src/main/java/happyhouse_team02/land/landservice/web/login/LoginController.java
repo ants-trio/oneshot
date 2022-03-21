@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import happyhouse_team02.land.landservice.service.LoginService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
@@ -56,7 +54,6 @@ public class LoginController {
 
 	private void expireSession(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		log.info("session={}", session);
 		if(session != null){
 			session.invalidate();
 		}

@@ -43,7 +43,7 @@ public class PostController {
 	}
 
 	@GetMapping("/new")
-	public String postForm(@SessionAttribute(name = LOGIN_MEMBER_EMAIL, required = false) String loginMemberId,
+	public String postForm(@SessionAttribute(name = LOGIN_EMAIL, required = false) String loginMemberId,
 						   Model model) {
 		return "posts/postWrite";
 	}

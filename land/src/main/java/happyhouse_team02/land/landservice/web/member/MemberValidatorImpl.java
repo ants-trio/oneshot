@@ -8,7 +8,9 @@ import org.springframework.validation.BindingResult;
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class MemberValidatorImpl implements MemberValidator {

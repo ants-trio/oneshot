@@ -5,12 +5,12 @@ public class NoSuchMemberException extends RuntimeException {
 		super();
 	}
 
-	public NoSuchMemberException(ExceptionMessage message) {
-		super(message.toString());
+	public NoSuchMemberException(String message) {
+		super(message);
 	}
 
-	public NoSuchMemberException(ExceptionMessage message, Throwable cause) {
-		super(message.toString(), cause);
+	public NoSuchMemberException(String message, Throwable cause) {
+		super(message, cause);
 	}
 
 	public NoSuchMemberException(Throwable cause) {

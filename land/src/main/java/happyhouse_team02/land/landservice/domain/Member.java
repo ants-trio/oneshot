@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Email;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,20 +18,25 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class Member {
+public class Member extends BaseEntity{
 
+	@Column(name = "MEMBER_POSTS")
 	@OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
 	private final List<Post> posts = new ArrayList<>();
 
+	@Column(name = "MEMBER_BOOKMARKS")
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
 	private final List<Bookmark> bookmarks = new ArrayList<>();
 
 	@Id
-	@GeneratedValue()
+	@GeneratedValue
+	@Column(name = "MEMBER_ID")
 	private Long id;
 
-	@Email
+	@Column(name = "MEMBER_EMAIL")
 	private String email;
+
+	@Column(name = "MEMBER_PASSWORD")
 	private String password;
 
 	private Member(Builder builder) {
@@ -46,6 +51,10 @@ public class Member {
 
 	public boolean isValidatePassword(String password) {
 		return getPassword().equals(password);
+	}
+
+	public void deleteBookmark(Bookmark bookmark){
+		this.bookmarks.remove(bookmark);
 	}
 
 	@Override

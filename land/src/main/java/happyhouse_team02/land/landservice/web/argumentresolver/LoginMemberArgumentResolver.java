@@ -33,6 +33,6 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
 		if (session == null) {
 			return null;
 		}
-		return session.getAttribute(LOGIN_MEMBER_EMAIL);
+		return session.getAttribute(LOGIN_EMAIL);
 	}
 }
