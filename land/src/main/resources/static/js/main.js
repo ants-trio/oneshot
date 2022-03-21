@@ -190,7 +190,8 @@ $(function () {
             regionName += temp[i];
             regionName += " ";
           }
-          regionName.length = regionName.length - 1;
+          regionName = regionName.substring(0, regionName.length - 1);
+          // regionName.length = regionName.length - 1;
 
           let regionOption = ``;
 
@@ -336,33 +337,55 @@ $(function () {
   */
 
   // 북마크들 저장
-  var bookmarks = [];
+  let bookmarks = [];
+
+  $.ajax({
+    url: "bookmarks",
+    type: "GET",
+    data: "",
+    dataType: "json",
+    success: function (response) {
+      console.log(response);
+      console.log(response.data.bookmarks.length);
+      if (response.data.bookmarks.length != 0) {
+        console.log(response.data.bookmarks);
+        initiateBookmark(response.data.bookmarks);
+      }
+    },
+    error: function () {
+      console.log("error in init");
+    },
+  });
 
   // test용 response 객체
-  let responseTest = [
-    { city: "서울특별시", region: "관악구" },
-    { city: "경기도", region: "성남시 분당구" },
-  ];
+  // let responseTest = [
+  //   { city: "서울특별시", region: "관악구" },
+  //   { city: "경기도", region: "성남시 분당구" },
+  // ];
 
   // 초기상태 구현
-  initiateBookmark();
 
-  function initiateBookmark() {
-    $.each(responseTest, function () {
-      let regionName = `${$(this)[0].city} ${$(this)[0].region}`;
-      bookmarks.push(regionName);
-    });
+  function initiateBookmark(initialBookmarks) {
+    for (let i = 0; i < initialBookmarks.length; i++) {
+      let bmark = {
+        city: initialBookmarks[i].area.city,
+        region: initialBookmarks[i].area.region,
+        bookmarkId: initialBookmarks[i].bookmarkId,
+      };
+      bookmarks.push(bmark);
+    }
     expressBookmark();
   }
 
   function expressBookmark() {
     $("#region-bookmark").empty();
     for (let i = 0; i < bookmarks.length; i++) {
+      let regionName = `${bookmarks[i].city} ${bookmarks[i].region}`;
       $("#region-bookmark").append(`
       <tr>
         <td>
           <div class="row align-items-center">
-            <div class="col-7" style="font-size: 15px">${bookmarks[i]}</div>
+            <div class="col-7" style="font-size: 15px">${regionName}</div>
             <div class="col-5 d-flex align-items-center justify-content-end my-1">
               <input type="button" class="bkmark_btn bkmark_btn1 me-1" id="btn-bookmark-use" value="조회">
               <input type="button" class="bkmark_btn ms-1" id="btn-bookmark-del" value="삭제">
@@ -375,31 +398,49 @@ $(function () {
   }
 
   // 북마크 추가하기
-  function addBoorkmark(regionName) {
-    bookmarks.push(regionName);
-    expressBookmark();
+  function addBoorkmark(cityName, regName) {
+    let addBookmarkData = {
+      city: cityName,
+      region: regName,
+    };
+
+    console.log(addBookmarkData);
+
+    $.ajax({
+      url: "bookmark/new",
+      type: "POST",
+      data: JSON.stringify(addBookmarkData),
+      contentType: "application/json; charset=utf-8",
+      success: function (response) {
+        bookmarks.push({
+          city: cityName,
+          region: regName,
+          id: response.data.bookmarkId,
+        });
+        console.log(bookmarks);
+        expressBookmark();
+      },
+      error: function (response) {
+        console.log(response);
+      },
+    });
+    // bookmarks.push(regionName);
+    // expressBookmark();
   }
 
   // 저장된 북마크를 눌러서 조회하기
 
   // 북마크 추가하기
   $("#btn-bookmark").on("click", function () {
+    console.log("clik");
     let cityName = $("#city-select").find(":checked").text();
     let regName = $("#region-select").find(":checked").text();
     if (regName == "==시/군/구==") {
       alert("지역을 선택해주세요.");
       return;
     }
-    let regionName = `${cityName} ${regName}`;
 
-    // 북마크 추가 유효성 검사
-    for (let i = 0; i < bookmarks.length; i++) {
-      if (bookmarks[i] == regionName) {
-        alert("이미 추가된 지역입니다.");
-        return;
-      }
-    }
-    addBoorkmark(regionName);
+    addBoorkmark(cityName, regName);
   });
 
   $(document).on("click", "#btn-bookmark-use", function () {
