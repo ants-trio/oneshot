@@ -11,13 +11,17 @@ import lombok.Data;
 @AllArgsConstructor
 public class BookmarkDTO {
 
-	@NotEmpty Area area;
+	private Long bookmarkId;
 
-	public BookmarkDTO(String city, String region){
+	@NotEmpty
+	private Area area;
+
+	public BookmarkDTO(String city, String region) {
 		this.area = new Area(city, region);
 	}
 
-	public BookmarkDTO(Bookmark bookmark){
+	public BookmarkDTO(Bookmark bookmark) {
+		this.bookmarkId = bookmark.getId();
 		this.area = bookmark.getArea();
 	}
 }
