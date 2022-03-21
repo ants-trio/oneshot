@@ -11890,6 +11890,7 @@ body {
   min-width: 0;
   flex-grow: 1;
   min-height: calc(100vh - 56px);
+  max-width:100%;
   margin-left: -255px;
   background: #F9FAFB;
 }
@@ -12100,14 +12101,14 @@ body {
   height: 48px;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
-  background-color: #723af2;
+  background-color: #9333EA;
 }
 .sb-sidenav-menu a:hover{
   color: #1a1c23;
 }
 .sb-sidenav-menu .acc_btn {
   display: block;
-  background-color: #7e3af2;
+  background-color:#9333EA;
   padding:8px 16px;
   color: #F9FAFB;
   width: 208px;
@@ -12125,7 +12126,7 @@ body {
 .main_title p {font-family: 'Pretendard-SemiBold';}
 
 .card_bnr {
-  background-color: #723ef2;
+  background-color: #9333EA;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
   border-radius: 0.5rem;
 }
