@@ -161,17 +161,17 @@
     <div id="layoutSidenav_content">
         <main class="main">
             <div class="container-fluid px-4">
-                <div class="row mb-3 justify-content-center">
+                <div class="row justify-content-center">
                     <div class="col-12 col-md-11 col-xl-10">
-                        <h2 class="mt-4 main_title d-flex align-items-center text-2xl">
+                        <h2 class="my-6 main_title d-flex align-items-center text-2xl">
                             <!-- <svg class="me-2" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                             </svg> -->
                             <p class="pb-0 mb-0">아파트 거래 정보</p>
                         </h2>
                     </div>
-                    <div class="col-12 col-md-11 col-xl-10 mt-3">
-                        <div class="card text-white card_bnr">
+                    <div class="col-12 col-md-11 col-xl-10 mb-8">
+                        <div class="card text-white card_bnr bg-purple-600">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-8 d-flex align-items-center">
@@ -195,7 +195,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center" id="outline">
+                <div class="row justify-content-center pt-0" id="outline">
                     <div class="col-12 col-md-11 col-xl-10 row">
                         <div class="card mb-4 col-7 px-0">
                             <div class="card-header">
@@ -204,7 +204,7 @@
                                         <i class="fa-solid fa-location-dot me-2"></i>
                                         <p class="pb-0 mb-0">위치</p>
                                     </div>
-                                    <div class="col-4 col-md-6" id="map-header-region">
+                                    <div class="col-4 col-md-6 d-flex align-items-center" id="map-header-region">
                                     </div>
                                     <div class="col-4" style="text-align: right;">
                                         <button type="button" id="map-header-btn" class="btn"
@@ -250,7 +250,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body" style="height: 250px; overflow: auto">
-                                        <table class="table table-hover" id="apt-outline">
+                                        <table class="main_area_tb w-100" id="apt-outline">
                                             <!-- 간단정보가 표로 입력됨 -->
                                         </table>
                                     </div>
@@ -292,8 +292,8 @@
                                         </svg>
                                         아파트 상세정보
                                     </div>
-                                    <div class="card-body">
-                                        <table id="apt-detailInfo" class="table table-bordered table-hover">
+                                    <div class="card-body ">
+                                        <table id="apt-detailInfo" class="main_info_db mb-0 w-100">
                                             <!-- 아파트 상세정보가 테이블로 입력됨 -->
                                         </table>
                                     </div>
