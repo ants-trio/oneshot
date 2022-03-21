@@ -1,6 +1,7 @@
 package happyhouse_team02.land.landservice.service;
 
 import static happyhouse_team02.land.landservice.exception.ExceptionMessage.*;
+import static java.util.stream.Collectors.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +36,18 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public Optional<Member> findOne(Long id) {
+		return memberRepository.findById(id);
+	}
+
+	@Override
+	public Optional<Member> findOne(String email) {
+		return memberRepository.findByEmail(email);
+	}
+
+	@Override
 	public Long addBookmarkToMember(BookmarkDTO bookmarkDTO, String email) {
-		Member findMember = findOne(email).orElseThrow(() -> new NoSuchMemberException(NO_SUCH_MEMBER_MASSAGE));
+		Member findMember = getMember(email);
 
 		Bookmark bookmark = new Bookmark(findMember, bookmarkDTO.getArea());
 		memberRepository.save(findMember);
@@ -46,9 +57,10 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Long deleteBookmarkFromMember(Long bookmarkId, String email) {
-		Member findMember = findOne(email).orElseThrow(() -> new NoSuchMemberException(NO_SUCH_MEMBER_MASSAGE));
+		Member findMember = getMember(email);
 
-		Bookmark deleteBookmark = findMember.getBookmarks().stream()
+		Bookmark deleteBookmark = findMember.getBookmarks()
+			.stream()
 			.filter(bookmark -> bookmark.getId().equals(bookmarkId))
 			.findAny()
 			.orElseThrow(() -> new NoSuchBookmarkException(NO_SUCH_BOOKMARK_MASSAGE));
@@ -59,17 +71,13 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public List<BookmarkDTO> getBookmarksFromMember(String email) {
-		return null;
+		return getMember(email).getBookmarks()
+			.stream()
+			.map(BookmarkDTO::new)
+			.collect(toList());
 	}
 
-	@Override
-	public Optional<Member> findOne(Long id) {
-		return memberRepository.findById(id);
+	private Member getMember(String email) {
+		return findOne(email).orElseThrow(() -> new NoSuchMemberException(NO_SUCH_MEMBER_MASSAGE));
 	}
-
-	@Override
-	public Optional<Member> findOne(String email) {
-		return memberRepository.findByEmail(email);
-	}
-
 }
