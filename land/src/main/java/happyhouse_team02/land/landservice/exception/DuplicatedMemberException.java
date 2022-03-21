@@ -5,12 +5,12 @@ public class DuplicatedMemberException extends RuntimeException {
 		super();
 	}
 
-	public DuplicatedMemberException(ExceptionMessage message) {
-		super(message.toString());
+	public DuplicatedMemberException(String message) {
+		super(message);
 	}
 
-	public DuplicatedMemberException(ExceptionMessage message, Throwable cause) {
-		super(message.toString(), cause);
+	public DuplicatedMemberException(String message, Throwable cause) {
+		super(message, cause);
 	}
 
 	public DuplicatedMemberException(Throwable cause) {

@@ -2,9 +2,13 @@ package happyhouse_team02.land.landservice.api;
 
 import static happyhouse_team02.land.landservice.api.ApiMessage.*;
 
+import java.util.List;
+
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,30 +20,41 @@ import happyhouse_team02.land.landservice.web.argumentresolver.LoginEmail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class BookmarkApiController {
 
 	private final MemberService memberService;
+	private final BookmarkValidator bookmarkValidator;
 
-	@GetMapping("/bookmark/new")
+	@PostMapping("/bookmark/new")
 	public ResponseResult addBookmark(@LoginEmail String loginEmail,
-									  @Validated @RequestBody AddBookmarkRequest request) {
+									  @Validated @RequestBody AddBookmarkRequest bookmarkRequest) {
 
-		BookmarkDTO bookmarkDTO = new BookmarkDTO(request.getCity(), request.getRegion());
+		BookmarkDTO bookmarkDTO = bookmarkValidator.getValidatedDTO(loginEmail, bookmarkRequest);
 		Long bookmarkId = memberService.addBookmarkToMember(bookmarkDTO, loginEmail);
 
 		return new ResponseResult(new AddBookmarkResponse(bookmarkId));
 	}
 
-	@PostMapping("/bookmark")
+	@DeleteMapping("/bookmark")
 	public ResponseResult deleteBookmark(@LoginEmail String loginEmail,
 										 @Validated @RequestBody DeleteBookmarkRequest request) {
 
 		memberService.deleteBookmarkFromMember(request.getBookmarkId(), loginEmail);
 
 		return new ResponseResult(new DeleteBookmarkResponse(SC_OK));
+	}
+
+	@GetMapping("/bookmarks")
+	public ResponseResult getBookmarks(@LoginEmail String loginEmail) {
+
+		List<BookmarkDTO> bookmarks = memberService.getBookmarksFromMember(loginEmail);
+
+		return new ResponseResult(new GetBookmarkResponse(bookmarks));
 	}
 
 	@Data
@@ -60,12 +75,12 @@ public class BookmarkApiController {
 	@Data
 	@AllArgsConstructor
 	static class AddBookmarkResponse {
-		private Long id;
+		private Long bookmarkId;
 	}
 
 	@Data
 	static class DeleteBookmarkRequest {
-		@NotEmpty
+		@NotNull
 		private Long bookmarkId;
 	}
 
@@ -75,4 +90,9 @@ public class BookmarkApiController {
 		private int message;
 	}
 
+	@Data
+	@AllArgsConstructor
+	static class GetBookmarkResponse {
+		private List<BookmarkDTO> bookmarks;
+	}
 }

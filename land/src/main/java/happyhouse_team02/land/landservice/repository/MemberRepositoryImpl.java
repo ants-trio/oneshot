@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import happyhouse_team02.land.landservice.domain.Member;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class MemberRepositoryImpl implements MemberRepository {
