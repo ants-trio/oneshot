@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="61c7bbad-d481-4fc3-9b22-d86d40926ab3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+=======
+      <change beforePath="$PROJECT_DIR$/land/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/land/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/land/src/main/resources/static/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/land/src/main/resources/static/js/main.js" afterDir="false" />
+>>>>>>> f601e0bec9e770000e114df4c26c8dae033d9384
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +71,13 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.annotationProcessors" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.LandApplication">
+    <configuration name="loginIndex.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/oneshot/land.main/templates/loginIndex.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="main.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/land/src/main/resources/static/js/main.js" working-dir="$PROJECT_DIR$/land/src/main/resources/static/js">
+      <method v="2" />
+    </configuration>
     <configuration name="LandApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="land.main" />
       <extension name="coverage">
@@ -83,6 +94,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.LandApplication" />
+        <item itemvalue="Node.js.main.js" />
+        <item itemvalue="JavaScript Debug.loginIndex.html" />
       </list>
     </recent_temporary>
   </component>
@@ -98,7 +111,7 @@
       <workItem from="1647789154830" duration="1578000" />
       <workItem from="1647791457081" duration="616000" />
       <workItem from="1647873194040" duration="615000" />
-      <workItem from="1647873826377" duration="1502000" />
+      <workItem from="1647873826377" duration="6356000" />
     </task>
     <servers />
   </component>
