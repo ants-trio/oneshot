@@ -14,13 +14,13 @@
 
 ## Front-End
 
-**강성엽**, **이수은**
+**[강성엽]()**, **[이수은](https://github.com/beeee2)**
 
 - HTML5, CSS3, JavaScript, BootStrap4
 
 ## Back-End
 
-**임승민**
+**[임승민](https://github.com/winmini)**
 
 - Java, Spring Framework, JPA, H2  
 
@@ -379,16 +379,93 @@ NotBlank=공백은 허용하지 않습니다.
 
 이 역시 유지보수에 도움이 되고, 관리하기도 좋습니다.
 
+
+
+**ArgumentResolver, 커스터마이징된 애너테이션**
+
+```java
+@Target(ElementType.PARAMETER)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface LoginEmail {
+}
+
+@Slf4j
+public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolver {
+
+	@Override
+	public boolean supportsParameter(MethodParameter parameter) {
+		boolean hasLoginAnnotation = parameter.hasParameterAnnotation(LoginEmail.class);
+		boolean hasStringType = String.class.isAssignableFrom(parameter.getParameterType());
+
+		return hasLoginAnnotation && hasStringType;
+	}
+
+	@Override
+	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
+								  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+
+		HttpServletRequest request = (HttpServletRequest)webRequest.getNativeRequest();
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return null;
+		}
+		return session.getAttribute(LOGIN_EMAIL);
+	}
+}
+```
+
+스프링의 ArgumentResolver를 상속 받아 좀 더 깔끔한 커스텀 애너테이션을 구현하였습니다. 이 애너테이션이 없다면 원래 구현해야 할 코드는 다음과 같지만,
+
+```java
+(@Validated @ModelAttribute("loginEmail") String loginEmail)
+```
+
+이 커스텀된 애너테이션을 이용하면 다음과 같이 줄일 수 있습니다.
+
+```java
+(@LoginEmail String loginEmail)
+```
+
+자주 사용해야 하는 애너테이션이기 때문에 가독성도 좋을 뿐더러 사용하기도 쉽습니다.
+
+
+
 **내려가기 규칙 및 컨벤션 등**
 
 그 외의 변수명, 네이밍 컨벤션, 메서드 순서등 
 
-- SpringMVC 구조
 
-![](./img/mvc.png)
 
-Member를 처리하는 Member Controller를 보면 기본적으로 MVC구조로 설계하였다.
+### 2. 프로젝트 구조
 
-대부분의 클래스는 interface를 의존하며 구현체는 스프링으로 주입해주었다.   
+프로젝트 구조는 MVC 구조를 채택하였습니다. 일단 기본적으로 정적 리소스의 HTML을 백엔드와 같이 적용하고 있기 때문에 다음과 같은 흐름이 진행됩니다. Spring의 내부적인 동작은 생략하였습니다. 특수상황이 아닌 일반적인 흐름입니다.
 
----
+![흐름](./img/프로젝트 구조.png)
+
+클라이언트가 요청을 보내면 컨트롤러에 오고, 컨트롤러는 검증기에서 데이터를 검증받습니다. 그리고 컨트롤러와 검증기는 서비스에 의존합니다. 서비스가 받은 데이터는 검증기에서 검증이 마친 데이터가 넘어왔으므로, 안심하고 서비스를 제공합니다. 필요한 데이터는 저장소(여기서는 H2)와 데이터를 주고 받으며, 반환해야할 데이터가 있다면 컨트롤러에 데이터를 반환해줍니다. 컨트롤러는 반환받은 데이터를 Spring이 제공하는 model객체에 담아 내부적인 뷰 리졸버를 통해 뷰를 호출합니다.
+
+뷰는 받은 모델 객체를 렌더링 해야 한다면, 타임리프를 통하여 렌더링을 합니다.
+
+
+
+만약 검증에 실패하는 경우라면?
+
+![실패](./img/검증 실패.png)
+
+컨트롤러가 지닌 검증기에서 검증에 실패하면, 바로 검증 오류 결과를 포함한 Model 객체를 html에 보내주고 타임리프를 통해 오류결과를 출력해서 보여줍니다. 회원가입에 이러한 기능이 들어가 있는데, 실제로 이미 가입한 회원을 다시 가입하려고 이메일을 입력하면 다음과 같은 화면을 출력합니다.
+
+![중복가입](./img/중복 가입 실패.png)
+
+그 외에도 타입 검증에도 신경을 썼으며, 데이터 입력결과에 실패해도 기존의 데이터자체를 날리지 않습니다. 그럼 처음부터 다시 입력해야하는 사용자 입장에서 불편한 경험을 해야하기 때문입니다.
+
+![타입 검증](./img/타입 검증 실패.png)
+
+이러한 검증은 원래 프론트에서 먼저 진행되는 것이 맞으나, 프론트에서 검증했다고 서버에서 검증을 하지 않으면 안됩니다. 악의적으로 여전히 들어오는 방법은 많기 때문입니다.
+
+
+
+### 그 외
+
+- 객체지향 원칙, SOLID 원칙을 준수하도록 신경썼습니다.
+- 세션을 통하여 회원을 검증합니다.
+- 인터셉터를 활용하여 로그인되지 않은 사용자가 로그인이 필요한 URI에 접근하려 하면, 접근을 제한합니다.
