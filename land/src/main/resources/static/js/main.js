@@ -362,9 +362,9 @@ $(function () {
       <tr>
         <td>
           <div class="row align-items-center">
-            <div class="col-7" style="font-size: 13px">${bookmarks[i]}</div>
-            <div class="col-5 d-flex align-items-center justify-content-end">
-              <input type="button" class="bkmark_btn" id="btn-bookmark-use" value="조회">
+            <div class="col-7" style="font-size: 15px">${bookmarks[i]}</div>
+            <div class="col-5 d-flex align-items-center justify-content-end my-1">
+              <input type="button" class="bkmark_btn bkmark_btn1 me-1" id="btn-bookmark-use" value="조회">
               <input type="button" class="bkmark_btn ms-1" id="btn-bookmark-del" value="삭제">
             </div>
           </div>
@@ -456,9 +456,8 @@ $(function () {
     roughData += `
         <thead>  
           <tr>
-            <th>아파트명</th>
-            <th>거래일자</th>
-            <th></th>
+            <th class="ps-3 pt-1 pb-3">아파트명</th>
+            <th class="pe-3 pt-1 pb-3">거래일자</th>
           </tr>
         </thead>
         <tbody>
@@ -468,11 +467,10 @@ $(function () {
       .each(function () {
         roughData += `
             <tr>
-              <td>${$(this).find("아파트").text()}</td>
+              <td class="px-3 py-2">${$(this).find("아파트").text()}</td>
               <td>${$(this).find("년").text()}.${$(this).find("월").text()}.${$(this)
           .find("일")
           .text()}</td>
-              <td style="visibility: hidden">0</td>
             </tr>
             
               `;
@@ -505,7 +503,7 @@ $(function () {
               let detailData = ``;
               detailData += `
             <tr>
-              <th>이름</th>
+              <th class="px-3 py-2">이름</th>
               <th>거래금액</th>
               <th>거래일자</th>
               <th>전용면적</th>
@@ -513,7 +511,7 @@ $(function () {
               <th>건축년도</th>
             </tr>
             <tr>
-              <td>${$(this).find("아파트").text()}</td>
+              <td class="px-3 py-3">${$(this).find("아파트").text()}</td>
               <td>${$(this).find("거래금액").text()}</td>
               <td>${$(this).find("년").text()}.${$(this).find("월").text()}.${$(this)
                 .find("일")
@@ -551,7 +549,7 @@ $(function () {
   }
 
   function trClick(tr) {
-    $(tr).css("background-color", "bisque").css("font-weight", "bold");
+    $(tr).css("background-color", "rgba(222,247,236,0.5)");
     $(tr).children().eq(2).empty().append(1);
   }
 

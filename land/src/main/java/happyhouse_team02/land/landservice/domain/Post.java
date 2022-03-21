@@ -27,29 +27,28 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-@EntityListeners(AuditingEntityListener.class)
-public class Post {
+public class Post extends BaseEntity{
 
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
 	private final List<Comment> comments = new ArrayList<>();
 
 	@Id
 	@GeneratedValue
-	@Column(name = "post_id")
+	@Column(name = "POST_ID")
 	private Long id;
 
 	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "member_id")
+	@JoinColumn(name = "MEMBER_ID")
 	private Member member;
 
+	@Column(name = "POST_TITLE")
 	private String title;
-	private String content;
-	private Boolean postLike;
 
-	@CreatedDate
-	private LocalDateTime createdDate;
-	@LastModifiedDate
-	private LocalDateTime lastUpdatedDate;
+	@Column(name = "POST_CONTENT")
+	private String content;
+
+	@Column(name = "POST_LIKE")
+	private Boolean postLike;
 
 	private Post(Builder builder) {
 		member = builder.member;

@@ -2,6 +2,7 @@ package happyhouse_team02.land.landservice.domain;
 
 import static lombok.AccessLevel.*;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,14 +16,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class Bookmark {
+public class Bookmark extends BaseEntity {
 
 	@Id
 	@GeneratedValue
+	@Column(name = "BOOKMARK_ID")
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "member_id")
+	@JoinColumn(name = "MEMBER_ID")
 	private Member member;
 
 	@Embedded

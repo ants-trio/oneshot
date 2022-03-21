@@ -5,12 +5,12 @@ public class PasswordDoesNotMatchException extends RuntimeException {
 		super();
 	}
 
-	public PasswordDoesNotMatchException(ExceptionMessage message) {
-		super(message.toString());
+	public PasswordDoesNotMatchException(String message) {
+		super(message);
 	}
 
-	public PasswordDoesNotMatchException(ExceptionMessage message, Throwable cause) {
-		super(message.toString(), cause);
+	public PasswordDoesNotMatchException(String message, Throwable cause) {
+		super(message, cause);
 	}
 
 	public PasswordDoesNotMatchException(Throwable cause) {
