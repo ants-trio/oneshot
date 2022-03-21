@@ -12136,16 +12136,27 @@ body {
 .bookmark_icon {color:#707275}
 .card_board_icon svg {width: 20px;color: #707275;}
 
+.main_area_tb {}
+.main_area_tb thead th {color:#707275;border-bottom: 1px solid #24262d;}
+.main_area_tb tbody tr:hover {cursor: pointer;background-color: #F9FAFB;}
+.main_area_tb tbody td {color:#24262d; border-bottom: 2px solid #f4f5f7;}
+.main_info_db th {color:#707275;border-bottom: 1px solid #d5d6d7;}
+.main_info_db td {color:#24262d;}
+
 .main_bkmark_tb .bkmark_btn {
   background: #f4f5f7;
-  border-radius: 12px;
+  border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 12px;
   color: #24262d;
+  padding: 2px 15px;
+  font-weight: 600;
 }
-
+.main_bkmark_tb .bkmark_btn1{
+  background-color:#def7ec
+}
 
 .sb-topnav {
   padding-left: 0;
