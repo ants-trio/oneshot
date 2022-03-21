@@ -91,9 +91,9 @@ Back-End와 연동하여 **실제 회원가입이 가능**
 **읍/면/동** 검색 기능은 의도적으로 배제
 
 - 공공데이터의 **법정동** 카테고리는 실생활에서 거의 사용되지 않는 legacy에 가까움. 실제로는 **행정동**을 주로 사용하고 있으나 데이터에 포함되지 않음.
-  
+
   - 예시로, 관악구는 행정동만 21개이지만 법정동은 단 3개
-    
+
     반대로 종로구는 행정동이 17개이지만 법정동은 무려 87개
 
 - 부동산 매물을 탐색하는 사용자의 입장에서 동 단위는 중요하지 않고, 검색 절차만 복잡하게 만들 뿐이라고 판단    
@@ -289,30 +289,34 @@ Member member = new Member.Builder()
 
 그러면 파라미터마다 어떤 값을 넣어야 할지 명확하여 실수할 여지도 줄어들고, 파라미터가 늘어나도 확장성도 늘어납니다.
 
-**메서드는 한가지 책임**
+**객체와 메서드는 한가지 책임**
 
 클래스도, 메서드도 한가지 책임을 담당하도록 최대한 설계하였습니다. 아직 리팩터링해야할 부분이 너무 많지만 그 중 일부만 예를 들어 보이겠습니다.
 
 예시코드
 
 ```java
-private void validateMember(MemberForm form, BindingResult bindingResult) {
-  validateDuplicated(form, bindingResult);
-  validatePassword(form, bindingResult);
-}
+@PostMapping("/login")
+public String login(@Validated @ModelAttribute("loginForm") LoginForm form,
+                    BindingResult bindingResult,
+                    HttpServletRequest request) {
 
-private void validateDuplicated(MemberForm form, BindingResult bindingResult) {
-  memberService.findOne(form.getEmail()).ifPresent(member -> bindingResult.reject("alreadyRegistered"));
-}
+  loginValidator.validate(form, bindingResult);
 
-private void validatePassword(MemberForm form, BindingResult result) {
-  if (!form.getPassword().equals(form.getConfirmPassword())){
-    result.rejectValue("confirmPassword","wrongPassword");
+  if (bindingResult.hasErrors()) {
+    return "member/login";
   }
+
+  loginService.login(request, form.getEmail());
+  return "redirect:/";
 }
 ```
 
-메서드들은 들여쓰기가 2줄이상 넘어가는 코드가 없어 이해하기가 더욱 쉽습니다.
+컨트롤러의 일부입니다. 외부에서 데이터가 컨트롤러로 넘어오면 먼저 데이터 검증을 마칩니다. 검증은 컨트롤러에게 역할을 맡기면 부담이 될 수 있기에, 역할을 검증기 객체에 넘깁니다. 그리고 검증이 된 데이터는 서비스에 데이터를 넘기고 뷰에 매핑하는 작업을 진행합니다. 검증기는 검증만, 컨트롤러는 컨트롤만, 서비스는 서비스만 진행됩니다.
+
+또한 메서드들은 들여쓰기가 2줄이상 넘어가는 코드가 없어 이해하기가 더욱 쉽습니다.
+
+
 
 **자바 8 스킬**
 
@@ -330,16 +334,18 @@ public Optional<Member> findOne(Long id) {
 다음과 같은 Optional 객체는 null이 포함될 수 있다는 것을 명시함으로 null을 보완하기 위해 사용하는 클래스입니다. 자바 8에서 나온 클래스입니다. 이 Optional 객체는 꺼내는 쪽에서 어떻게 처리할지 생각할 수 있어 유연하며, 처리하지 않고 사용하려 하면 컴파일 오류로 사전에 문제를 방지할 수 있습니다.
 
 ```java
-@Override
-public String login(String email, String password) {
-  return memberRepository.findByEmail(email)
-    .filter(member -> member.validatePassword(password))
-    .map(Member::getEmail)
-    .orElse("");
+private void validateDuplicated(Member findMember, Area area) {
+  findMember.getBookmarks()
+    .stream()
+    .filter(bookmark -> bookmark.getArea().equals(area))
+    .findAny()
+    .ifPresent(bookmark -> {
+      throw new DuplicatedBookmarkException(DUPLICATED_BOOKMARK_MASSAGE);
+    });
 }
 ```
 
-Optional 객체를 위와 같이 람다도 섞어서 처리할 수 있습니다.
+Optional 객체를 위와 같이 람다와 스트림도 섞어서 처리할 수 있습니다.
 
 **상수 관리**
 

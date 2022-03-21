@@ -28,14 +28,14 @@ import lombok.extern.slf4j.Slf4j;
 public class BookmarkApiController {
 
 	private final MemberService memberService;
+	private final BookmarkValidator bookmarkValidator;
 
 	@PostMapping("/bookmark/new")
 	public ResponseResult addBookmark(@LoginEmail String loginEmail,
-									  @Validated @RequestBody AddBookmarkRequest request) {
-		log.info("loginEmail={}", loginEmail);
-		BookmarkDTO bookmarkDTO = new BookmarkDTO(request.getCity(), request.getRegion());
-		Long bookmarkId = memberService.addBookmarkToMember(bookmarkDTO, loginEmail);
+									  @Validated @RequestBody AddBookmarkRequest bookmarkRequest) {
 
+		BookmarkDTO bookmarkDTO = bookmarkValidator.getValidatedDTO(loginEmail, bookmarkRequest);
+		Long bookmarkId = memberService.addBookmarkToMember(bookmarkDTO, loginEmail);
 
 		return new ResponseResult(new AddBookmarkResponse(bookmarkId));
 	}
@@ -49,7 +49,7 @@ public class BookmarkApiController {
 		return new ResponseResult(new DeleteBookmarkResponse(SC_OK));
 	}
 
-	@GetMapping("/bookmark")
+	@GetMapping("/bookmarks")
 	public ResponseResult getBookmarks(@LoginEmail String loginEmail) {
 
 		List<BookmarkDTO> bookmarks = memberService.getBookmarksFromMember(loginEmail);

@@ -1,5 +1,9 @@
 package happyhouse_team02.land.landservice.api;
 
-public class ErrorForm {
-	private int 
+import lombok.Data;
+
+@Data
+public class ErrorResponse {
+	private int code;
+	private String message;
 }

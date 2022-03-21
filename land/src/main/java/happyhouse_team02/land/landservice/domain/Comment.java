@@ -23,8 +23,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-@EntityListeners(AuditingEntityListener.class)
-public class Comment {
+public class Comment extends BaseEntity{
 
 	@Id
 	@GeneratedValue
@@ -41,11 +40,6 @@ public class Comment {
 
 	@Column(name = "COMMENT_CONTENT")
 	private String content;
-
-	@CreatedDate
-	private LocalDateTime createdDate;
-	@LastModifiedDate
-	private LocalDateTime lastUpdatedDate;
 
 	public Comment(Post post, Member member) {
 		this.member = member;

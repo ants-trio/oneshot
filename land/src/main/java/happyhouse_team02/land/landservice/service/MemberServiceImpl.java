@@ -9,10 +9,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import happyhouse_team02.land.landservice.domain.Area;
 import happyhouse_team02.land.landservice.domain.Bookmark;
 import happyhouse_team02.land.landservice.domain.Member;
-import happyhouse_team02.land.landservice.exception.DuplicatedBookmarkException;
 import happyhouse_team02.land.landservice.exception.NoSuchBookmarkException;
 import happyhouse_team02.land.landservice.exception.NoSuchMemberException;
 import happyhouse_team02.land.landservice.repository.BookmarkRepository;
@@ -53,23 +51,10 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	public Long addBookmarkToMember(BookmarkDTO bookmarkDTO, String email) {
 		Member findMember = getMember(email);
-
-		validateDuplicated(findMember, bookmarkDTO.getArea());
-
 		Bookmark bookmark = new Bookmark(findMember, bookmarkDTO.getArea());
+
 		bookmarkRepository.save(bookmark);
-
 		return bookmark.getId();
-	}
-
-	private void validateDuplicated(Member findMember, Area area) {
-		findMember.getBookmarks()
-			.stream()
-			.filter(bookmark -> bookmark.getArea().equals(area))
-			.findAny()
-			.ifPresent(bookmark -> {
-				throw new DuplicatedBookmarkException(DUPLICATED_BOOKMARK_MASSAGE);
-			});
 	}
 
 	@Override

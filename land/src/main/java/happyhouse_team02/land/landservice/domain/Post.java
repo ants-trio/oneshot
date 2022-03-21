@@ -27,8 +27,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-@EntityListeners(AuditingEntityListener.class)
-public class Post {
+public class Post extends BaseEntity{
 
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
 	private final List<Comment> comments = new ArrayList<>();
@@ -50,11 +49,6 @@ public class Post {
 
 	@Column(name = "POST_LIKE")
 	private Boolean postLike;
-
-	@CreatedDate
-	private LocalDateTime createdDate;
-	@LastModifiedDate
-	private LocalDateTime lastUpdatedDate;
 
 	private Post(Builder builder) {
 		member = builder.member;
