@@ -35,15 +35,20 @@ public class Post {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "post_id")
+	@Column(name = "POST_ID")
 	private Long id;
 
 	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "member_id")
+	@JoinColumn(name = "MEMBER_ID")
 	private Member member;
 
+	@Column(name = "POST_TITLE")
 	private String title;
+
+	@Column(name = "POST_CONTENT")
 	private String content;
+
+	@Column(name = "POST_LIKE")
 	private Boolean postLike;
 
 	@CreatedDate

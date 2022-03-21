@@ -26,5 +26,8 @@ public interface ExceptionMessage {
 	 */
 	String NO_SUCH_BOOKMARK_MASSAGE = "[ERROR] 존재하지 않는 북마크입니다.";
 
-
+	/**
+	 * 조회한 북마크가 이미 있는 경우
+	 */
+	String DUPLICATED_BOOKMARK_MASSAGE = "[ERROR] 이미 존재하는 북마크입니다.";
 }

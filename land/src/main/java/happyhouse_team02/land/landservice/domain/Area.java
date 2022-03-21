@@ -5,6 +5,7 @@ import static lombok.AccessLevel.*;
 import javax.persistence.Embeddable;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Area {
 
 	private String city;

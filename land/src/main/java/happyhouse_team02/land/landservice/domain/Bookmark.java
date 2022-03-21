@@ -2,12 +2,20 @@ package happyhouse_team02.land.landservice.domain;
 
 import static lombok.AccessLevel.*;
 
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,18 +23,25 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
 public class Bookmark {
 
 	@Id
 	@GeneratedValue
+	@Column(name = "BOOKMARK_ID")
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "member_id")
+	@JoinColumn(name = "MEMBER_ID")
 	private Member member;
 
 	@Embedded
 	private Area area;
+
+	@CreatedDate
+	private LocalDateTime createdDate;
+	@LastModifiedDate
+	private LocalDateTime lastUpdatedDate;
 
 	public Bookmark(Member member, Area area) {
 		this.member = member;
