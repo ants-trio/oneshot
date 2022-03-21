@@ -464,7 +464,7 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
 
 
 
-### 그 외
+### 3. 그 외
 
 - 객체지향 원칙, SOLID 원칙을 준수하도록 신경썼습니다.
 - 세션을 통하여 회원을 검증합니다.
