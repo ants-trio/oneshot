@@ -7,10 +7,17 @@
     <list default="true" id="61c7bbad-d481-4fc3-9b22-d86d40926ab3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       <change beforePath="$PROJECT_DIR$/land/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/land/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/land/src/main/resources/static/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/land/src/main/resources/static/js/main.js" afterDir="false" />
 >>>>>>> f601e0bec9e770000e114df4c26c8dae033d9384
+=======
+      <change beforePath="$PROJECT_DIR$/land/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/land/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/land/src/main/resources/static/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/land/src/main/resources/static/js/main.js" afterDir="false" />
+=======
+>>>>>>> 3a6bc91567ee6968378d962aa1ad8792d52122f0
+>>>>>>> b31cc59be0b7cc28ebbaf4f1f326b166a6f0bce8
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
