@@ -20,6 +20,8 @@ public interface MemberService {
 
 	Long deleteBookmarkFromMember(Long bookmarkId, String email);
 
+	List<BookmarkDTO> getBookmarksFromMember(String email);
+
 	Optional<Member> findOne(Long id);
 
 	Optional<Member> findOne(String email);
