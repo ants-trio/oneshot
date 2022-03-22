@@ -357,12 +357,6 @@ $(function () {
     },
   });
 
-  // test용 response 객체
-  // let responseTest = [
-  //   { city: "서울특별시", region: "관악구" },
-  //   { city: "경기도", region: "성남시 분당구" },
-  // ];
-
   // 초기상태 구현
 
   function initiateBookmark(initialBookmarks) {
@@ -474,8 +468,29 @@ $(function () {
       });
   }
 
+  // TODO
   function delBookmark(button) {
+    // $.ajax({
+    //   url: "bookmark/new",
+    //   type: "POST",
+    //   data: JSON.stringify(addBookmarkData),
+    //   contentType: "application/json; charset=utf-8",
+    //   success: function (response) {
+    //     bookmarks.push({
+    //       city: cityName,
+    //       region: regName,
+    //       id: response.data.bookmarkId,
+    //     });
+    //     console.log(bookmarks);
+    //     expressBookmark();
+    //   },
+    //   error: function (response) {
+    //     console.log(response);
+    //   },
+    // });
+
     let temp = button.parent().parent().children().eq(0).text();
+    console.log(temp);
     // for (let i = 0; i < bookmarks.length; i++) {
     //   if (bookmarks[i] == temp) {
     //   }
@@ -483,7 +498,7 @@ $(function () {
     // 배열에서 삭제하는 기능
     // DB에서 삭제하는 기능
 
-    button.parent().parent().remove();
+    // button.parent().parent().remove();
     // 이거 대신, expressBookmark 사용하도록 하자
 
     // ############## DB에서 삭제하는 기능 필요 ##################
