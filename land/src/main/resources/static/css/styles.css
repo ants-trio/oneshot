@@ -11876,11 +11876,11 @@ body {
   display: flex;
 }
 #layoutSidenav #layoutSidenav_nav {
-  flex-basis: 225px;
+  flex-basis: 255px;
   flex-shrink: 0;
   transition: transform 0.15s ease-in-out;
   z-index: 1038;
-  transform: translateX(-225px);
+  transform: translateX(-255px);
 }
 #layoutSidenav #layoutSidenav_content {
   position: relative;
@@ -11890,7 +11890,8 @@ body {
   min-width: 0;
   flex-grow: 1;
   min-height: calc(100vh - 56px);
-  margin-left: -225px;
+  max-width:100%;
+  margin-left: -255px;
   background: #F9FAFB;
 }
 
@@ -11941,6 +11942,9 @@ body {
   height: 100vh;
   z-index: 1038;
   background-color: #fff;
+}
+#layoutSidenav #layoutSidenav_nav {
+  width: 255px;
 }
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav {
   padding-top:70px;
@@ -12097,14 +12101,14 @@ body {
   height: 48px;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
-  background-color: #723af2;
+  background-color: #9333EA;
 }
 .sb-sidenav-menu a:hover{
   color: #1a1c23;
 }
 .sb-sidenav-menu .acc_btn {
   display: block;
-  background-color: #7e3af2;
+  background-color:#9333EA;
   padding:8px 16px;
   color: #F9FAFB;
   width: 208px;
@@ -12122,7 +12126,7 @@ body {
 .main_title p {font-family: 'Pretendard-SemiBold';}
 
 .card_bnr {
-  background-color: #723ef2;
+  background-color: #9333EA;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
   border-radius: 0.5rem;
 }
@@ -12132,16 +12136,27 @@ body {
 .bookmark_icon {color:#707275}
 .card_board_icon svg {width: 20px;color: #707275;}
 
+.main_area_tb {}
+.main_area_tb thead th {color:#707275;border-bottom: 1px solid #24262d;}
+.main_area_tb tbody tr:hover {cursor: pointer;background-color: #F9FAFB;}
+.main_area_tb tbody td {color:#24262d; border-bottom: 2px solid #f4f5f7;}
+.main_info_db th {color:#707275;border-bottom: 1px solid #d5d6d7;}
+.main_info_db td {color:#24262d;}
+
 .main_bkmark_tb .bkmark_btn {
   background: #f4f5f7;
-  border-radius: 12px;
+  border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 12px;
   color: #24262d;
+  padding: 2px 15px;
+  font-weight: 600;
 }
-
+.main_bkmark_tb .bkmark_btn1{
+  background-color:#def7ec
+}
 
 .sb-topnav {
   padding-left: 0;
@@ -12432,6 +12447,9 @@ body {
     border-radius: 0.25rem;
     padding: 0.5rem 0.75rem;
 }
+
+/*게시판페이지*/
+.n_hover:hover {color:#f3e8ff;}
 
 /*반응형작업*/
 @media (max-width:1024px) {

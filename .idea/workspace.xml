@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="61c7bbad-d481-4fc3-9b22-d86d40926ab3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+      <change beforePath="$PROJECT_DIR$/land/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/land/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/land/src/main/resources/static/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/land/src/main/resources/static/js/main.js" afterDir="false" />
+>>>>>>> f601e0bec9e770000e114df4c26c8dae033d9384
+=======
+      <change beforePath="$PROJECT_DIR$/land/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/land/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/land/src/main/resources/static/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/land/src/main/resources/static/js/main.js" afterDir="false" />
+=======
+>>>>>>> 3a6bc91567ee6968378d962aa1ad8792d52122f0
+>>>>>>> b31cc59be0b7cc28ebbaf4f1f326b166a6f0bce8
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/land">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="26bWvphldcNpXVf1MzYzRhVRdqD" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.annotationProcessors" />
+  </component>
+  <component name="RunManager" selected="Spring Boot.LandApplication">
+    <configuration name="loginIndex.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/oneshot/land.main/templates/loginIndex.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="main.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/land/src/main/resources/static/js/main.js" working-dir="$PROJECT_DIR$/land/src/main/resources/static/js">
+      <method v="2" />
+    </configuration>
+    <configuration name="LandApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="land.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="happyhouse_team02.land.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="happyhouse_team02.land.LandApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.LandApplication" />
+        <item itemvalue="Node.js.main.js" />
+        <item itemvalue="JavaScript Debug.loginIndex.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="61c7bbad-d481-4fc3-9b22-d86d40926ab3" name="Changes" comment="" />
+      <created>1647693000605</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1647693000605</updated>
+      <workItem from="1647693002001" duration="210000" />
+      <workItem from="1647789154830" duration="1578000" />
+      <workItem from="1647791457081" duration="616000" />
+      <workItem from="1647873194040" duration="615000" />
+      <workItem from="1647873826377" duration="6356000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
