@@ -49,7 +49,7 @@ public class BookmarkApiController {
 		return new ResponseResult(new DeleteBookmarkResponse(SC_OK));
 	}
 
-	@GetMapping("/bookmarks")
+	@GetMapping("/bookmark")
 	public ResponseResult getBookmarks(@LoginEmail String loginEmail) {
 
 		List<BookmarkDTO> bookmarks = memberService.getBookmarksFromMember(loginEmail);
