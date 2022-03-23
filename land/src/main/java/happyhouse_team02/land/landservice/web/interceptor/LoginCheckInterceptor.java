@@ -18,7 +18,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		Exception {
 
 		String requestURI = request.getRequestURI();
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 
 		if (session == null || session.getAttribute(LOGIN_EMAIL) == null) {
 			log.info("미인증 사용자 요청: {}", requestURI);
