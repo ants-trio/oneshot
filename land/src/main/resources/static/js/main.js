@@ -320,40 +320,21 @@ $(function () {
     });
   }
 
-  // 북마크 작업 시작!
-  /*
-  1. 로딩과 동시에 DB에서 북마크 정보 로딩 + table로 출력
-  2. 배열에다 담아놔야 이후 처리가 편하니까 push도 해놓기
-  3. 북마크 추가버튼을 누르면
-    - 일단 배열에는 추가
-    - DB에도 추가가 돼야한다는 건데 이건 승민이한테 물어봐야 함
-    - 표에도 시각적으로 추가해야 함 : 배열 사용하면 됨
-  4. 북마크에서 조회 기능 구현
-    - 셀렉트가 되도록
-  5. 북마크 삭제 기능 구현
-    - 일단 배열에서 삭제
-    - DB에서도 삭제되어야 함 : 물어봐야 하는 부분
-    - 표에서 시각적으로도 삭제
-  */
-
   // 북마크들 저장
   let bookmarks = [];
 
   $.ajax({
-    url: "bookmarks",
+    url: "bookmark",
     type: "GET",
     data: "",
     dataType: "json",
     success: function (response) {
-      console.log(response);
-      console.log(response.data.bookmarks.length);
       if (response.data.bookmarks.length != 0) {
-        console.log(response.data.bookmarks);
         initiateBookmark(response.data.bookmarks);
       }
     },
     error: function () {
-      console.log("error in init");
+      console.log("북마크 기능을 사용하려면 로그인이 필요합니다.");
     },
   });
 
@@ -375,12 +356,14 @@ $(function () {
     $("#region-bookmark").empty();
     for (let i = 0; i < bookmarks.length; i++) {
       let regionName = `${bookmarks[i].city} ${bookmarks[i].region}`;
+      let regionCode = bookmarks[i].bookmarkId;
       $("#region-bookmark").append(`
       <tr>
         <td>
           <div class="row align-items-center">
             <div class="col-7" style="font-size: 15px">${regionName}</div>
             <div class="col-5 d-flex align-items-center justify-content-end my-1">
+              <div style="display:none">${regionCode}</div>
               <input type="button" class="bkmark_btn bkmark_btn1 me-1" id="btn-bookmark-use" value="조회">
               <input type="button" class="bkmark_btn ms-1" id="btn-bookmark-del" value="삭제">
             </div>
@@ -409,7 +392,7 @@ $(function () {
         bookmarks.push({
           city: cityName,
           region: regName,
-          id: response.data.bookmarkId,
+          bookmarkId: response.data.bookmarkId,
         });
         console.log(bookmarks);
         expressBookmark();
@@ -418,15 +401,10 @@ $(function () {
         console.log(response);
       },
     });
-    // bookmarks.push(regionName);
-    // expressBookmark();
   }
-
-  // 저장된 북마크를 눌러서 조회하기
 
   // 북마크 추가하기
   $("#btn-bookmark").on("click", function () {
-    console.log("clik");
     let cityName = $("#city-select").find(":checked").text();
     let regName = $("#region-select").find(":checked").text();
     if (regName == "==시/군/구==") {
@@ -468,43 +446,31 @@ $(function () {
       });
   }
 
-  // TODO
+  // 북마크 삭제하기
   function delBookmark(button) {
-    // $.ajax({
-    //   url: "bookmark/new",
-    //   type: "POST",
-    //   data: JSON.stringify(addBookmarkData),
-    //   contentType: "application/json; charset=utf-8",
-    //   success: function (response) {
-    //     bookmarks.push({
-    //       city: cityName,
-    //       region: regName,
-    //       id: response.data.bookmarkId,
-    //     });
-    //     console.log(bookmarks);
-    //     expressBookmark();
-    //   },
-    //   error: function (response) {
-    //     console.log(response);
-    //   },
-    // });
+    let deleteTarget = {
+      bookmarkId: button.parent().children().eq(0).text(),
+    };
 
-    let temp = button.parent().parent().children().eq(0).text();
-    console.log(temp);
-    // for (let i = 0; i < bookmarks.length; i++) {
-    //   if (bookmarks[i] == temp) {
-    //   }
-    // }
-    // 배열에서 삭제하는 기능
-    // DB에서 삭제하는 기능
-
-    // button.parent().parent().remove();
-    // 이거 대신, expressBookmark 사용하도록 하자
-
-    // ############## DB에서 삭제하는 기능 필요 ##################
+    $.ajax({
+      url: "bookmark",
+      type: "DELETE",
+      data: JSON.stringify(deleteTarget),
+      contentType: "application/json; charset=utf-8",
+      success: function () {
+        function findTarget(element) {
+          if (element.bookmarkId == deleteTarget.bookmarkId) return true;
+        }
+        let i = bookmarks.findIndex(findTarget);
+        bookmarks.splice(i, 1);
+        expressBookmark();
+      },
+      error: function (response) {
+        console.log(response);
+      },
+    });
   }
 
-  // 북마크 버튼으로 지역 조회
   // 지역 선택 완료 시 간략 정보 뿌리는 함수
   function makeRoughData(response) {
     // console.log("여기?");
