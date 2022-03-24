@@ -1,7 +1,5 @@
 package happyhouse_team02.land.landservice.api;
 
-import static happyhouse_team02.land.landservice.api.ApiMessage.*;
-
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
@@ -31,36 +29,30 @@ public class BookmarkApiController {
 	private final BookmarkValidator bookmarkValidator;
 
 	@PostMapping("/bookmark/new")
-	public ResponseResult addBookmark(@LoginEmail String loginEmail,
+	public SuccessResponseResult addBookmark(@LoginEmail String loginEmail,
 									  @Validated @RequestBody AddBookmarkRequest bookmarkRequest) {
 
 		BookmarkDTO bookmarkDTO = bookmarkValidator.getValidatedDTO(loginEmail, bookmarkRequest);
 		Long bookmarkId = memberService.addBookmarkToMember(bookmarkDTO, loginEmail);
 
-		return new ResponseResult(new AddBookmarkResponse(bookmarkId));
+		return new SuccessResponseResult(new AddBookmarkResponse(bookmarkId));
 	}
 
 	@DeleteMapping("/bookmark")
-	public ResponseResult deleteBookmark(@LoginEmail String loginEmail,
+	public SuccessResponseResult deleteBookmark(@LoginEmail String loginEmail,
 										 @Validated @RequestBody DeleteBookmarkRequest request) {
 
 		memberService.deleteBookmarkFromMember(request.getBookmarkId(), loginEmail);
 
-		return new ResponseResult(new DeleteBookmarkResponse(SC_OK));
+		return new SuccessResponseResult();
 	}
 
 	@GetMapping("/bookmark")
-	public ResponseResult getBookmarks(@LoginEmail String loginEmail) {
+	public SuccessResponseResult getBookmarks(@LoginEmail String loginEmail) {
 
 		List<BookmarkDTO> bookmarks = memberService.getBookmarksFromMember(loginEmail);
 
-		return new ResponseResult(new GetBookmarkResponse(bookmarks));
-	}
-
-	@Data
-	@AllArgsConstructor
-	static class ResponseResult<T> {
-		private T data;
+		return new SuccessResponseResult(new GetBookmarkResponse(bookmarks));
 	}
 
 	@Data
@@ -82,12 +74,6 @@ public class BookmarkApiController {
 	static class DeleteBookmarkRequest {
 		@NotNull
 		private Long bookmarkId;
-	}
-
-	@Data
-	@AllArgsConstructor
-	static class DeleteBookmarkResponse {
-		private int message;
 	}
 
 	@Data
