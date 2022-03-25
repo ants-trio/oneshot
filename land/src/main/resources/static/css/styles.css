@@ -12450,6 +12450,7 @@ body {
 
 /*게시판페이지*/
 .n_hover:hover {color:#f3e8ff;}
+.sub_post_tb_box {border:1px solid #d5d6d7;}
 
 /*반응형작업*/
 @media (max-width:1024px) {
