@@ -14,7 +14,7 @@
 
 ## Front-End
 
-**[강성엽]()**, **[이수은](https://github.com/beeee2)**
+**[강성엽](https://github.com/yyeopp)**, **[이수은](https://github.com/beeee2)**
 
 - HTML5, CSS3, JavaScript, BootStrap4
 
@@ -91,9 +91,9 @@ Back-End와 연동하여 **실제 회원가입이 가능**
 **읍/면/동** 검색 기능은 의도적으로 배제
 
 - 공공데이터의 **법정동** 카테고리는 실생활에서 거의 사용되지 않는 legacy에 가까움. 실제로는 **행정동**을 주로 사용하고 있으나 데이터에 포함되지 않음.
-
+  
   - 예시로, 관악구는 행정동만 21개이지만 법정동은 단 3개
-
+    
     반대로 종로구는 행정동이 17개이지만 법정동은 무려 87개
 
 - 부동산 매물을 탐색하는 사용자의 입장에서 동 단위는 중요하지 않고, 검색 절차만 복잡하게 만들 뿐이라고 판단    
@@ -316,8 +316,6 @@ public String login(@Validated @ModelAttribute("loginForm") LoginForm form,
 
 또한 메서드들은 들여쓰기가 2줄이상 넘어가는 코드가 없어 이해하기가 더욱 쉽습니다.
 
-
-
 **자바 8 스킬**
 
 자바 8에는 lambda와 stream등 여러 스킬들이 나와 사용하면 코드를 클린하게 짤 수 있습니다. 그리고 추가된 메서드들을 활용하면 새로운 메서드를 짜지 않고 짤 수 있어 클린하며, 더 효율적인 코드로 구상이 가능합니다.
@@ -379,8 +377,6 @@ NotBlank=공백은 허용하지 않습니다.
 
 이 역시 유지보수에 도움이 되고, 관리하기도 좋습니다.
 
-
-
 **ArgumentResolver, 커스터마이징된 애너테이션**
 
 ```java
@@ -392,25 +388,25 @@ public @interface LoginEmail {
 @Slf4j
 public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolver {
 
-	@Override
-	public boolean supportsParameter(MethodParameter parameter) {
-		boolean hasLoginAnnotation = parameter.hasParameterAnnotation(LoginEmail.class);
-		boolean hasStringType = String.class.isAssignableFrom(parameter.getParameterType());
+    @Override
+    public boolean supportsParameter(MethodParameter parameter) {
+        boolean hasLoginAnnotation = parameter.hasParameterAnnotation(LoginEmail.class);
+        boolean hasStringType = String.class.isAssignableFrom(parameter.getParameterType());
 
-		return hasLoginAnnotation && hasStringType;
-	}
+        return hasLoginAnnotation && hasStringType;
+    }
 
-	@Override
-	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-								  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+    @Override
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
+                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 
-		HttpServletRequest request = (HttpServletRequest)webRequest.getNativeRequest();
-		HttpSession session = request.getSession(false);
-		if (session == null) {
-			return null;
-		}
-		return session.getAttribute(LOGIN_EMAIL);
-	}
+        HttpServletRequest request = (HttpServletRequest)webRequest.getNativeRequest();
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return null;
+        }
+        return session.getAttribute(LOGIN_EMAIL);
+    }
 }
 ```
 
@@ -428,13 +424,9 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
 
 자주 사용해야 하는 애너테이션이기 때문에 가독성도 좋을 뿐더러 사용하기도 쉽습니다.
 
-
-
 **내려가기 규칙 및 컨벤션 등**
 
 그 외의 변수명, 네이밍 컨벤션, 메서드 순서등 
-
-
 
 ### 2. 프로젝트 구조
 
@@ -445,8 +437,6 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
 클라이언트가 요청을 보내면 컨트롤러에 오고, 컨트롤러는 검증기에서 데이터를 검증받습니다. 그리고 컨트롤러와 검증기는 서비스에 의존합니다. 서비스가 받은 데이터는 검증기에서 검증이 마친 데이터가 넘어왔으므로, 안심하고 서비스를 제공합니다. 필요한 데이터는 저장소(여기서는 H2)와 데이터를 주고 받으며, 반환해야할 데이터가 있다면 컨트롤러에 데이터를 반환해줍니다. 컨트롤러는 반환받은 데이터를 Spring이 제공하는 model객체에 담아 내부적인 뷰 리졸버를 통해 뷰를 호출합니다.
 
 뷰는 받은 모델 객체를 렌더링 해야 한다면, 타임리프를 통하여 렌더링을 합니다.
-
-
 
 만약 검증에 실패하는 경우라면?
 
@@ -461,8 +451,6 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
 ![타입 검증](./img/타입 검증 실패.png)
 
 이러한 검증은 원래 프론트에서 먼저 진행되는 것이 맞으나, 프론트에서 검증했다고 서버에서 검증을 하지 않으면 안됩니다. 악의적으로 여전히 들어오는 방법은 많기 때문입니다.
-
-
 
 ### 3. 그 외
 
