@@ -6,3 +6,5 @@ expressBoard();
 
 
 */
+
+$(function () {});
