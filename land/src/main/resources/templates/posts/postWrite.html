@@ -62,8 +62,8 @@
                 </p>
                 <form class="nav_user_info_wrap position-absolute rounded bg-white">
                     <div class="input-group rounded">
-                        <a class="nav-link rounded d-flex align-items-center" href="../templates/login/login.html" th:href="@{/templates/member}" ><i class="fa-solid fa-right-to-bracket"></i><p class="mb-0 mx-2">Login</p></a>
-                        <a class="nav-link rounded d-flex align-items-center" href="" th:href="@{/member/new}"><i class="fa-solid fa-registered"></i><p class="mb-0 mx-2">Register</p></a>
+                        <a class="nav-link rounded d-flex align-items-center" href="../member/login.html" th:href="@{/templates/member}" ><i class="fa-solid fa-right-to-bracket"></i><p class="mb-0 mx-2">Login</p></a>
+                        <a class="nav-link rounded d-flex align-items-center" href="" th:href="@{/member/new}"><i class="fa-brands fa-product-hunt"></i><p class="mb-0 mx-2">My profile</p></a>
                     </div>
                 </form>
             </li>
@@ -127,8 +127,6 @@
                       </div>
                       자유게시판
                   </a>
-                  <a class="nav-link acc_btn d-flex justify-content-between align-items-center" href="../test/register.html" th:href="@{/member/new}">Create account <span>+</span>
-                  </a>
               </div>
           </div>
           <!-- <div class="sb-sidenav-footer">
@@ -138,11 +136,11 @@
       </nav>
     </div>
     <div id="layoutSidenav_content">
-      <div class="container grid px-6 mx-auto">
+      <div class="row col-10 grid px-6 mx-auto">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
           게시글 작성
         </h2>
-        <div class="card">
+        <div class="card px-0">
           <div class="card-header">
             <div class="form-group">
               <form action="" id="title">
@@ -153,22 +151,21 @@
           <div class="card-body" style="height:500px;">
             <div class="form-group">
               <form action="" id="article">
-                <textarea class="form-control" rows="5" style="height: 450px;"></textarea>
+                <textarea class="form-control" rows="5" style="min-height: 450px;"></textarea>
               </form>
             </div>
           </div>
           <div class="card-footer">
-            <div class="row">
-              <div class="col-10">
-              </div>
-              <div class="col-2" style="text-align: right; padding-right: 100px;">
-                <button type="button" class="btn btn-primary" id="article-register">
+            <div class="w-100">
+              <div class="d-flex justify-content-end align-items-center" >
+                <button type="button" class="px-3 py-2 text-sm font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600" id="article-register">
                   글쓰기
                 </button>
-                <a href="postList.html" th:href="@{/posts}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit">
-                  <svg class="w-5 h-5 purple" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                <a href="postList.html" th:href="@{/posts}" class="list_more_btn flex ms-2 items-center justify-between text-sm px-3 py-2 font-semibold text-sm leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100" aria-label="Edit">
+                  <!-- <svg class="w-5 h-5 purple" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                     <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                </svg>
+                </svg> -->
+                  목록
                 </a>
               </div>
             </div>

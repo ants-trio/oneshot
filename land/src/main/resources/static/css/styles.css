@@ -11889,7 +11889,7 @@ body {
   justify-content: space-between;
   min-width: 0;
   flex-grow: 1;
-  min-height: calc(100vh - 56px);
+  min-height: calc(100vh + 30px);
   max-width:100%;
   margin-left: -255px;
   background: #F9FAFB;
@@ -12451,6 +12451,12 @@ body {
 /*게시판페이지*/
 .n_hover:hover {color:#f3e8ff;}
 .sub_post_tb_box {border:1px solid #d5d6d7;}
+.post_write_btn:hover {color:#9333EA}
+.post_more_btn {color: #374151;}
+.post_more_btn:hover {color: #374151;}
+
+/*게시판 - view */
+.list_more_btn:hover {color:#15803D}
 
 /*반응형작업*/
 @media (max-width:1024px) {

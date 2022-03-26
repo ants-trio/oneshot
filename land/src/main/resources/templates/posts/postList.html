@@ -62,8 +62,8 @@
                 </p>
                 <form class="nav_user_info_wrap position-absolute rounded bg-white">
                     <div class="input-group rounded">
-                        <a class="nav-link rounded d-flex align-items-center" href="../templates/login/login.html" th:href="@{/templates/member}" ><i class="fa-solid fa-right-to-bracket"></i><p class="mb-0 mx-2">Login</p></a>
-                        <a class="nav-link rounded d-flex align-items-center" href="" th:href="@{/member/new}"><i class="fa-solid fa-registered"></i><p class="mb-0 mx-2">Register</p></a>
+                        <a class="nav-link rounded d-flex align-items-center" href="../member/login.html" th:href="@{/templates/member}" ><i class="fa-solid fa-right-to-bracket"></i><p class="mb-0 mx-2">Login</p></a>
+                        <a class="nav-link rounded d-flex align-items-center" href="" th:href="@{/member/new}"><i class="fa-brands fa-product-hunt"></i><p class="mb-0 mx-2">My profile</p></a>
                     </div>
                 </form>
             </li>
@@ -127,8 +127,6 @@
                         </div>
                         자유게시판
                     </a>
-                    <a class="nav-link acc_btn d-flex justify-content-between align-items-center" href="../test/register.html" th:href="@{/member/new}">Create account <span>+</span>
-                    </a>
                 </div>
             </div>
             <!-- <div class="sb-sidenav-footer">
@@ -170,16 +168,16 @@
               <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 <tr class="text-gray-700 dark:text-gray-400">
                   <td class="px-4 py-3 text-xs">
-                    <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                    <span class="px-2 py-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded-full dark:bg-blue-700 dark:text-blue-100">
                       1
                     </span>
                   </td>
                   <td class="px-4 py-3 text-sm">
-                    <a href="postView.html" th:href="@{~/}">제목</a>
+                    <a href="postView.html" th:href="@{~/}" class="font-semibold post_more_btn">제목</a>
                   </td>
                   <td class="px-4 py-3">
                     <div class="flex items-center text-sm">
-                        <p class="font-semibold">Hans Burger</p>
+                        <p class="">Hans Burger</p>
                     </div>
                   </td>
                   <td class="px-4 py-3 text-sm">
@@ -189,13 +187,13 @@
               </tbody>
             </table>
           </div>
-          <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-            <span class="flex items-center col-span-2">
+          <div class="d-flex align-items-center justify-content-between px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+            <div class="flex items-center col-span-2">
               Showing 21-30 of 100
-            </span>
+            </div>
             <!-- <span class="col-span-2"></span> -->
             <!-- Pagination -->
-            <span class="flex col-span-5 mt-2 sm:mt-auto justify-content-center">
+            <div class="flex col-span-5 mt-2 sm:mt-auto justify-content-center">
               <nav aria-label="Table navigation">
                 <ul class="inline-flex items-center">
                   <li>
@@ -247,9 +245,9 @@
                   </li>
                 </ul>
               </nav>
-            </span>
-            <span class="flex items-center text-sm col-2">
-              <a href="postWrite.html" th:href="@{/posts/new}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit">
+            </div>
+            <div class="d-flex justify-content-end align-items-center text-sm col-2">
+              <a href="postWrite.html" th:href="@{/posts/new}" class="post_write_btn flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit">
                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
                 </svg>
@@ -259,7 +257,7 @@
                   <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                 </svg>
               </button>
-            </span>
+            </div>
           </div>
         </div>
       </div>
