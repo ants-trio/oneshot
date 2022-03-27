@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import happyhouse_team02.land.landservice.api.SuccessResponseResult;
-import happyhouse_team02.land.landservice.service.PostDto;
-import happyhouse_team02.land.landservice.service.PostService;
-import happyhouse_team02.land.landservice.service.PostSummaryDto;
+import happyhouse_team02.land.landservice.service.post.PostDto;
+import happyhouse_team02.land.landservice.service.post.PostService;
+import happyhouse_team02.land.landservice.service.post.PostSummaryDto;
 import happyhouse_team02.land.landservice.web.argumentresolver.LoginEmail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PostApiController {
 
 	private final PostService postService;
-	private final PostValidator validator;
+
 
 	@GetMapping
 	public SuccessResponseResult getPosts(@Validated @RequestBody GetPostsRequest request) {
@@ -44,7 +44,7 @@ public class PostApiController {
 	@PostMapping("/new")
 	public SuccessResponseResult writePost(@LoginEmail String loginEmail,
 										   @Validated @RequestBody WritePostRequest request) {
-		validator.validateEmail(loginEmail);
+
 		PostDto postDto = new PostDto(request.getTitle(), request.getContent());
 		Long postId = postService.writePost(loginEmail, postDto);
 
@@ -54,6 +54,7 @@ public class PostApiController {
 	@GetMapping("/{postId}")
 	public SuccessResponseResult getPost(@LoginEmail String loginEmail, @Validated @PathVariable int postId) {
 
+		PostDto post = postService.findOne();
 		log.info("loginEmail={}", loginEmail);
 		log.info("postId={}", postId);
 		return new SuccessResponseResult();

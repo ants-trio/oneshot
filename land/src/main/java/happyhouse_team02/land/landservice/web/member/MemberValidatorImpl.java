@@ -1,12 +1,10 @@
 package happyhouse_team02.land.landservice.web.member;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 
 import happyhouse_team02.land.landservice.domain.Member;
-import happyhouse_team02.land.landservice.service.MemberService;
+import happyhouse_team02.land.landservice.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,8 +25,8 @@ public class MemberValidatorImpl implements MemberValidator {
 	}
 
 	private void validateDuplicatedEmail(MemberRegisterForm registerForm, BindingResult bindingResult) {
-		Optional<Member> findMember = memberService.findOne(registerForm.getEmail());
-		if (findMember.isPresent()){
+		Member findMember = memberService.findOne(registerForm.getEmail());
+		if (findMember != null){
 			bindingResult.reject("alreadyRegistered");
 			return;
 		}

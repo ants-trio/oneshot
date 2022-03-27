@@ -1,12 +1,10 @@
 package happyhouse_team02.land.landservice.web.login;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 
 import happyhouse_team02.land.landservice.domain.Member;
-import happyhouse_team02.land.landservice.service.MemberService;
+import happyhouse_team02.land.landservice.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,12 +24,12 @@ public class LoginValidatorImpl implements LoginValidator {
 	}
 
 	private void validateEmailAndPassword(LoginForm loginForm, BindingResult bindingResult) {
-		Optional<Member> findMember = memberService.findOne(loginForm.getEmail());
-		if (findMember.isEmpty()) {
+		Member findMember = memberService.findOne(loginForm.getEmail());
+		if (findMember == null) {
 			bindingResult.reject("absentEmail");
 			return;
 		}
-		validatePassword(findMember.get(), loginForm.getPassword(), bindingResult);
+		validatePassword(findMember, loginForm.getPassword(), bindingResult);
 	}
 
 	private void validatePassword(Member member, String password, BindingResult bindingResult) {

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import happyhouse_team02.land.landservice.service.PostService;
+import happyhouse_team02.land.landservice.service.post.PostService;
 import happyhouse_team02.land.landservice.web.argumentresolver.LoginEmail;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
