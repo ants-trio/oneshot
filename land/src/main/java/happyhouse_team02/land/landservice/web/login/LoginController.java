@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import happyhouse_team02.land.landservice.service.LoginService;
+import happyhouse_team02.land.landservice.service.member.LoginService;
 import lombok.RequiredArgsConstructor;
 
 @Controller

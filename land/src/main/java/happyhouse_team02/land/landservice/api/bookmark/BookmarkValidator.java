@@ -1,7 +1,7 @@
 package happyhouse_team02.land.landservice.api.bookmark;
 
 import happyhouse_team02.land.landservice.api.bookmark.BookmarkApiController.AddBookmarkRequest;
-import happyhouse_team02.land.landservice.service.BookmarkDto;
+import happyhouse_team02.land.landservice.service.bookmark.BookmarkDto;
 
 public interface BookmarkValidator {
 

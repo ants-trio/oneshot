@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import happyhouse_team02.land.landservice.api.SuccessResponseResult;
-import happyhouse_team02.land.landservice.service.BookmarkDto;
-import happyhouse_team02.land.landservice.service.MemberService;
+import happyhouse_team02.land.landservice.service.bookmark.BookmarkDto;
+import happyhouse_team02.land.landservice.service.member.MemberService;
 import happyhouse_team02.land.landservice.web.argumentresolver.LoginEmail;
 import lombok.AllArgsConstructor;
 import lombok.Data;

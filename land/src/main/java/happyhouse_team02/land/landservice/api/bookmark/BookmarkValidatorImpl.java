@@ -1,15 +1,12 @@
 package happyhouse_team02.land.landservice.api.bookmark;
 
-import static happyhouse_team02.land.landservice.exception.ExceptionMessage.*;
-
 import org.springframework.stereotype.Component;
 
 import happyhouse_team02.land.landservice.domain.Area;
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.exception.DuplicatedBookmarkException;
-import happyhouse_team02.land.landservice.exception.NoSuchMemberException;
-import happyhouse_team02.land.landservice.service.BookmarkDto;
-import happyhouse_team02.land.landservice.service.MemberService;
+import happyhouse_team02.land.landservice.service.bookmark.BookmarkDto;
+import happyhouse_team02.land.landservice.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,14 +20,10 @@ public class BookmarkValidatorImpl implements BookmarkValidator{
 	@Override
 	public BookmarkDto getValidatedDTO(String loginEmail, BookmarkApiController.AddBookmarkRequest bookmarkRequest) {
 		BookmarkDto bookmarkDTO = new BookmarkDto(bookmarkRequest.getCity(), bookmarkRequest.getRegion());
-		Member findMember = getMember(loginEmail);
+		Member findMember = memberService.findOne(loginEmail);
 
 		validateDuplicated(findMember, bookmarkDTO.getArea());
 		return bookmarkDTO;
-	}
-
-	private Member getMember(String email) {
-		return memberService.findOne(email).orElseThrow(() -> new NoSuchMemberException(NO_SUCH_MEMBER_MASSAGE));
 	}
 
 	private void validateDuplicated(Member findMember, Area area) {
@@ -39,7 +32,7 @@ public class BookmarkValidatorImpl implements BookmarkValidator{
 			.filter(bookmark -> bookmark.getArea().equals(area))
 			.findAny()
 			.ifPresent(bookmark -> {
-				throw new DuplicatedBookmarkException(DUPLICATED_BOOKMARK_MASSAGE);
+				throw new DuplicatedBookmarkException();
 			});
 	}
 }
