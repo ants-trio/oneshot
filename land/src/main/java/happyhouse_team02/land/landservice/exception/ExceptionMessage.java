@@ -12,6 +12,16 @@ public interface ExceptionMessage {
 	String GLOBAL_MESSAGE = "[ERROR] 내부 오류";
 
 	/**
+	 *  권한이 없는 경우
+	 */
+	String UNAUTHORIZED_ACCESS_MESSAGE = "[ERROR] 접근 권한이 없습니다.";
+
+	/**
+	 * 로그인이 필요한 경우
+	 */
+	String NEED_LOGIN_MESSAGE = "[ERROR] 로그인이 필요합니다.";
+
+	/**
 	 * 조회한 회원이 이미 가입되어 있는 경우
 	 */
 	String DUPLICATED_MEMBER_MASSAGE = "[ERROR] 이미 존재하는 회원입니다.";

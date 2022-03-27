@@ -1,8 +1,10 @@
 package happyhouse_team02.land.landservice.exception;
 
+import static happyhouse_team02.land.landservice.exception.ExceptionMessage.*;
+
 public class NoSuchBookmarkException extends RuntimeException{
 	public NoSuchBookmarkException() {
-		super();
+		super(NO_SUCH_BOOKMARK_MASSAGE);
 	}
 
 	public NoSuchBookmarkException(String message) {
