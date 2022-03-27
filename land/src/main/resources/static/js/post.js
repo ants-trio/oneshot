@@ -62,7 +62,7 @@ $(function () {
           </span>
         </td>
         <td class="px-4 py-3 text-sm">
-          <a href="postView.html" th:href="@{~/}" class="font-semibold post_more_btn">
+          <a href="javascript: viewPost(${posts[i][0].postId})" th:href="@{~/}" class="font-semibold post_more_btn">
           ${posts[i][0].postTitle}</a>
         </td>
         <td class="px-4 py-3">
