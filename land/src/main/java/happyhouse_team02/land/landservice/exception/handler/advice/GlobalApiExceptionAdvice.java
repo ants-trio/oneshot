@@ -3,9 +3,12 @@ package happyhouse_team02.land.landservice.exception.handler.advice;
 import static happyhouse_team02.land.landservice.exception.ExceptionMessage.*;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import happyhouse_team02.land.landservice.exception.DuplicatedBookmarkException;
 import happyhouse_team02.land.landservice.exception.DuplicatedMemberException;
@@ -20,12 +23,26 @@ import lombok.extern.slf4j.Slf4j;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class GlobalApiExceptionAdvice {
 
-	// @ExceptionHandler
-	// @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	// public FailResponseResult exceptionHandler(Exception e) {
-	// 	log.error("[exceptionHandler] ex", e);
-	// 	return new FailResponseResult(FAIL, GLOBAL_MESSAGE);
-	// }
+	@ExceptionHandler
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public FailResponseResult exceptionHandler(Exception e) {
+		log.error("[exceptionHandler] ex", e);
+		return new FailResponseResult(FAIL, GLOBAL_MESSAGE);
+	}
+
+	@ExceptionHandler
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public FailResponseResult notValidExceptionHandler(JsonProcessingException e) {
+		log.error("[notValidExceptionHandler] ex", e);
+		return new FailResponseResult(FAIL, "[ERROR] 잘못된 입력입니다.");
+	}
+
+	@ExceptionHandler
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public FailResponseResult notValidExceptionHandler(HttpMessageConversionException e) {
+		log.error("[notValidExceptionHandler] ex", e);
+		return new FailResponseResult(FAIL, "[ERROR] 잘못된 입력입니다.");
+	}
 
 	/**
 	 * MemberExceptionHandler
@@ -59,7 +76,7 @@ public class GlobalApiExceptionAdvice {
 	}
 
 	@ExceptionHandler
-	public FailResponseResult duplicatedBookmarkExceptionHandler(DuplicatedBookmarkException e){
+	public FailResponseResult duplicatedBookmarkExceptionHandler(DuplicatedBookmarkException e) {
 		log.error("[duplicatedBookmarkExceptionHandler] ex", e);
 		return new FailResponseResult(FAIL, e.getMessage());
 	}
