@@ -3,23 +3,17 @@ package happyhouse_team02.land.landservice.domain;
 import static javax.persistence.FetchType.*;
 import static lombok.AccessLevel.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,7 +42,7 @@ public class Post extends BaseEntity{
 	private String content;
 
 	@Column(name = "POST_LIKE")
-	private Boolean postLike;
+	private int postLike;
 
 	private Post(Builder builder) {
 		member = builder.member;

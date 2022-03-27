@@ -10,4 +10,5 @@ public interface PostService {
 
 	PostDto findOne();
 
+	Long writePost(String loginEmail, PostDto postDto);
 }
