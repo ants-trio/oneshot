@@ -2,8 +2,6 @@ package happyhouse_team02.land.landservice.web.post;
 
 import static happyhouse_team02.land.landservice.web.session.SessionConst.*;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import happyhouse_team02.land.landservice.service.PostService;
-import happyhouse_team02.land.landservice.service.PostSummaryDTO;
 import happyhouse_team02.land.landservice.web.argumentresolver.LoginEmail;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,8 +26,8 @@ public class PostController {
 						   Model model) {
 		validateLogin(model, loginEmail);
 		log.info("loginEmail={}", loginEmail);
-		List<PostSummaryDTO> posts = postService.findPostsSummary();
-		model.addAttribute("posts", posts);
+		// List<PostSummaryDto> posts = postService.findPostsSummary();
+		// model.addAttribute("posts", posts);
 		return "posts/postList";
 	}
 

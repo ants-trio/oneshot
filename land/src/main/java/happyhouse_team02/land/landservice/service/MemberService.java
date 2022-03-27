@@ -20,11 +20,11 @@ public interface MemberService {
 
 	Optional<Member> findOne(String email);
 
-	Long addBookmarkToMember(BookmarkDTO bookmark, String email);
+	Long addBookmarkToMember(BookmarkDto bookmark, String email);
 
 	Long deleteBookmarkFromMember(Long bookmarkId, String email);
 
-	List<BookmarkDTO> getBookmarksFromMember(String email);
+	List<BookmarkDto> getBookmarksFromMember(String email);
 
 
 }

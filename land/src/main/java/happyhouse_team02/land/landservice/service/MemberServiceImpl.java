@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	@Transactional
-	public Long addBookmarkToMember(BookmarkDTO bookmarkDTO, String email) {
+	public Long addBookmarkToMember(BookmarkDto bookmarkDTO, String email) {
 		Member findMember = getMember(email);
 		Bookmark bookmark = new Bookmark(findMember, bookmarkDTO.getArea());
 
@@ -73,8 +73,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<BookmarkDTO> getBookmarksFromMember(String email) {
-		return getMember(email).getBookmarks().stream().map(BookmarkDTO::new).collect(toList());
+	public List<BookmarkDto> getBookmarksFromMember(String email) {
+		return getMember(email).getBookmarks().stream().map(BookmarkDto::new).collect(toList());
 	}
 
 	private Member getMember(String email) {

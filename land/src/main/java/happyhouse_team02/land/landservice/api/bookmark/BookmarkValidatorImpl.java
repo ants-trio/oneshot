@@ -1,4 +1,4 @@
-package happyhouse_team02.land.landservice.api;
+package happyhouse_team02.land.landservice.api.bookmark;
 
 import static happyhouse_team02.land.landservice.exception.ExceptionMessage.*;
 
@@ -8,7 +8,7 @@ import happyhouse_team02.land.landservice.domain.Area;
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.exception.DuplicatedBookmarkException;
 import happyhouse_team02.land.landservice.exception.NoSuchMemberException;
-import happyhouse_team02.land.landservice.service.BookmarkDTO;
+import happyhouse_team02.land.landservice.service.BookmarkDto;
 import happyhouse_team02.land.landservice.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +21,8 @@ public class BookmarkValidatorImpl implements BookmarkValidator{
 	private final MemberService memberService;
 
 	@Override
-	public BookmarkDTO getValidatedDTO(String loginEmail, BookmarkApiController.AddBookmarkRequest bookmarkRequest) {
-		BookmarkDTO bookmarkDTO = new BookmarkDTO(bookmarkRequest.getCity(), bookmarkRequest.getRegion());
+	public BookmarkDto getValidatedDTO(String loginEmail, BookmarkApiController.AddBookmarkRequest bookmarkRequest) {
+		BookmarkDto bookmarkDTO = new BookmarkDto(bookmarkRequest.getCity(), bookmarkRequest.getRegion());
 		Member findMember = getMember(loginEmail);
 
 		validateDuplicated(findMember, bookmarkDTO.getArea());

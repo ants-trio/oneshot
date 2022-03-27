@@ -20,12 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class GlobalApiExceptionAdvice {
 
-	@ExceptionHandler
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public FailResponseResult exceptionHandler(Exception e) {
-		log.error("[exceptionHandler] ex", e);
-		return new FailResponseResult(FAIL, GLOBAL_MESSAGE);
-	}
+	// @ExceptionHandler
+	// @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	// public FailResponseResult exceptionHandler(Exception e) {
+	// 	log.error("[exceptionHandler] ex", e);
+	// 	return new FailResponseResult(FAIL, GLOBAL_MESSAGE);
+	// }
 
 	/**
 	 * MemberExceptionHandler
