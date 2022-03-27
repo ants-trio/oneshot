@@ -12,9 +12,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import happyhouse_team02.land.landservice.exception.DuplicatedBookmarkException;
 import happyhouse_team02.land.landservice.exception.DuplicatedMemberException;
+import happyhouse_team02.land.landservice.exception.NoLoginException;
 import happyhouse_team02.land.landservice.exception.NoSuchBookmarkException;
 import happyhouse_team02.land.landservice.exception.NoSuchMemberException;
 import happyhouse_team02.land.landservice.exception.PasswordDoesNotMatchException;
+import happyhouse_team02.land.landservice.exception.UnauthorizedAccessException;
 import happyhouse_team02.land.landservice.exception.handler.FailResponseResult;
 import lombok.extern.slf4j.Slf4j;
 
@@ -53,6 +55,21 @@ public class GlobalApiExceptionAdvice {
 		log.error("[noSuchMemberExceptionHandler] ex", e);
 		return new FailResponseResult(FAIL, e.getMessage());
 	}
+
+	@ExceptionHandler
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	public FailResponseResult noLoginExceptionHandler(NoLoginException e){
+		log.error("[noLoginExceptionHandler] ex", e);
+		return new FailResponseResult(FAIL, e.getMessage());
+	}
+
+	@ExceptionHandler
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	public FailResponseResult unauthorizedAccessExceptionHandler(UnauthorizedAccessException e){
+		log.error("[noLoginExceptionHandler] ex", e);
+		return new FailResponseResult(FAIL, e.getMessage());
+	}
+
 
 	@ExceptionHandler
 	public FailResponseResult duplicatedMemberExceptionHandler(DuplicatedMemberException e) {
