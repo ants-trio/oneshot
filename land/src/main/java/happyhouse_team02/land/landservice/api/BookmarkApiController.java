@@ -7,13 +7,11 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import happyhouse_team02.land.landservice.api.SuccessResponseResult;
 import happyhouse_team02.land.landservice.service.bookmark.BookmarkDto;
 import happyhouse_team02.land.landservice.service.bookmark.BookmarkService;
 import happyhouse_team02.land.landservice.service.member.MemberService;
@@ -32,7 +30,7 @@ public class BookmarkApiController {
 	private final MemberService memberService;
 	private final BookmarkService bookmarkService;
 
-	@GetMapping
+	@PostMapping
 	public SuccessResponseResult getBookmarks(@LoginEmail String loginEmail) {
 
 		List<BookmarkDto> bookmarks = bookmarkService.findBookmarks(loginEmail);
