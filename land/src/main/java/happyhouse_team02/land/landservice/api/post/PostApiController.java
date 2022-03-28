@@ -56,9 +56,8 @@ public class PostApiController {
 	public SuccessResponseResult getPost(@LoginEmail String loginEmail, @Validated @PathVariable Long postId) {
 
 		PostDetailDto post = postService.findOne(loginEmail, postId);
-		log.info("loginEmail={}", loginEmail);
-		log.info("postId={}", postId);
-		return new SuccessResponseResult();
+
+		return new SuccessResponseResult(new GetPostResponse(post));
 	}
 
 	@Data
@@ -88,5 +87,11 @@ public class PostApiController {
 	@AllArgsConstructor
 	static class WritePostResponse {
 		private Long postId;
+	}
+
+	@Data
+	@AllArgsConstructor
+	static class GetPostResponse {
+		private PostDetailDto postDetailDto;
 	}
 }
