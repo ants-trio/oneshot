@@ -8,7 +8,7 @@ public interface PostService {
 
 	Long countPosts();
 
-	PostDto findOne();
+	PostDetailDto findOne(String email, Long postId);
 
 	Long writePost(String loginEmail, PostDto postDto);
 }

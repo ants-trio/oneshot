@@ -33,7 +33,7 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public PostDto findOne() {
+	public PostDetailDto findOne(String email, Long postId) {
 		return null;
 	}
 

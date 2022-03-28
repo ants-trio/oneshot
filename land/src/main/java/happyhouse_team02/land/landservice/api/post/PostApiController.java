@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import happyhouse_team02.land.landservice.api.SuccessResponseResult;
+import happyhouse_team02.land.landservice.service.post.PostDetailDto;
 import happyhouse_team02.land.landservice.service.post.PostDto;
 import happyhouse_team02.land.landservice.service.post.PostService;
 import happyhouse_team02.land.landservice.service.post.PostSummaryDto;
@@ -52,9 +53,9 @@ public class PostApiController {
 	}
 
 	@GetMapping("/{postId}")
-	public SuccessResponseResult getPost(@LoginEmail String loginEmail, @Validated @PathVariable int postId) {
+	public SuccessResponseResult getPost(@LoginEmail String loginEmail, @Validated @PathVariable Long postId) {
 
-		PostDto post = postService.findOne();
+		PostDetailDto post = postService.findOne(loginEmail, postId);
 		log.info("loginEmail={}", loginEmail);
 		log.info("postId={}", postId);
 		return new SuccessResponseResult();

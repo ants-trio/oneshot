@@ -1,6 +1,7 @@
 package happyhouse_team02.land.landservice.repository.post;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
@@ -11,9 +12,17 @@ import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-public class PostRepositoryImpl implements PostRepository{
+public class PostRepositoryImpl implements PostRepository {
 
 	private final EntityManager em;
+
+	@Override
+	public Optional<Post> findById(Long id) {
+		return em.createQuery("select p from Post p where p.id=:postId", Post.class)
+			.setParameter("postId", id)
+			.getResultStream()
+			.findAny();
+	}
 
 	@Override
 	public List<Post> findAll(int start, int amount) {
