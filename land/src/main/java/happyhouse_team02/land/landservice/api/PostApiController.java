@@ -3,7 +3,6 @@ package happyhouse_team02.land.landservice.api;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import happyhouse_team02.land.landservice.service.post.PostDetailDto;
@@ -32,11 +32,11 @@ public class PostApiController {
 	private final PostService postService;
 
 
-	@PostMapping
-	public SuccessResponseResult getPosts(@Validated @RequestBody GetPostsRequest request) {
-		log.info("request={}", request);
+	@GetMapping
+	public SuccessResponseResult getPosts(@RequestParam int pageNo,
+										  @RequestParam int amount) {
 		Long total = postService.countPosts();
-		List<PostSummaryDto> postsSummary = postService.findPostsSummary(request.getPageNo(), request.getAmount());
+		List<PostSummaryDto> postsSummary = postService.findPostsSummary(pageNo, amount);
 
 		return new SuccessResponseResult(new GetPostsResponse(total, postsSummary));
 	}
@@ -57,14 +57,6 @@ public class PostApiController {
 		PostDetailDto post = postService.findOne(loginEmail, postId);
 
 		return new SuccessResponseResult(new GetPostResponse(post));
-	}
-
-	@Data
-	static class GetPostsRequest {
-		@NotNull
-		private int pageNo;
-		@NotNull
-		private int amount;
 	}
 
 	@Data
