@@ -91,9 +91,9 @@ Back-End와 연동하여 **실제 회원가입이 가능**
 **읍/면/동** 검색 기능은 의도적으로 배제
 
 - 공공데이터의 **법정동** 카테고리는 실생활에서 거의 사용되지 않는 legacy에 가까움. 실제로는 **행정동**을 주로 사용하고 있으나 데이터에 포함되지 않음.
-  
+
   - 예시로, 관악구는 행정동만 21개이지만 법정동은 단 3개
-    
+
     반대로 종로구는 행정동이 17개이지만 법정동은 무려 87개
 
 - 부동산 매물을 탐색하는 사용자의 입장에서 동 단위는 중요하지 않고, 검색 절차만 복잡하게 만들 뿐이라고 판단    
@@ -452,7 +452,75 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
 
 이러한 검증은 원래 프론트에서 먼저 진행되는 것이 맞으나, 프론트에서 검증했다고 서버에서 검증을 하지 않으면 안됩니다. 악의적으로 여전히 들어오는 방법은 많기 때문입니다.
 
-### 3. 그 외
+
+
+### 3. HTTP API
+
+REST API에 대해서 깊이 있는 공부가 부족하여 HTTP API로 대신합니다. 추 후에 공부하고 개선할 예정입니다.
+
+#### Bookmark
+
+- URI: `localhost/bookmark/new`
+- METHOD: GET
+- 설명: 북마크 추가하기
+- 쿼리스트링: `city: String(시/도), region: String(시/군/구)`
+- 예시: `/bookmark/new?city=서울&region=관악구`
+- **성공 Response**
+
+```java
+{
+    "state": "SUCCESS",
+    "data": {
+        "bookmarkId": 67
+    }
+}
+```
+
+- **실패 Response**
+
+잘못된 입력(400 ERROR)
+
+- 빈 입력값, 쿼리값을 잘못 넣는 경우 등
+
+```java
+{
+    "state": "FAIL",
+    "message": "[ERROR] 잘못된 입력입니다."
+}
+```
+
+- 이미 존재하는 북마크를 넣는 경우
+
+```java
+{
+    "state": "FAIL",
+    "message": "[ERROR] 이미 존재하는 북마크입니다."
+}
+```
+
+로그인을 하지 않은 경우(401 ERROR)
+
+```java
+{
+    "state": "FAIL",
+    "message": "[ERROR] 로그인이 필요합니다."
+}
+```
+
+메서드를 잘못 사용한 경우(400 ERROR)
+
+```java
+{
+    "state": "FAIL",
+    "message": "[ERROR] 해당 메서드는 지원하지 않습니다."
+}
+```
+
+
+
+
+
+### 4. 그 외
 
 - 객체지향 원칙, SOLID 원칙을 준수하도록 신경썼습니다.
 - 세션을 통하여 회원을 검증합니다.
