@@ -3,19 +3,12 @@ package happyhouse_team02.land.landservice.domain;
 import static javax.persistence.FetchType.*;
 import static lombok.AccessLevel.*;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,9 +34,13 @@ public class Comment extends BaseEntity{
 	@Column(name = "COMMENT_CONTENT")
 	private String content;
 
-	public Comment(Post post, Member member) {
+	private Comment(Member member, Post post) {
 		this.member = member;
 		this.post = post;
 		post.getComments().add(this);
+	}
+
+	public static Comment createComment(Member member, Post post){
+		return new Comment(member, post);
 	}
 }

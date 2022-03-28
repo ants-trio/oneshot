@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService{
 
-	private final MemberValidatedRepository memberValidatedRepository;
+	private final MemberValidatedRepository memberRepository;
 	private final PostRepository postRepository;
 
 	@Override
@@ -39,7 +39,7 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public Long writePost(String loginEmail, PostDto postDto) {
-		Member findMember = memberValidatedRepository.getMember(loginEmail);
+		Member findMember = memberRepository.getMember(loginEmail);
 		Post post = new Post.Builder()
 			.member(findMember)
 			.title(postDto.getTitle())
