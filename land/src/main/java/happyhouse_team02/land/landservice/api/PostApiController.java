@@ -1,4 +1,4 @@
-package happyhouse_team02.land.landservice.api.post;
+package happyhouse_team02.land.landservice.api;
 
 import java.util.List;
 
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import happyhouse_team02.land.landservice.api.SuccessResponseResult;
 import happyhouse_team02.land.landservice.service.post.PostDetailDto;
 import happyhouse_team02.land.landservice.service.post.PostDto;
 import happyhouse_team02.land.landservice.service.post.PostService;

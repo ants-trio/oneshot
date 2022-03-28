@@ -1,4 +1,4 @@
-package happyhouse_team02.land.landservice.api.bookmark;
+package happyhouse_team02.land.landservice.api;
 
 import java.util.List;
 
@@ -30,7 +30,6 @@ import lombok.extern.slf4j.Slf4j;
 public class BookmarkApiController {
 
 	private final MemberService memberService;
-	private final BookmarkValidator bookmarkValidator;
 	private final BookmarkService bookmarkService;
 
 	@GetMapping
@@ -45,9 +44,8 @@ public class BookmarkApiController {
 	@PostMapping("/new")
 	public SuccessResponseResult addBookmark(@LoginEmail String loginEmail,
 											 @Validated @RequestBody AddBookmarkRequest bookmarkRequest) {
-
-		BookmarkDto bookmarkDTO = bookmarkValidator.getValidatedDto(loginEmail, bookmarkRequest);
-		Long bookmarkId = bookmarkService.addBookmark(loginEmail, bookmarkDTO);
+		BookmarkDto bookmarkDto = new BookmarkDto(bookmarkRequest.getCity(), bookmarkRequest.getRegion());
+		Long bookmarkId = bookmarkService.addBookmark(loginEmail, bookmarkDto);
 
 		return new SuccessResponseResult(new AddBookmarkResponse(bookmarkId));
 	}
