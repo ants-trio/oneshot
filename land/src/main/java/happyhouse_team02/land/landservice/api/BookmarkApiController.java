@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,7 @@ public class BookmarkApiController {
 	private final MemberService memberService;
 	private final BookmarkService bookmarkService;
 
-	@PostMapping
+	@GetMapping
 	public SuccessResponseResult getBookmarks(@LoginEmail String loginEmail) {
 
 		List<BookmarkDto> bookmarks = bookmarkService.findBookmarks(loginEmail);

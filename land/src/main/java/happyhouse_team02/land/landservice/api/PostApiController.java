@@ -32,7 +32,7 @@ public class PostApiController {
 	private final PostService postService;
 
 
-	@GetMapping
+	@PostMapping
 	public SuccessResponseResult getPosts(@Validated @RequestBody GetPostsRequest request) {
 		log.info("request={}", request);
 		Long total = postService.countPosts();
