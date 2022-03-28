@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.*;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.domain.Post;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class PostServiceImpl implements PostService{
 
 	private final MemberValidatedRepository memberRepository;
@@ -52,6 +54,7 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
+	@Transactional
 	public Long writePost(String loginEmail, PostDto postDto) {
 		Member findMember = memberRepository.getMember(loginEmail);
 		Post post = new Post.Builder()

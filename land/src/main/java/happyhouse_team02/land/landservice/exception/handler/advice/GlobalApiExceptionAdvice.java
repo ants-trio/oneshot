@@ -2,6 +2,7 @@ package happyhouse_team02.land.landservice.exception.handler.advice;
 
 import static happyhouse_team02.land.landservice.exception.ExceptionMessage.*;
 
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -44,6 +45,13 @@ public class GlobalApiExceptionAdvice {
 	@ExceptionHandler
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public FailResponseResult notValidExceptionHandler(HttpMessageConversionException e) {
+		log.error("[notValidExceptionHandler] ex", e);
+		return new FailResponseResult(FAIL, "[ERROR] 잘못된 입력입니다.");
+	}
+
+	@ExceptionHandler
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public FailResponseResult typeMismatchExceptionHandler(TypeMismatchException e) {
 		log.error("[notValidExceptionHandler] ex", e);
 		return new FailResponseResult(FAIL, "[ERROR] 잘못된 입력입니다.");
 	}
