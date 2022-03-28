@@ -23,13 +23,13 @@ public class MemberServiceImpl implements MemberService {
 	private final MemberValidatedRepository memberRepository;
 
 	@Override
-	public Member findOne(String email) {
-		return memberRepository.getMember(email);
+	public MemberDto findOne(String email) {
+		return null;
 	}
 
 	@Override
-	public Member findOne(Long id) {
-		return memberRepository.getMember(id);
+	public MemberDto findOne(Long id) {
+		return null;
 	}
 
 	@Transactional
@@ -40,14 +40,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Member> findMembers() {
-		return memberRepository.getMembers();
+	public List<MemberDto> findMembers() {
+		return null;
 	}
 
 	@Override
 	@Transactional
 	public Long addBookmarkToMember(BookmarkDto bookmarkDTO, String email) {
-		Member findMember = findOne(email);
+		Member findMember = memberRepository.getMember(email);
 		Bookmark bookmark = Bookmark.createBookmark(findMember, bookmarkDTO.getArea());
 		bookmarkRepository.save(bookmark);
 		return bookmark.getId();
@@ -56,12 +56,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Transactional
 	public void deleteBookmarkFromMember(Long bookmarkId, String email) {
-		Member findMember = findOne(email);
+		Member findMember = memberRepository.getMember(email);
 		findMember.getBookmarks().removeIf(bookmark -> bookmark.getId().equals(bookmarkId));
 	}
 
 	@Override
 	public List<BookmarkDto> getBookmarksFromMember(String email) {
-		return findOne(email).getBookmarks().stream().map(BookmarkDto::new).collect(toList());
+		return memberRepository.getMember(email).getBookmarks().stream().map(BookmarkDto::new).collect(toList());
 	}
 }

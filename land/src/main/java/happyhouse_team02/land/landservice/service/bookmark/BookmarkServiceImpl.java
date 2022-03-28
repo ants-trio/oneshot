@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import happyhouse_team02.land.landservice.domain.Bookmark;
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.repository.bookmark.BookmarkValidatedRepository;
-import happyhouse_team02.land.landservice.service.member.MemberService;
+import happyhouse_team02.land.landservice.repository.member.MemberValidatedRepository;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -18,24 +18,22 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class BookmarkServiceImpl implements BookmarkService {
 
-	private final MemberService memberService;
+	private final MemberValidatedRepository memberRepository;
 	private final BookmarkValidatedRepository bookmarkRepository;
+	private final BookmarkDtoValidator validator;
 
 	@Override
 	public List<BookmarkDto> findBookmarks(String email) {
-		Member findMember = memberService.findOne(email);
+		Member findMember = memberRepository.getMember(email);
 		return findMember.getBookmarks().stream().map(BookmarkDto::new).collect(toList());
 	}
 
 	@Override
 	@Transactional
 	public Long addBookmark(String email, BookmarkDto bookmarkDto) {
-		Member findMember = memberService.findOne(email);
-		Bookmark bookmark = getBookmark(findMember, bookmarkDto);
+		Member findMember = memberRepository.getMember(email);
+		Bookmark bookmark = validator.getBookmark(findMember, bookmarkDto);
 		return bookmarkRepository.save(bookmark);
 	}
 
-	private Bookmark getBookmark(Member findMember, BookmarkDto bookmarkDto) {
-		return Bookmark.createBookmark(findMember, bookmarkDto.getArea());
-	}
 }

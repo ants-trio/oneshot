@@ -10,8 +10,8 @@ public interface MemberService {
 	/**
 	 * 회원 조회
 	 */
-	Member findOne(Long id);
-	Member findOne(String email);
+	MemberDto findOne(Long id);
+	MemberDto findOne(String email);
 
 	/**
 	 * 회원 가입
@@ -21,9 +21,7 @@ public interface MemberService {
 	/**
 	 * 회원 조회
 	 */
-	List<Member> findMembers();
-
-
+	List<MemberDto> findMembers();
 
 
 	Long addBookmarkToMember(BookmarkDto bookmark, String email);

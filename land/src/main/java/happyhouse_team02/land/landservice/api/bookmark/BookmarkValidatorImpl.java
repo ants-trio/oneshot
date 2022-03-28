@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import happyhouse_team02.land.landservice.domain.Area;
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.exception.DuplicatedBookmarkException;
+import happyhouse_team02.land.landservice.repository.member.MemberValidatedRepository;
 import happyhouse_team02.land.landservice.service.bookmark.BookmarkDto;
-import happyhouse_team02.land.landservice.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,12 +15,12 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class BookmarkValidatorImpl implements BookmarkValidator{
 
-	private final MemberService memberService;
+	private final MemberValidatedRepository memberRepository;
 
 	@Override
 	public BookmarkDto getValidatedDto(String loginEmail, BookmarkApiController.AddBookmarkRequest bookmarkRequest) {
 		BookmarkDto bookmarkDTO = new BookmarkDto(bookmarkRequest.getCity(), bookmarkRequest.getRegion());
-		Member findMember = memberService.findOne(loginEmail);
+		Member findMember = memberRepository.getMember(loginEmail);
 
 		validateDuplicated(findMember, bookmarkDTO.getArea());
 		return bookmarkDTO;

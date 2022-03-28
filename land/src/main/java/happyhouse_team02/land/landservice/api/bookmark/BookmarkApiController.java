@@ -47,7 +47,7 @@ public class BookmarkApiController {
 											 @Validated @RequestBody AddBookmarkRequest bookmarkRequest) {
 
 		BookmarkDto bookmarkDTO = bookmarkValidator.getValidatedDto(loginEmail, bookmarkRequest);
-		Long bookmarkId = memberService.addBookmarkToMember(bookmarkDTO, loginEmail);
+		Long bookmarkId = bookmarkService.addBookmark(loginEmail, bookmarkDTO);
 
 		return new SuccessResponseResult(new AddBookmarkResponse(bookmarkId));
 	}

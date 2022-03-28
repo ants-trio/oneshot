@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 
 import happyhouse_team02.land.landservice.domain.Member;
-import happyhouse_team02.land.landservice.service.member.MemberService;
+import happyhouse_team02.land.landservice.repository.member.MemberValidatedRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class MemberValidatorImpl implements MemberValidator {
 
-	private final MemberService memberService;
+	private final MemberValidatedRepository memberRepository;
 
 	@Override
 	public void validate(MemberRegisterForm registerForm, BindingResult bindingResult) {
@@ -25,7 +25,7 @@ public class MemberValidatorImpl implements MemberValidator {
 	}
 
 	private void validateDuplicatedEmail(MemberRegisterForm registerForm, BindingResult bindingResult) {
-		Member findMember = memberService.findOne(registerForm.getEmail());
+		Member findMember = memberRepository.getMember(registerForm.getEmail());
 		if (findMember != null){
 			bindingResult.reject("alreadyRegistered");
 			return;
