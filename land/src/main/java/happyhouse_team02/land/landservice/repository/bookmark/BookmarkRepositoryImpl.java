@@ -16,7 +16,8 @@ public class BookmarkRepositoryImpl implements BookmarkRepository{
 	private final EntityManager em;
 
 	@Override
-	public void save(Bookmark bookmark) {
+	public Long save(Bookmark bookmark) {
 		em.persist(bookmark);
+		return bookmark.getId();
 	}
 }

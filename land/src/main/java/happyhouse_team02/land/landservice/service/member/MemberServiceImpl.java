@@ -48,7 +48,7 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	public Long addBookmarkToMember(BookmarkDto bookmarkDTO, String email) {
 		Member findMember = findOne(email);
-		Bookmark bookmark = new Bookmark(findMember, bookmarkDTO.getArea());
+		Bookmark bookmark = Bookmark.createBookmark(findMember, bookmarkDTO.getArea());
 		bookmarkRepository.save(bookmark);
 		return bookmark.getId();
 	}

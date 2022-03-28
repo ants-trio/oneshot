@@ -30,9 +30,14 @@ public class Bookmark extends BaseEntity {
 	@Embedded
 	private Area area;
 
-	public Bookmark(Member member, Area area) {
+	private Bookmark(Member member, Area area) {
 		this.member = member;
 		this.area = area;
 		member.getBookmarks().add(this);
 	}
+
+	public static Bookmark createBookmark(Member member, Area area) {
+		return new Bookmark(member, area);
+	}
+
 }
