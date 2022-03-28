@@ -4,6 +4,7 @@ import static happyhouse_team02.land.landservice.exception.ExceptionMessage.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConversionException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -45,6 +46,13 @@ public class GlobalApiExceptionAdvice {
 	public FailResponseResult notValidExceptionHandler(HttpMessageConversionException e) {
 		log.error("[notValidExceptionHandler] ex", e);
 		return new FailResponseResult(FAIL, "[ERROR] 잘못된 입력입니다.");
+	}
+
+	@ExceptionHandler
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public FailResponseResult httpRequestMethodNotSupportedExceptionHandler(HttpRequestMethodNotSupportedException e) {
+		log.error("[notValidExceptionHandler] ex", e);
+		return new FailResponseResult(FAIL, "[ERROR] 해당 메서드는 지원하지 않습니다.");
 	}
 
 	/**
