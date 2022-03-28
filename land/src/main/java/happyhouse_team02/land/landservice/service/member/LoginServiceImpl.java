@@ -10,7 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.exception.NoSuchMemberException;
-import happyhouse_team02.land.landservice.repository.MemberRepository;
+import happyhouse_team02.land.landservice.repository.member.MemberRepository;
+import happyhouse_team02.land.landservice.repository.member.MemberValidatedRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,9 +22,11 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginServiceImpl implements LoginService {
 
 	private final MemberRepository memberRepository;
+	private final MemberValidatedRepository memberValidatedRepository;
 
 	@Override
 	public void login(HttpServletRequest request, String email) {
+		Member findMember = memberValidatedRepository.getMember(email);
 		String findEmail = memberRepository.findByEmail(email)
 			.map(Member::getEmail)
 			.orElseThrow(NoSuchMemberException::new);

@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.domain.Post;
-import happyhouse_team02.land.landservice.repository.PostRepository;
-import happyhouse_team02.land.landservice.service.member.MemberValidator;
+import happyhouse_team02.land.landservice.repository.post.PostRepository;
+import happyhouse_team02.land.landservice.repository.member.MemberValidatedRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService{
 
-	private final MemberValidator memberValidator;
+	private final MemberValidatedRepository memberValidatedRepository;
 	private final PostRepository postRepository;
 
 	@Override
@@ -39,7 +39,7 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public Long writePost(String loginEmail, PostDto postDto) {
-		Member findMember = memberValidator.getMember(loginEmail);
+		Member findMember = memberValidatedRepository.getMember(loginEmail);
 		Post post = new Post.Builder()
 			.member(findMember)
 			.title(postDto.getTitle())

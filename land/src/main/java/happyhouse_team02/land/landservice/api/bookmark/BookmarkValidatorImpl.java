@@ -18,7 +18,7 @@ public class BookmarkValidatorImpl implements BookmarkValidator{
 	private final MemberService memberService;
 
 	@Override
-	public BookmarkDto getValidatedDTO(String loginEmail, BookmarkApiController.AddBookmarkRequest bookmarkRequest) {
+	public BookmarkDto getValidatedDto(String loginEmail, BookmarkApiController.AddBookmarkRequest bookmarkRequest) {
 		BookmarkDto bookmarkDTO = new BookmarkDto(bookmarkRequest.getCity(), bookmarkRequest.getRegion());
 		Member findMember = memberService.findOne(loginEmail);
 

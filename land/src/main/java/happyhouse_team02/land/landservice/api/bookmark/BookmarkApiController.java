@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import happyhouse_team02.land.landservice.api.SuccessResponseResult;
 import happyhouse_team02.land.landservice.service.bookmark.BookmarkDto;
+import happyhouse_team02.land.landservice.service.bookmark.BookmarkService;
 import happyhouse_team02.land.landservice.service.member.MemberService;
 import happyhouse_team02.land.landservice.web.argumentresolver.LoginEmail;
 import lombok.AllArgsConstructor;
@@ -30,11 +31,12 @@ public class BookmarkApiController {
 
 	private final MemberService memberService;
 	private final BookmarkValidator bookmarkValidator;
+	private final BookmarkService bookmarkService;
 
 	@GetMapping
 	public SuccessResponseResult getBookmarks(@LoginEmail String loginEmail) {
 
-		List<BookmarkDto> bookmarks = memberService.getBookmarksFromMember(loginEmail);
+		List<BookmarkDto> bookmarks = bookmarkService.findBookmarks(loginEmail);
 
 		return new SuccessResponseResult(new GetBookmarkResponse(bookmarks));
 	}
@@ -44,7 +46,7 @@ public class BookmarkApiController {
 	public SuccessResponseResult addBookmark(@LoginEmail String loginEmail,
 											 @Validated @RequestBody AddBookmarkRequest bookmarkRequest) {
 
-		BookmarkDto bookmarkDTO = bookmarkValidator.getValidatedDTO(loginEmail, bookmarkRequest);
+		BookmarkDto bookmarkDTO = bookmarkValidator.getValidatedDto(loginEmail, bookmarkRequest);
 		Long bookmarkId = memberService.addBookmarkToMember(bookmarkDTO, loginEmail);
 
 		return new SuccessResponseResult(new AddBookmarkResponse(bookmarkId));
