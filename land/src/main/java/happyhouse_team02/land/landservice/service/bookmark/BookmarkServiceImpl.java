@@ -21,4 +21,11 @@ public class BookmarkServiceImpl implements BookmarkService {
 		Member findMember = memberService.findOne(email);
 		return findMember.getBookmarks().stream().map(BookmarkDto::new).collect(toList());
 	}
+
+	@Override
+	public Long addBookmark(String email, BookmarkDto bookmarkDto) {
+		Member findMember = memberService.findOne(email);
+
+		return null;
+	}
 }
