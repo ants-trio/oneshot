@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import happyhouse_team02.land.landservice.repository.MemberRepository;
+import happyhouse_team02.land.landservice.repository.member.MemberRepository;
 import happyhouse_team02.land.landservice.web.argumentresolver.LoginEmail;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
