@@ -166,33 +166,41 @@
           </div> -->
       </nav>
     </div>
-    <div id="layoutSidenav_content">
+    <div id="layoutSidenav_content" style="padding-bottom: 60px;">
       <div class="row col-10 grid px-6 mx-auto">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
           게시글 보기
         </h2>
         <div class="card px-0">
-          <div class="card-header">
-            <div class="form-group" id="post-title">
-              <p>제목</p>
+          <div class="card-header py-3" style="background-color: #fff;">
+            <div class="form-group mb-3" id="post-title">
+              <p class="text-2xl lh-base fw-bold">제목</p>
+            </div>
+            <div class="card_hd_info_box d-flex justify-content-between align-items-center mt-2">
+              <p class="text-sm" style="color:rgba(0,0,0,0.7)">최고관리자</p>
+              <p class="text-sm d-fle align-items-center" >
+                <i class="fa-solid fa-clock me-1" style="color:rgba(0,0,0,0.7)"></i>
+                <span id="created_time" style="color:rgba(0,0,0,0.7)">22-03-29 20:24</span>
+              </p>
             </div>
           </div>
-          <div class="card-body" style="min-height:450px;">
-            <div class="form-group" id="post-content">
-              <p>내용</p>
+          <div class="card-body py-4" style="min-height:450px;">
+            <div class="form-group pt-4 pb-2" id="post-content">
+              <p class="1h-base">국회는 선전포고, 국군의 외국에의 파견 또는 외국군대의 대한민국 영역안에서의 주류에 대한 동의권을 가진다. 감사원은 세입·세출의 결산을 매년 검사하여 대통령과 차년도국회에 그 결과를 보고하여야 한다. 근로자는 근로조건의 향상을 위하여 자주적인 단결권·단체교섭권 및 단체행동권을 가진다. 국무총리는 국회의 동의를 얻어 대통령이 임명한다. 근로조건의 기준은 인간의 존엄성을 보장하도록 법률로 정한다. 헌법재판소의 조직과 운영 기타 필요한 사항은 법률로 정한다. 헌법재판소의 장은 국회의 동의를 얻어 재판관중에서 대통령이 임명한다. 헌법재판소 재판관의 임기는 6년으로 하며, 법률이 정하는 바에 의하여 연임할 수 있다.
+              </p>
             </div>
           </div>
-          <div class="card-footer">
-            <div class="d-flex justify-content-end align-items-center">
+          <div class="card-footer px-3 py-3" style="background-color: #fff;">
+            <div class="d-flex justify-content-end align-items-center mb-3">
               <div class="d-flex justify-content-end align-items-center" id="post-admin-btn">
                 <!-- <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                  </svg> -->
-                <!-- <svg class="w-5 h-5 purple" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                  </svg>
+                <svg class="w-5 h-5 purple" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                     <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                </svg> -->
+                </svg>-->
 
-                <!-- <button type="button"
+                <button type="button"
                   class="px-3 py-2 text-sm font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
                   id="post-modify">
                   수정하기
@@ -203,12 +211,52 @@
                   삭제하기
                 </button>
                 <a href="postList.html" th:href="@{/posts}"
-                  class="list_more_btn flex ms-2 items-center justify-between text-sm px-3 py-2 font-semibold text-sm leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+                  class="list_more_btn flex ms-2 items-center justify-between text-sm px-3 py-2 font-semibold text-sm leading-tight rounded-full "
                   aria-label="Edit">
                   목록
-                </a> -->
+                </a>
               </div>
             </div>
+            <ul class="comment_box">
+              <li class="comment_item p-4 my-3">
+                <div cass="comment_hd">
+                  <p class="fw-bold" id="comment_id">강성엽</p>
+                </div>
+                <div class="comment_body mt-3 mb-2">
+                  <p class="comment_content" id="comment_content">포스팅 잘 보고 갑니다</p>
+                </div>
+                <div class="comment_ft">
+                  <p class="comment_date text-xs fw-lighter" id="comment_date" style="color:rgba(0,0,0,0.5)">2022.2.29 20:41</p>
+                </div>
+              </li>
+              <li class="comment_item p-4 my-3">
+                <div cass="comment_hd">
+                  <p class="fw-bold" id="comment_id">임승민</p>
+                </div>
+                <div class="comment_body mt-3 mb-2">
+                  <p class="comment_content" id="comment_content">
+                    오늘도 어김없이 방문하고 갑니다.<br>
+                    항상 진정성있는 포스팅 감사합니다.
+                  </p>
+                </div>
+                <div class="comment_ft">
+                  <p class="comment_date text-xs fw-lighter" id="comment_date" style="color:rgba(0,0,0,0.5)">2022.2.29 20:41</p>
+                </div>
+              </li>
+              <li class="comment_item p-4 my-3">
+                <div cass="comment_hd">
+                  <p class="fw-bold" id="comment_id">이수은</p>
+                </div>
+                <div class="comment_body mt-3 mb-2">
+                  <p class="comment_content" id="comment_content">
+                    안녕하세요 : )
+                  </p>
+                </div>
+                <div class="comment_ft">
+                  <p class="comment_date text-xs fw-lighter" id="comment_date" style="color:rgba(0,0,0,0.5)">2022.2.29 20:41</p>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
