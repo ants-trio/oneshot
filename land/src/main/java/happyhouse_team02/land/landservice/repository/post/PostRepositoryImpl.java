@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import happyhouse_team02.land.landservice.domain.Post;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @RequiredArgsConstructor
@@ -25,7 +24,7 @@ public class PostRepositoryImpl implements PostRepository {
 	@Override
 	public List<Post> findAll(int start, int amount) {
 
-		return em.createQuery("select p from Post p join fetch p.member", Post.class)
+		return em.createQuery("select p from Post p join fetch p.member order by p.createdDate desc", Post.class)
 			.setFirstResult(start)
 			.setMaxResults(amount)
 			.getResultList();

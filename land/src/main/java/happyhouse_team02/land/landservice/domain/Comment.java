@@ -20,7 +20,7 @@ public class Comment extends BaseEntity{
 
 	@Id
 	@GeneratedValue
-	@Column(name = "COMMNET_ID")
+	@Column(name = "COMMENT_ID")
 	private Long id;
 
 	@ManyToOne(fetch = LAZY)
