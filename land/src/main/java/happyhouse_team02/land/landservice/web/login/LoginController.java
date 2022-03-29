@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import happyhouse_team02.land.landservice.service.member.LoginService;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ public class LoginController {
 	@PostMapping("/login")
 	public String login(@Validated @ModelAttribute("loginForm") LoginForm form,
 						BindingResult bindingResult,
+						@RequestParam(defaultValue = "/") String redirectURL,
 						HttpServletRequest request) {
 
 		loginValidator.validate(form, bindingResult);
@@ -37,7 +39,7 @@ public class LoginController {
 		}
 
 		loginService.login(request, form.getEmail());
-		return "redirect:/";
+		return "redirect:" + redirectURL;
 	}
 
 	@GetMapping("/logout")
