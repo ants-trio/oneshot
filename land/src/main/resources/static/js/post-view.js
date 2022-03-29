@@ -1,9 +1,17 @@
 $(function () {
-  let postId;
-  $(document).on("click", "#view-post", function () {
-    console.log($(this).children().eq(0).children().html());
-    postId = $(this).children().eq(0).children().html();
-    location.href = "/posts/" + postId;
+  console.log($("#view-post-id").html());
+  let postId = $("#view-post-id").html();
+
+  $.ajax({
+    url: "post",
+    type: "GET",
+    data: postId,
+    contentType: "application/json; charset=utf-8",
+    success: function (response) {
+      console.log(response);
+    },
+    error: function () {
+      console.log("error");
+    },
   });
-  console.log(postId);
 });

@@ -269,7 +269,6 @@ $(function () {
   function initiateByDate(inputDate) {
     //TODO
     if ($("#region-select").find(":checked").val() == "==시/군/구==") {
-      // console.log("Return");
       return;
     }
     let selectedRegionCode = $("#region-select").find(":checked").val().substring(0, 5);
@@ -292,13 +291,11 @@ $(function () {
       dataType: "xml",
       success: function (response) {
         // 지도 제목에 선택한 위치 써놓기
-        // console.log("requested");
         let regionName = "";
         if ($("#city-select").find(":checked").text() == "==시/도==") {
           regionName = "";
         } else if ($("#region-select").find(":checked").text() == "==시/군/구==") {
           regionName = $("#city-select").find(":checked").text();
-          // console.log("여기???");
         } // 지역 선택이 완전히 이루어진 경우에만 정보 출력
         else {
           regionName = `
@@ -315,7 +312,7 @@ $(function () {
         makeDetailData(response);
       },
       error: function () {
-        console.log(error);
+        console.log("error");
       },
     });
   }
@@ -381,8 +378,6 @@ $(function () {
       region: regName,
     };
 
-    console.log(addBookmarkData);
-
     $.ajax({
       url: "bookmark/new",
       type: "POST",
@@ -394,7 +389,6 @@ $(function () {
           region: regName,
           bookmarkId: response.data.bookmarkId,
         });
-        console.log(bookmarks);
         expressBookmark();
       },
       error: function (response) {
@@ -473,7 +467,6 @@ $(function () {
 
   // 지역 선택 완료 시 간략 정보 뿌리는 함수
   function makeRoughData(response) {
-    // console.log("여기?");
     let roughData = ``;
     roughData += `
         <thead>  
@@ -493,6 +486,7 @@ $(function () {
               <td>${$(this).find("년").text()}.${$(this).find("월").text()}.${$(this)
           .find("일")
           .text()}</td>
+              <td style="display: none;">0</td>
             </tr>
             
               `;
@@ -616,7 +610,7 @@ $(function () {
         moveMap(newPos, bdNm);
       },
       error: function () {
-        console.log(error);
+        console.log("error");
       },
     });
   }
@@ -658,7 +652,7 @@ $(function () {
         }
       },
       error: function () {
-        console.log(error);
+        console.log("error");
       },
     });
   }

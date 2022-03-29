@@ -139,7 +139,7 @@ $(function () {
             class="px-2 py-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded-full dark:bg-blue-700 dark:text-blue-100">${posts[i].id}</span>
         </td>
         <td class="px-4 py-3 text-sm">
-          <a href="" class="font-semibold post_more_btn">
+          <a href="/posts/${posts[i].id}" th:href="@{/post/${posts[i].id}}" class="font-semibold post_more_btn">
           ${posts[i].title}</a>
         </td>
         <td class="px-4 py-3">
