@@ -133,15 +133,13 @@ $(function () {
     $("#post-list").empty();
     for (let i = 0; i < posts.length; i++) {
       $("#post-list").append(`
-      <tr class="text-gray-700 dark:text-gray-400">
+      <tr class="text-gray-700 dark:text-gray-400" id="view-post">
         <td class="px-4 py-3 text-xs">
           <span
-            class="px-2 py-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded-full dark:bg-blue-700 dark:text-blue-100">
-            ${posts[i].id}
-          </span>
+            class="px-2 py-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded-full dark:bg-blue-700 dark:text-blue-100">${posts[i].id}</span>
         </td>
         <td class="px-4 py-3 text-sm">
-          <a href="javascript: viewPost(${posts[i].id})" th:href="@{~/}" class="font-semibold post_more_btn">
+          <a href="" class="font-semibold post_more_btn">
           ${posts[i].title}</a>
         </td>
         <td class="px-4 py-3">
