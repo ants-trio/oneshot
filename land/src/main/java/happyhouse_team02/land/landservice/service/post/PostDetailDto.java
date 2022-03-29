@@ -13,6 +13,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class PostDetailDto {
 	private Long id;
+	private String writer;
 	private String title;
 	private String content;
 	private LocalDateTime createdDate;
@@ -20,6 +21,7 @@ public class PostDetailDto {
 	private Role role = Role.NORMAL;
 
 	public PostDetailDto(Post post) {
+		writer = post.getMember().getEmail();
 		id = post.getId();
 		title = post.getTitle();
 		content = post.getContent();

@@ -1,10 +1,12 @@
 package happyhouse_team02.land.landservice.web.member;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 
 import happyhouse_team02.land.landservice.domain.Member;
-import happyhouse_team02.land.landservice.repository.member.MemberValidatedRepository;
+import happyhouse_team02.land.landservice.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class MemberValidatorImpl implements MemberValidator {
 
-	private final MemberValidatedRepository memberRepository;
+	private final MemberRepository memberRepository;
 
 	@Override
 	public void validate(MemberRegisterForm registerForm, BindingResult bindingResult) {
@@ -25,8 +27,8 @@ public class MemberValidatorImpl implements MemberValidator {
 	}
 
 	private void validateDuplicatedEmail(MemberRegisterForm registerForm, BindingResult bindingResult) {
-		Member findMember = memberRepository.getMember(registerForm.getEmail());
-		if (findMember != null){
+		Optional<Member> findMember = memberRepository.findByEmail(registerForm.getEmail());
+		if (findMember.isPresent()){
 			bindingResult.reject("alreadyRegistered");
 			return;
 		}

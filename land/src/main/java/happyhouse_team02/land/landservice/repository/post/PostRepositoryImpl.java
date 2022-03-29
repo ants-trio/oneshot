@@ -18,7 +18,9 @@ public class PostRepositoryImpl implements PostRepository {
 
 	@Override
 	public Optional<Post> findById(Long id) {
-		return Optional.ofNullable(em.find(Post.class, id));
+		return em.createQuery("select p from Post p join fetch p.member where p.id=:id", Post.class)
+			.setParameter("id", id)
+			.getResultStream().findAny();
 	}
 
 	@Override
