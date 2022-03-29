@@ -40,6 +40,7 @@ public class PostController {
 	@GetMapping("/{postId}")
 	public String post(@LoginEmail String loginEmail, @PathVariable Long postId, Model model) {
 		validateLogin(model, loginEmail);
+		model.addAttribute("postId", postId);
 		return "posts/postView";
 	}
 
