@@ -19,9 +19,8 @@ $(function () {
         alert("글 작성에 성공했습니다.");
         location.href = "/posts";
       },
-      error: function (response) {
-        alert("글 작성에는 로그인이 필요합니다.");
-        location.href = "/login";
+      error: function () {
+        alert("글 작성에 실패했습니다.");
       },
     });
   }
