@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PostValidatedRepositoryImpl implements PostValidatedRepository{
 
-	PostRepository postRepository;
+	private final PostRepository postRepository;
 
 	@Override
 	public Post getPost(Long postId) {
