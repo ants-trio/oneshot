@@ -56,7 +56,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	private void addRole(String email, PostDetailDto postDetailDto) {
-		if (email.equals(postDetailDto.getWriter())){
+		if (postDetailDto.getWriter().equals(email)){
 			postDetailDto.setRole(Role.WRITER);
 		}
 		postDetailDto.getComments().stream()
