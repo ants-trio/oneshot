@@ -1,7 +1,11 @@
 $(function () {
   let initialRequest = { pageNo: 0, amount: 10 };
-  // let tempPage;
 
+  // 계속 쓰게 될 전역 변수
+  let totalPage;
+  let totalPost;
+
+  // 시작 페이지는 따로 오더를 내리는 수 밖에
   $.ajax({
     url: "post",
     type: "GET",
@@ -17,15 +21,15 @@ $(function () {
   });
 
   function initiatePost(postData) {
-    let totalPost = postData.total;
+    totalPost = postData.total;
 
-    let totalPage = Math.ceil(totalPost / 10);
-    initialPage(totalPage);
+    totalPage = Math.ceil(totalPost / 10);
+    pagination(1);
     expressListOutline(0, totalPost);
     expressPost(postData.posts);
   }
 
-  function initialPage(totalPage) {
+  function pagination(firstPage) {
     $("#post-list-page").empty();
     $("#post-list-page").append(`
         <li>
@@ -38,8 +42,8 @@ $(function () {
           </button>
         </li>
       `);
-    for (let i = 1; i <= totalPage; i++) {
-      if (i > 10) break;
+    for (let i = firstPage; i < firstPage + 10; i++) {
+      if (i > totalPage) break;
       $("#post-list-page").append(`
         <li>
           <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" id="presentPage">${i}</button>
@@ -62,16 +66,8 @@ $(function () {
   // function markingPage(temp, present) {}
 
   $(document).on("click", "#presentPage", function () {
-    // tempPage = $(this)[0].outerText;
-    // console.log(tempPage[0].outerText);
-    // $(this).attr(
-    //   "class",
-    //   "px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple"
-    // );
-
-    // console.log($(this).html());
-
     let selectedPage = $(this).html() * 10 - 10;
+    // 0, 10, 20 순서로 찍히게 되어있다
     let postRequest = {
       pageNo: selectedPage,
       amount: 10,
@@ -83,6 +79,7 @@ $(function () {
       data: postRequest,
       contentType: "application/json; charset=utf-8",
       success: function (response) {
+        expressListOutline(selectedPage);
         expressPost(response.data.posts);
       },
       error: function (response) {
@@ -92,10 +89,16 @@ $(function () {
     });
   });
 
-  function expressListOutline(start, totalPost) {
-    $("#post-list-outline").empty().append(`
+  function expressListOutline(start) {
+    if (start + 10 <= totalPost) {
+      $("#post-list-outline").empty().append(`
       Showing ${start + 1}-${start + 10} of ${totalPost}
-    `);
+      `);
+    } else {
+      $("#post-list-outline").empty().append(`
+      Showing ${start + 1}-${totalPost} of ${totalPost}
+      `);
+    }
   }
 
   function expressPost(posts) {
