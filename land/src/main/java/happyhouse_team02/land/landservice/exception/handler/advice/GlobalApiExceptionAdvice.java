@@ -6,6 +6,7 @@ import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -52,9 +53,17 @@ public class GlobalApiExceptionAdvice {
 	@ExceptionHandler
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public FailResponseResult typeMismatchExceptionHandler(TypeMismatchException e) {
-		log.error("[notValidExceptionHandler] ex", e);
+		log.error("[typeMismatchExceptionHandler] ex", e);
 		return new FailResponseResult(FAIL, "[ERROR] 잘못된 입력입니다.");
 	}
+
+	@ExceptionHandler
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public FailResponseResult servletRequestBindingExceptionHandler(ServletRequestBindingException e) {
+		log.error("[servletRequestBindingExceptionHandler] ex", e);
+		return new FailResponseResult(FAIL, "[ERROR] 잘못된 입력입니다.");
+	}
+
 
 	@ExceptionHandler
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
