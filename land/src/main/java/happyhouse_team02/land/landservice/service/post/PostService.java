@@ -12,10 +12,20 @@ public interface PostService {
 	/**
 	 * 게시글 하나를 조회합니다.
 	 */
-	PostDetailDto findOne(String email, Long postId);
+	PostDetailDto findDetailOne(String email, Long postId);
 
 	/**
 	 * 게시글을 작성합니다.
 	 */
 	Long writePost(String loginEmail, PostDto postDto);
+
+	/**
+	 * 게시글을 수정합니다.
+	 */
+	void updatePost(String loginEmail, PostDto postDto);
+
+	/**
+	 * 게시글을 삭제합니다.
+	 */
+	void deletePost(String loginEmail, Long postId);
 }

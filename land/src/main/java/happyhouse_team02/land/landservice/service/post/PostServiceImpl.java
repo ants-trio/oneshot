@@ -10,7 +10,8 @@ import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.domain.Post;
 import happyhouse_team02.land.landservice.domain.Role;
 import happyhouse_team02.land.landservice.exception.NoSuchPostException;
-import happyhouse_team02.land.landservice.repository.post.PostJpaRepository;
+import happyhouse_team02.land.landservice.exception.UnauthorizedAccessException;
+import happyhouse_team02.land.landservice.repository.post.PostRepository;
 import happyhouse_team02.land.landservice.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 
@@ -20,17 +21,17 @@ import lombok.RequiredArgsConstructor;
 public class PostServiceImpl implements PostService {
 
 	private final MemberService memberService;
-	private final PostJpaRepository postJpaRepository;
+	private final PostRepository postRepository;
 
 	@Override
 	public Page<PostSummaryDto> findPostsSummary(int pageNo, int amount) {
 		PageRequest pageRequest = PageRequest.of(pageNo, amount, Sort.by(Sort.Direction.DESC, "createdDate"));
-		return postJpaRepository.findAll(pageRequest).map(PostSummaryDto::new);
+		return postRepository.findAll(pageRequest).map(PostSummaryDto::new);
 	}
 
 	@Override
-	public PostDetailDto findOne(String email, Long postId) {
-		Post post = postJpaRepository.findById(postId).orElseThrow(NoSuchPostException::new);
+	public PostDetailDto findDetailOne(String email, Long postId) {
+		Post post = postRepository.findById(postId).orElseThrow(NoSuchPostException::new);
 
 		return createPostDetailDto(email, post);
 	}
@@ -42,10 +43,11 @@ public class PostServiceImpl implements PostService {
 	}
 
 	private void addRole(String email, PostDetailDto postDetailDto) {
-		if (postDetailDto.getWriter().equals(email)){
+		if (postDetailDto.getWriter().equals(email)) {
 			postDetailDto.setRole(Role.WRITER);
 		}
-		postDetailDto.getComments().stream()
+		postDetailDto.getComments()
+			.stream()
 			.filter(commentDto -> commentDto.getWriter().equals(email))
 			.forEach(commentDto -> commentDto.setRole(Role.WRITER));
 	}
@@ -58,6 +60,31 @@ public class PostServiceImpl implements PostService {
 			.title(postDto.getTitle())
 			.content(postDto.getContent())
 			.build();
-		return postJpaRepository.save(post).getId();
+		return postRepository.save(post).getId();
+	}
+
+	@Override
+	@Transactional
+	public void updatePost(String loginEmail, PostDto postDto) {
+		Post post = findOne(postDto.getId());
+		post.updatePost(postDto.getTitle(), postDto.getContent());
+	}
+
+	@Override
+	@Transactional
+	public void deletePost(String loginEmail, Long postId) {
+		Post post = findOne(postId);
+		validate(loginEmail, post);
+		postRepository.delete(post);
+	}
+
+	private void validate(String loginEmail, Post post) {
+		if (!post.getMember().getEmail().equals(loginEmail)) {
+			throw new UnauthorizedAccessException();
+		}
+	}
+
+	private Post findOne(Long id) {
+		return postRepository.findById(id).orElseThrow(NoSuchPostException::new);
 	}
 }
