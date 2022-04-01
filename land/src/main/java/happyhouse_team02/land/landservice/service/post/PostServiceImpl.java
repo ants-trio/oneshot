@@ -1,21 +1,17 @@
 package happyhouse_team02.land.landservice.service.post;
 
-import static java.util.stream.Collectors.*;
-
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import happyhouse_team02.land.landservice.domain.Comment;
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.domain.Post;
 import happyhouse_team02.land.landservice.domain.Role;
-import happyhouse_team02.land.landservice.repository.comment.CommentRepository;
-import happyhouse_team02.land.landservice.repository.member.MemberValidatedRepository;
-import happyhouse_team02.land.landservice.repository.post.PostRepository;
-import happyhouse_team02.land.landservice.repository.post.PostValidatedRepository;
-import happyhouse_team02.land.landservice.service.comment.CommentDto;
+import happyhouse_team02.land.landservice.exception.NoSuchPostException;
+import happyhouse_team02.land.landservice.repository.post.PostJpaRepository;
+import happyhouse_team02.land.landservice.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -23,35 +19,25 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class PostServiceImpl implements PostService {
 
-	private final MemberValidatedRepository memberRepository;
-	private final PostRepository postRepository;
-	private final CommentRepository commentRepository;
-	private final PostValidatedRepository postValidatedRepository;
-	// TODO 리팩터링 해야하는 부분, JPA 를 공부하고 다시 해보자.
+	private final MemberService memberService;
+	private final PostJpaRepository postJpaRepository;
 
 	@Override
-	public List<PostSummaryDto> findPostsSummary(int pageNo, int amount) {
-		return postRepository.findAll(pageNo, amount).stream().map(PostSummaryDto::new).collect(toList());
-	}
-
-	@Override
-	public Long countPosts() {
-		return postRepository.countPosts();
+	public Page<PostSummaryDto> findPostsSummary(int pageNo, int amount) {
+		PageRequest pageRequest = PageRequest.of(pageNo, amount, Sort.by(Sort.Direction.DESC, "createdDate"));
+		return postJpaRepository.findAll(pageRequest).map(PostSummaryDto::new);
 	}
 
 	@Override
 	public PostDetailDto findOne(String email, Long postId) {
-		Post post = postValidatedRepository.getPost(postId);
-		List<Comment> comments = commentRepository.findByPostId(postId);
-		PostDetailDto postDetailDto = createPostDetailDto(post, comments);
-		addRole(email, postDetailDto);
-		return postDetailDto;
+		Post post = postJpaRepository.findById(postId).orElseThrow(NoSuchPostException::new);
+
+		return createPostDetailDto(email, post);
 	}
 
-	private PostDetailDto createPostDetailDto(Post post, List<Comment> comments) {
+	private PostDetailDto createPostDetailDto(String email, Post post) {
 		PostDetailDto postDetailDto = new PostDetailDto(post);
-		List<CommentDto> commentDto = comments.stream().map(CommentDto::new).collect(toList());
-		postDetailDto.setComments(commentDto);
+		addRole(email, postDetailDto);
 		return postDetailDto;
 	}
 
@@ -67,11 +53,11 @@ public class PostServiceImpl implements PostService {
 	@Override
 	@Transactional
 	public Long writePost(String loginEmail, PostDto postDto) {
-		Member findMember = memberRepository.getMember(loginEmail);
+		Member findMember = memberService.findOne(loginEmail);
 		Post post = new Post.Builder().member(findMember)
 			.title(postDto.getTitle())
 			.content(postDto.getContent())
 			.build();
-		return postRepository.save(post);
+		return postJpaRepository.save(post).getId();
 	}
 }

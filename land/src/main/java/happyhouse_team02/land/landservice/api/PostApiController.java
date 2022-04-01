@@ -1,9 +1,8 @@
 package happyhouse_team02.land.landservice.api;
 
-import java.util.List;
-
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,10 +34,9 @@ public class PostApiController {
 	@GetMapping
 	public SuccessResponseResult getPosts(@RequestParam int pageNo,
 										  @RequestParam int amount) {
-		Long total = postService.countPosts();
-		List<PostSummaryDto> postsSummary = postService.findPostsSummary(pageNo, amount);
+		Page<PostSummaryDto> postsSummary = postService.findPostsSummary(pageNo, amount);
 
-		return new SuccessResponseResult(new GetPostsResponse(total, postsSummary));
+		return new SuccessResponseResult(new GetPostsResponse(postsSummary));
 	}
 
 	@PostMapping("/new")
@@ -61,8 +59,7 @@ public class PostApiController {
 	@Data
 	@AllArgsConstructor
 	static class GetPostsResponse {
-		private Long total;
-		private List<PostSummaryDto> posts;
+		private Page<PostSummaryDto> posts;
 	}
 
 	@Data

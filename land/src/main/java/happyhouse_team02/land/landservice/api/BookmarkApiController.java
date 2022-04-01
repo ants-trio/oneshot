@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import happyhouse_team02.land.landservice.service.bookmark.BookmarkDto;
 import happyhouse_team02.land.landservice.service.bookmark.BookmarkService;
-import happyhouse_team02.land.landservice.service.member.MemberService;
+import happyhouse_team02.land.landservice.service.bookmark.BookmarkDto;
 import happyhouse_team02.land.landservice.web.argumentresolver.LoginEmail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,17 +27,13 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/bookmark")
 public class BookmarkApiController {
 
-	private final MemberService memberService;
 	private final BookmarkService bookmarkService;
 
 	@GetMapping
 	public SuccessResponseResult getBookmarks(@LoginEmail String loginEmail) {
-
 		List<BookmarkDto> bookmarks = bookmarkService.findBookmarks(loginEmail);
-
 		return new SuccessResponseResult(new GetBookmarkResponse(bookmarks));
 	}
-
 
 	@PostMapping("/new")
 	public SuccessResponseResult addBookmark(@LoginEmail String loginEmail,
@@ -51,9 +46,9 @@ public class BookmarkApiController {
 
 	@DeleteMapping
 	public SuccessResponseResult deleteBookmark(@LoginEmail String loginEmail,
-										 		@Validated @RequestBody DeleteBookmarkRequest request) {
+												@Validated @RequestBody DeleteBookmarkRequest request) {
 
-		memberService.deleteBookmarkFromMember(request.getBookmarkId(), loginEmail);
+		bookmarkService.deleteBookmark(loginEmail, request.getBookmarkId());
 
 		return new SuccessResponseResult();
 	}
@@ -84,6 +79,5 @@ public class BookmarkApiController {
 		@NotNull
 		private Long bookmarkId;
 	}
-
 
 }

@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import happyhouse_team02.land.landservice.service.member.LoginService;
+import happyhouse_team02.land.landservice.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
 
-	private final LoginService loginService;
+	private final MemberService memberService;
 	private final LoginValidator loginValidator;
 
 	@GetMapping("/login")
@@ -38,7 +38,7 @@ public class LoginController {
 			return "member/login";
 		}
 
-		loginService.login(request, form.getEmail());
+		memberService.login(request, form.getEmail());
 		return "redirect:" + redirectURL;
 	}
 
