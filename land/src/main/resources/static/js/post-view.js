@@ -16,8 +16,15 @@ $(function () {
   });
 
   function postDetail(postData) {
-    $("#post-title").empty().append(`<p>${postData.title}</p>`);
-    $("#post-content").empty().append(`<p>${postData.content}</p>`);
+    $("#post-title").empty().append(`<p class="text-2xl lh-base fw-bold">${postData.title}</p>`);
+    $("#post-info").empty().append(`
+      <p class="text-sm" style="color:rgba(0,0,0,0.7)">${postData.writer}</p>
+      <p class="text-sm d-fle align-items-center">
+        <i class="fa-solid fa-clock me-1" style="color:rgba(0,0,0,0.7)"></i>
+        <span id="created_time" style="color:rgba(0,0,0,0.7)">${postData.createdDate}</span>
+      </p>
+    `);
+    $("#post-content").empty().append(`<p class="1h-base">${postData.content}</p>`);
   }
 
   function expressPostBtn(role) {
@@ -38,7 +45,7 @@ $(function () {
     }
     $("#post-admin-btn").append(`
       <a href="/posts" th:href="@{/posts}"
-        class="list_more_btn flex ms-2 items-center justify-between text-sm px-3 py-2 font-semibold text-sm leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+        class="list_more_btn flex ms-2 items-center justify-between text-sm px-3 py-2 font-semibold text-sm leading-tight rounded-full"
         aria-label="Edit">
         목록
       </a>
@@ -70,7 +77,7 @@ $(function () {
         수정완료
       </button>
       <a href="/posts" th:href="@{/posts}"
-        class="list_more_btn flex ms-2 items-center justify-between text-sm px-3 py-2 font-semibold text-sm leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+        class="list_more_btn flex ms-2 items-center justify-between text-sm px-3 py-2 font-semibold text-sm leading-tight rounded-full"
         aria-label="Edit">
         목록
       </a>
