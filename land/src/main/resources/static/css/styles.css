@@ -12452,11 +12452,39 @@ body {
 .n_hover:hover {color:#f3e8ff;}
 .sub_post_tb_box {border:1px solid #d5d6d7;}
 .post_write_btn:hover {color:#9333EA}
-.post_more_btn {color: #374151;}
-.post_more_btn:hover {color: #374151;}
+.post_more_btn {color: #9333EA;}
+.post_more_btn:hover {color: #9333EA;}
+#post-modify, #post-register {
+  background-color: #7e3af2 !important;
+  color: #fff;
+}
+#post-delete {
+  border: 2px solid #7e3af2;
+  background: #fff;
+  color: #7e3af2;
+}
+.list_more_btn{
+  background: rgba(0,0,0,0.05);
+  color: #374151;
+}
+.list_more_btn:hover{
+  color: #374151 !important;
+}
 
 /*게시판 - view */
 .list_more_btn:hover {color:#15803D}
+.comment_item {border-radius:2px;background-color: rgba(0, 0, 0, 0.015);position: relative;}
+.comment_item::before{
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top:1%;
+  width: 2.5px;
+  height: 98%;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  background-color: #9333EA;}
 
 /*반응형작업*/
 @media (max-width:1024px) {
