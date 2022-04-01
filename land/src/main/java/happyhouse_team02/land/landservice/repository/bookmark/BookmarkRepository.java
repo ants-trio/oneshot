@@ -1,8 +1,8 @@
 package happyhouse_team02.land.landservice.repository.bookmark;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import happyhouse_team02.land.landservice.domain.Bookmark;
 
-public interface BookmarkRepository {
-	Long save(Bookmark bookmark);
-
+public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
 }

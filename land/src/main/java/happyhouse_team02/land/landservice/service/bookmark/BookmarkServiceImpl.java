@@ -4,36 +4,59 @@ import static java.util.stream.Collectors.*;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import happyhouse_team02.land.landservice.domain.Area;
 import happyhouse_team02.land.landservice.domain.Bookmark;
 import happyhouse_team02.land.landservice.domain.Member;
-import happyhouse_team02.land.landservice.repository.bookmark.BookmarkValidatedRepository;
-import happyhouse_team02.land.landservice.repository.member.MemberValidatedRepository;
+import happyhouse_team02.land.landservice.exception.DuplicatedBookmarkException;
+import happyhouse_team02.land.landservice.repository.bookmark.BookmarkRepository;
+import happyhouse_team02.land.landservice.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 
-@Component
+@Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class BookmarkServiceImpl implements BookmarkService {
 
-	private final MemberValidatedRepository memberRepository;
-	private final BookmarkValidatedRepository bookmarkRepository;
-	private final BookmarkDtoValidator validator;
-
-	@Override
-	public List<BookmarkDto> findBookmarks(String email) {
-		Member findMember = memberRepository.getMember(email);
-		return findMember.getBookmarks().stream().map(BookmarkDto::new).collect(toList());
-	}
+	private final MemberService memberService;
+	private final BookmarkRepository bookmarkRepository;
 
 	@Override
 	@Transactional
 	public Long addBookmark(String email, BookmarkDto bookmarkDto) {
-		Member findMember = memberRepository.getMember(email);
-		Bookmark bookmark = validator.getBookmark(findMember, bookmarkDto);
-		return bookmarkRepository.save(bookmark);
+		Member findMember = memberService.findOne(email);
+		Bookmark bookmark = validateBookmarkDto(findMember, bookmarkDto);
+		return bookmarkRepository.save(bookmark).getId();
+	}
+
+	@Override
+	@Transactional
+	public void deleteBookmark(String email, Long bookmarkId) {
+		Member findMember = memberService.findOne(email);
+		findMember.getBookmarks().removeIf(bookmark -> bookmark.getId().equals(bookmarkId));
+	}
+
+	@Override
+	public List<BookmarkDto> findBookmarks(String email) {
+		Member findMember = memberService.findOne(email);
+		return findMember.getBookmarks().stream().map(BookmarkDto::new).collect(toList());
+	}
+
+
+	private Bookmark validateBookmarkDto(Member member, BookmarkDto bookmarkDto) {
+		validateDuplicated(member, bookmarkDto.getArea());
+		return Bookmark.createBookmark(member, bookmarkDto.getArea());
+	}
+
+	private void validateDuplicated(Member findMember, Area area) {
+		findMember.getBookmarks()
+			.stream()
+			.filter(bookmark -> bookmark.getArea().equals(area))
+			.findAny()
+			.ifPresent(bookmark -> {
+				throw new DuplicatedBookmarkException();
+			});
 	}
 
 }
