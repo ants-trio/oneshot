@@ -1,5 +1,7 @@
 package happyhouse_team02.land.landservice.service.post;
 
+import static java.util.stream.Collectors.*;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,5 +28,6 @@ public class PostDetailDto {
 		title = post.getTitle();
 		content = post.getContent();
 		createdDate = post.getCreatedDate();
+		comments = post.getComments().stream().map(CommentDto::new).collect(toList());
 	}
 }

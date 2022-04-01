@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 
 import happyhouse_team02.land.landservice.domain.Member;
-import happyhouse_team02.land.landservice.repository.member.MemberValidatedRepository;
+import happyhouse_team02.land.landservice.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class LoginValidatorImpl implements LoginValidator {
 
-	private final MemberValidatedRepository memberRepository;
+	private final MemberService memberService;
 
 	@Override
 	public void validate(LoginForm loginForm, BindingResult bindingResult) {
@@ -24,7 +24,7 @@ public class LoginValidatorImpl implements LoginValidator {
 	}
 
 	private void validateEmailAndPassword(LoginForm loginForm, BindingResult bindingResult) {
-		Member findMember = memberRepository.getMember(loginForm.getEmail());
+		Member findMember = memberService.findOne(loginForm.getEmail());
 		if (findMember == null) {
 			bindingResult.reject("absentEmail");
 			return;
