@@ -1,14 +1,18 @@
 package happyhouse_team02.land.landservice.api.comment;
 
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import happyhouse_team02.land.landservice.api.SuccessResponseResult;
+import happyhouse_team02.land.landservice.service.comment.CommentDto;
 import happyhouse_team02.land.landservice.service.comment.CommentService;
 import happyhouse_team02.land.landservice.web.argumentresolver.LoginEmail;
 import lombok.AllArgsConstructor;
@@ -25,9 +29,12 @@ public class CommentApiController {
 
 	@PostMapping("/new")
 	public SuccessResponseResult writeComment(@LoginEmail String loginEmail,
-											  @PathVariable Long postId) {
+											  @PathVariable Long postId,
+											  @Validated @RequestBody WriteCommentRequest request) {
+		CommentDto commentDto = new CommentDto(postId, request.getContent());
+		Long commentId = commentService.writeComment(loginEmail, commentDto);
 
-		return new SuccessResponseResult();
+		return new SuccessResponseResult(new WriteCommentResponse(commentId));
 	}
 
 	@PatchMapping("/{commentId}")
@@ -48,7 +55,15 @@ public class CommentApiController {
 
 	@Data
 	@AllArgsConstructor
-	static class GetPostsResponse {
+	static class WriteCommentRequest {
 
+		@NotEmpty
+		private String content;
+	}
+
+	@Data
+	@AllArgsConstructor
+	static class WriteCommentResponse {
+		private Long commentId;
 	}
 }

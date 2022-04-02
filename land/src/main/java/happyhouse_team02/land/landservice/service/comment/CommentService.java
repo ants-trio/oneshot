@@ -9,7 +9,7 @@ public interface CommentService {
 	/**
 	 * 특정 게시글의 댓글을 작성합니다.
 	 */
-	Long writeComment(Comment comment);
+	Long writeComment(String email, CommentDto commentDto);
 
 	/**
 	 * 특정 게시글의 댓글을 조회합니다.
