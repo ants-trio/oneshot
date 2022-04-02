@@ -54,7 +54,6 @@ public class CommentApiController {
 	}
 
 	@Data
-	@AllArgsConstructor
 	static class WriteCommentRequest {
 
 		@NotEmpty
