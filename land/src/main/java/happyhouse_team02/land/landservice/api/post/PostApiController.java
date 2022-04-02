@@ -54,7 +54,7 @@ public class PostApiController {
 
 	@GetMapping("/{postId}")
 	public SuccessResponseResult getPost(@LoginEmail String loginEmail, @Validated @PathVariable Long postId) {
-		Post post = postService.findOne(loginEmail, postId);
+		Post post = postService.findOne(postId);
 		PostResponseDto postDetailDto = createPostDetailDto(loginEmail, post);
 
 		return new SuccessResponseResult(new GetPostResponse(postDetailDto));

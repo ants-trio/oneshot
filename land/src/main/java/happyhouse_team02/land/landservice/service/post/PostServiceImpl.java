@@ -29,7 +29,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public Post findOne(String email, Long postId) {
+	public Post findOne(Long postId) {
 		return postRepository.findDistinctById(postId).orElseThrow(NoSuchPostException::new);
 	}
 
@@ -64,9 +64,5 @@ public class PostServiceImpl implements PostService {
 		if (!post.getMember().getEmail().equals(loginEmail)) {
 			throw new UnauthorizedAccessException();
 		}
-	}
-
-	private Post findOne(Long id) {
-		return postRepository.findById(id).orElseThrow(NoSuchPostException::new);
 	}
 }

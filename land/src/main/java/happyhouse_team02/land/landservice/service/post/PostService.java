@@ -14,7 +14,7 @@ public interface PostService {
 	/**
 	 * 게시글 하나를 조회합니다.
 	 */
-	Post findOne(String email, Long postId);
+	Post findOne(Long postId);
 
 	/**
 	 * 게시글을 작성합니다.
