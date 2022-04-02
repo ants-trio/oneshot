@@ -1,7 +1,5 @@
 package happyhouse_team02.land.landservice.service.bookmark;
 
-import static java.util.stream.Collectors.*;
-
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -17,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class BookmarkServiceImpl implements BookmarkService {
 
 	private final MemberService memberService;
@@ -38,9 +37,9 @@ public class BookmarkServiceImpl implements BookmarkService {
 	}
 
 	@Override
-	public List<BookmarkDto> findBookmarks(String email) {
+	public List<Bookmark> findBookmarks(String email) {
 		Member findMember = memberService.findOne(email);
-		return findMember.getBookmarks().stream().map(BookmarkDto::new).collect(toList());
+		return findMember.getBookmarks();
 	}
 
 

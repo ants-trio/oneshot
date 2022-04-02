@@ -8,10 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.domain.Post;
-import happyhouse_team02.land.landservice.domain.Role;
 import happyhouse_team02.land.landservice.exception.NoSuchPostException;
 import happyhouse_team02.land.landservice.exception.UnauthorizedAccessException;
 import happyhouse_team02.land.landservice.repository.post.PostRepository;
+import happyhouse_team02.land.landservice.service.comment.CommentService;
 import happyhouse_team02.land.landservice.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 
@@ -21,36 +21,20 @@ import lombok.RequiredArgsConstructor;
 public class PostServiceImpl implements PostService {
 
 	private final MemberService memberService;
+	private final CommentService commentService;
 	private final PostRepository postRepository;
 
 	@Override
-	public Page<PostSummaryDto> findPostsSummary(int pageNo, int amount) {
+	public Page<Post> findPostPages(int pageNo, int amount) {
 		PageRequest pageRequest = PageRequest.of(pageNo, amount, Sort.by(Sort.Direction.DESC, "createdDate"));
-		return postRepository.findAll(pageRequest).map(PostSummaryDto::new);
+		return postRepository.findAll(pageRequest);
 	}
 
 	@Override
-	public PostDetailDto findDetailOne(String email, Long postId) {
-		Post post = postRepository.findById(postId).orElseThrow(NoSuchPostException::new);
-
-		return createPostDetailDto(email, post);
+	public Post findOne(String email, Long postId) {
+		return postRepository.findDistinctById(postId).orElseThrow(NoSuchPostException::new);
 	}
 
-	private PostDetailDto createPostDetailDto(String email, Post post) {
-		PostDetailDto postDetailDto = new PostDetailDto(post);
-		addRole(email, postDetailDto);
-		return postDetailDto;
-	}
-
-	private void addRole(String email, PostDetailDto postDetailDto) {
-		if (postDetailDto.getWriter().equals(email)) {
-			postDetailDto.setRole(Role.WRITER);
-		}
-		postDetailDto.getComments()
-			.stream()
-			.filter(commentDto -> commentDto.getWriter().equals(email))
-			.forEach(commentDto -> commentDto.setRole(Role.WRITER));
-	}
 
 	@Override
 	@Transactional

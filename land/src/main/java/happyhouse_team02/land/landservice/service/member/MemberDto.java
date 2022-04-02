@@ -10,8 +10,6 @@ import lombok.Data;
 public class MemberDto {
 
 	private String email;
-
 	private List<PostDto> posts;
-
 	private List<CommentDto> comments;
 }

@@ -1,4 +1,4 @@
-package happyhouse_team02.land.landservice.api;
+package happyhouse_team02.land.landservice.api.post;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import happyhouse_team02.land.landservice.service.post.PostDetailDto;
+import happyhouse_team02.land.landservice.api.SuccessResponseResult;
+import happyhouse_team02.land.landservice.domain.Post;
+import happyhouse_team02.land.landservice.domain.Role;
 import happyhouse_team02.land.landservice.service.post.PostDto;
 import happyhouse_team02.land.landservice.service.post.PostService;
-import happyhouse_team02.land.landservice.service.post.PostSummaryDto;
 import happyhouse_team02.land.landservice.web.argumentresolver.LoginEmail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,7 +37,7 @@ public class PostApiController {
 	@GetMapping
 	public SuccessResponseResult getPosts(@RequestParam int pageNo,
 										  @RequestParam int amount) {
-		Page<PostSummaryDto> postsSummary = postService.findPostsSummary(pageNo, amount);
+		Page<PostPageResponseDto> postsSummary = postService.findPostPages(pageNo, amount).map(PostPageResponseDto::new);
 
 		return new SuccessResponseResult(new GetPostsResponse(postsSummary));
 	}
@@ -53,9 +54,10 @@ public class PostApiController {
 
 	@GetMapping("/{postId}")
 	public SuccessResponseResult getPost(@LoginEmail String loginEmail, @Validated @PathVariable Long postId) {
-		PostDetailDto post = postService.findDetailOne(loginEmail, postId);
+		Post post = postService.findOne(loginEmail, postId);
+		PostResponseDto postDetailDto = createPostDetailDto(loginEmail, post);
 
-		return new SuccessResponseResult(new GetPostResponse(post));
+		return new SuccessResponseResult(new GetPostResponse(postDetailDto));
 	}
 
 	@PatchMapping("/{postId}")
@@ -79,7 +81,7 @@ public class PostApiController {
 	@Data
 	@AllArgsConstructor
 	static class GetPostsResponse {
-		private Page<PostSummaryDto> posts;
+		private Page<PostPageResponseDto> posts;
 	}
 
 	@Data
@@ -99,8 +101,25 @@ public class PostApiController {
 	@Data
 	@AllArgsConstructor
 	static class GetPostResponse {
-		private PostDetailDto postDetailDto;
+		private PostResponseDto postResponseDto;
 	}
+
+	private PostResponseDto createPostDetailDto(String email, Post post) {
+		PostResponseDto postResponseDto = new PostResponseDto(post);
+		addRole(email, postResponseDto);
+		return postResponseDto;
+	}
+
+	private void addRole(String email, PostResponseDto postResponseDto) {
+		if (postResponseDto.getWriter().equals(email)) {
+			postResponseDto.setRole(Role.WRITER);
+		}
+		postResponseDto.getComments()
+			.stream()
+			.filter(commentDto -> commentDto.getWriter().equals(email))
+			.forEach(commentDto -> commentDto.setRole(Role.WRITER));
+	}
+
 
 	@Data
 	static class UpdatePostRequest {

@@ -2,11 +2,13 @@ package happyhouse_team02.land.landservice.service.bookmark;
 
 import java.util.List;
 
+import happyhouse_team02.land.landservice.domain.Bookmark;
+
 public interface BookmarkService {
 	/**
 	 * 아이디로 북마크들을 조회합니다.
 	 */
-	List<BookmarkDto> findBookmarks(String email);
+	List<Bookmark> findBookmarks(String email);
 
 	/**
 	 * 북마크를 추가합니다.
