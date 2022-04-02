@@ -7,18 +7,17 @@ import happyhouse_team02.land.landservice.domain.Member;
 public interface MemberService {
 
 	/**
-	 * 로그인
-	 * 세션 키와 email 을 매핑하여 저장한다.
+	 * 세션을 이용하여 로그인합니다.
 	 */
 	void login(HttpServletRequest request, String email);
 
 	/**
-	 * 회원 조회
+	 * 회원을 조회합니다.
 	 */
 	Member findOne(String email);
 
 	/**
-	 * 회원 가입
+	 * 회원 가입을 합니다.
 	 */
 	Long join(Member member);
 

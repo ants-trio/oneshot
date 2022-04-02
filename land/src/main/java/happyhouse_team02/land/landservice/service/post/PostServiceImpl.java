@@ -11,7 +11,6 @@ import happyhouse_team02.land.landservice.domain.Post;
 import happyhouse_team02.land.landservice.exception.NoSuchPostException;
 import happyhouse_team02.land.landservice.exception.UnauthorizedAccessException;
 import happyhouse_team02.land.landservice.repository.post.PostRepository;
-import happyhouse_team02.land.landservice.service.comment.CommentService;
 import happyhouse_team02.land.landservice.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +20,6 @@ import lombok.RequiredArgsConstructor;
 public class PostServiceImpl implements PostService {
 
 	private final MemberService memberService;
-	private final CommentService commentService;
 	private final PostRepository postRepository;
 
 	@Override
