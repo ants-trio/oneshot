@@ -55,7 +55,6 @@ $(function () {
   $(document).on("click", "#post-modify", function () {
     let prevTitle = $("#post-title").text();
     let prevContent = $("#post-content").text();
-    console.log(prevContent);
     $("#post-title").empty().append(`
       <form action="">
         <input type="email" id="update-title" class="form-control"
@@ -85,10 +84,41 @@ $(function () {
   });
 
   $(document).on("click", "#post-update", function () {
-    //TODO
+    let updateRequest = {
+      title: $("#update-title").val(),
+      content: $("#update-content").val(),
+    };
+    console.log(updateRequest);
+
+    $.ajax({
+      url: "/post/" + postId,
+      type: "PATCH",
+      data: JSON.stringify(updateRequest),
+      contentType: "application/json; charset=utf-8",
+      success: function (response) {
+        alert("글 수정에 성공했습니다.");
+        location.href = "/posts/" + postId;
+      },
+      error: function () {
+        alert("글 수정에 실패했습니다.");
+      },
+    });
   });
 
   $(document).on("click", "#post-delete", function () {
-    //TODO
+    $.ajax({
+      url: "/post/" + postId,
+      type: "DELETE",
+      data: "",
+      contentType: "application/json; charset=utf-8",
+      success: function (response) {
+        confirm("게시물을 삭제하시겠습니까?");
+        alert("글 삭제에 성공했습니다.");
+        location.href = "/posts";
+      },
+      error: function () {
+        alert("글 삭제에 실패했습니다.");
+      },
+    });
   });
 });
