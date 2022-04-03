@@ -9,7 +9,7 @@ import happyhouse_team02.land.landservice.domain.Comment;
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.domain.Post;
 import happyhouse_team02.land.landservice.exception.NoSuchCommentException;
-import happyhouse_team02.land.landservice.repository.comment.CommentRepository;
+import happyhouse_team02.land.landservice.repository.CommentRepository;
 import happyhouse_team02.land.landservice.service.member.MemberService;
 import happyhouse_team02.land.landservice.service.post.PostService;
 import lombok.RequiredArgsConstructor;

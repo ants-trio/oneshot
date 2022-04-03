@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.exception.NoLoginException;
 import happyhouse_team02.land.landservice.exception.NoSuchMemberException;
-import happyhouse_team02.land.landservice.repository.member.MemberRepository;
+import happyhouse_team02.land.landservice.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service

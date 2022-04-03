@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 
 import happyhouse_team02.land.landservice.domain.Member;
-import happyhouse_team02.land.landservice.repository.member.MemberRepository;
+import happyhouse_team02.land.landservice.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

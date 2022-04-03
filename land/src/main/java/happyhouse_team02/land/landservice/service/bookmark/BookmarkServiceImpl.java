@@ -9,7 +9,7 @@ import happyhouse_team02.land.landservice.domain.Area;
 import happyhouse_team02.land.landservice.domain.Bookmark;
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.exception.DuplicatedBookmarkException;
-import happyhouse_team02.land.landservice.repository.bookmark.BookmarkRepository;
+import happyhouse_team02.land.landservice.repository.BookmarkRepository;
 import happyhouse_team02.land.landservice.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 

@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.domain.Post;
 import happyhouse_team02.land.landservice.exception.NoSuchPostException;
-import happyhouse_team02.land.landservice.repository.post.PostRepository;
+import happyhouse_team02.land.landservice.repository.PostRepository;
 import happyhouse_team02.land.landservice.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 

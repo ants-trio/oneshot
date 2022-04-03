@@ -1,4 +1,4 @@
-package happyhouse_team02.land.landservice.repository.bookmark;
+package happyhouse_team02.land.landservice.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

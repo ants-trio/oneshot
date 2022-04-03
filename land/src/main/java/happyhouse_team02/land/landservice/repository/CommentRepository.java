@@ -1,4 +1,4 @@
-package happyhouse_team02.land.landservice.repository.comment;
+package happyhouse_team02.land.landservice.repository;
 
 import java.util.List;
 import java.util.Optional;
