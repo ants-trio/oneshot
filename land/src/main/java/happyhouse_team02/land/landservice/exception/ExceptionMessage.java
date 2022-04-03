@@ -24,30 +24,35 @@ public interface ExceptionMessage {
 	/**
 	 * 조회한 회원이 이미 가입되어 있는 경우
 	 */
-	String DUPLICATED_MEMBER_MASSAGE = "[ERROR] 이미 존재하는 회원입니다.";
+	String DUPLICATED_MEMBER_MESSAGE = "[ERROR] 이미 존재하는 회원입니다.";
 
 	/**
 	 * 조회한 회원을 찾을 수 없는 경우
 	 */
-	String NO_SUCH_MEMBER_MASSAGE = "[ERROR] 존재하지 않는 회원입니다.";
+	String NO_SUCH_MEMBER_MESSAGE = "[ERROR] 존재하지 않는 회원입니다.";
 
 	/**
 	 * 비밀번호가 일치하지 않는 경우
 	 */
-	String PASSWORD_DOES_NOT_MATCH_MASSAGE = "[ERROR] 비밀번호가 일치하지 않습니다.";
+	String PASSWORD_DOES_NOT_MATCH_MESSAGE = "[ERROR] 비밀번호가 일치하지 않습니다.";
 
 	/**
 	 * 조회한 게시물을 찾을 수 없는 경우
 	 */
-	String NO_SUCH_POST_MASSAGE = "[ERROR] 존재하지 않는 포스트입니다.";
+	String NO_SUCH_POST_MESSAGE = "[ERROR] 존재하지 않는 포스트입니다.";
 
 	/**
 	 * 조회한 북마크를 찾을 수 없는 경우
 	 */
-	String NO_SUCH_BOOKMARK_MASSAGE = "[ERROR] 존재하지 않는 북마크입니다.";
+	String NO_SUCH_BOOKMARK_MESSAGE = "[ERROR] 존재하지 않는 북마크입니다.";
 
 	/**
 	 * 조회한 북마크가 이미 있는 경우
 	 */
-	String DUPLICATED_BOOKMARK_MASSAGE = "[ERROR] 이미 존재하는 북마크입니다.";
+	String DUPLICATED_BOOKMARK_MESSAGE = "[ERROR] 이미 존재하는 북마크입니다.";
+
+	/**
+	 * 조회한 댓글을 찾을 수 없는 경우
+	 */
+	String NO_SUCH_COMMENT_MESSAGE = "[ERROR] 존재하지 않는 댓글입니다.";
 }
