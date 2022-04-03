@@ -57,6 +57,8 @@ public class CommentApiController {
 											   @PathVariable Long postId,
 											   @PathVariable Long commentId,
 											   @Validated @RequestBody UpdateCommentRequest request) {
+		CommentDto commentDto = new CommentDto(postId, commentId, request.getContent());
+		commentService.updateComment(loginEmail, commentDto);
 
 		return new SuccessResponseResult();
 	}
@@ -64,6 +66,7 @@ public class CommentApiController {
 	@DeleteMapping("/{commentId}")
 	public SuccessResponseResult deleteComment(@LoginEmail String loginEmail, @PathVariable Long postId,
 											   @PathVariable Long commentId) {
+		commentService.deleteComment(loginEmail, commentId);
 
 		return new SuccessResponseResult();
 	}
