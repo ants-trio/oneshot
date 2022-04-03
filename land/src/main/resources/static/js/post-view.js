@@ -7,8 +7,9 @@ $(function () {
     data: "",
     contentType: "application/json; charset=utf-8",
     success: function (response) {
-      postDetail(response.data.postDetailDto);
-      expressPostBtn(response.data.postDetailDto.role);
+      postDetail(response.data.postResponseDto);
+      expressComment(response.data.postResponseDto.comments);
+      expressPostBtn(response.data.postResponseDto.role);
     },
     error: function () {
       console.log("error");
@@ -16,8 +17,34 @@ $(function () {
   });
 
   function postDetail(postData) {
-    $("#post-title").empty().append(`<p>${postData.title}</p>`);
-    $("#post-content").empty().append(`<p>${postData.content}</p>`);
+    $("#post-title").empty().append(`<p class="text-2xl lh-base fw-bold">${postData.title}</p>`);
+    $("#post-info").empty().append(`
+      <p class="text-sm" style="color:rgba(0,0,0,0.7)">${postData.writer}</p>
+      <p class="text-sm d-fle align-items-center">
+        <i class="fa-solid fa-clock me-1" style="color:rgba(0,0,0,0.7)"></i>
+        <span id="created_time" style="color:rgba(0,0,0,0.7)">${postData.createdDate}</span>
+      </p>
+    `);
+    $("#post-content").empty().append(`<p class="1h-base">${postData.content}</p>`);
+  }
+
+  function expressComment(commentData) {
+    $("#post-comment").empty();
+    for (let i = 0; i < commentData.length; i++) {
+      $("#post-comment").append(`
+        <li class="comment_item p-4 my-3">
+          <div class="comment_hd">
+            <p class="fw-bold" id="comment_id">${commentData[i].writer}</p>
+          </div>
+          <div class="comment_body mt-3 mb-2">
+            <p class="comment_content" id="comment_content">${commentData[i].content}</p>
+          </div>
+            <div class="comment_ft">
+            <p class="comment_date text-xs fw-lighter" id="comment_date" style="color:rgba(0,0,0,0.5)">${commentData[i].createdDate}</p>
+          </div>
+        </li>
+      `);
+    }
   }
 
   function expressPostBtn(role) {
@@ -38,7 +65,7 @@ $(function () {
     }
     $("#post-admin-btn").append(`
       <a href="/posts" th:href="@{/posts}"
-        class="list_more_btn flex ms-2 items-center justify-between text-sm px-3 py-2 font-semibold text-sm leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+        class="list_more_btn flex ms-2 items-center justify-between text-sm px-3 py-2 font-semibold text-sm leading-tight rounded-full"
         aria-label="Edit">
         목록
       </a>
@@ -48,7 +75,6 @@ $(function () {
   $(document).on("click", "#post-modify", function () {
     let prevTitle = $("#post-title").text();
     let prevContent = $("#post-content").text();
-    console.log(prevContent);
     $("#post-title").empty().append(`
       <form action="">
         <input type="email" id="update-title" class="form-control"
@@ -70,7 +96,7 @@ $(function () {
         수정완료
       </button>
       <a href="/posts" th:href="@{/posts}"
-        class="list_more_btn flex ms-2 items-center justify-between text-sm px-3 py-2 font-semibold text-sm leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+        class="list_more_btn flex ms-2 items-center justify-between text-sm px-3 py-2 font-semibold text-sm leading-tight rounded-full"
         aria-label="Edit">
         목록
       </a>
@@ -78,10 +104,79 @@ $(function () {
   });
 
   $(document).on("click", "#post-update", function () {
-    //TODO
+    let updateRequest = {
+      title: $("#update-title").val(),
+      content: $("#update-content").val(),
+    };
+    console.log(updateRequest);
+
+    $.ajax({
+      url: "/post/" + postId,
+      type: "PATCH",
+      data: JSON.stringify(updateRequest),
+      contentType: "application/json; charset=utf-8",
+      success: function (response) {
+        alert("글 수정에 성공했습니다.");
+        location.href = "/posts/" + postId;
+      },
+      error: function () {
+        alert("글 수정에 실패했습니다.");
+      },
+    });
   });
 
   $(document).on("click", "#post-delete", function () {
-    //TODO
+    $.ajax({
+      url: "/post/" + postId,
+      type: "DELETE",
+      data: "",
+      contentType: "application/json; charset=utf-8",
+      success: function (response) {
+        confirm("게시물을 삭제하시겠습니까?");
+        alert("글 삭제에 성공했습니다.");
+        location.href = "/posts";
+      },
+      error: function () {
+        alert("글 삭제에 실패했습니다.");
+      },
+    });
   });
+
+  $("#comment-register").on("click", function () {
+    let commentData = $("#write-comment").val();
+    if (commentData == null || commentData == "") {
+      alert("댓글 내용을 입력해주세요");
+    } else {
+      let commentRequest = {
+        content: commentData,
+      };
+      addComment(commentRequest);
+    }
+  });
+  function addComment(commentRequest) {
+    $.ajax({
+      url: "/post/" + postId + "/comment/new",
+      type: "POST",
+      data: JSON.stringify(commentRequest),
+      contentType: "application/json; charset=utf-8",
+      success: function (response) {
+        $.ajax({
+          url: "/post/" + postId,
+          type: "GET",
+          data: "",
+          contentType: "application/json; charset=utf-8",
+          success: function (response) {
+            expressComment(response.data.postResponseDto.comments);
+            $("#write-comment").val("");
+          },
+          error: function () {
+            console.log("error");
+          },
+        });
+      },
+      error: function () {
+        alert("댓글 작성에 실패했습니다.");
+      },
+    });
+  }
 });

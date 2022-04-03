@@ -1,11 +1,10 @@
 $(function () {
   let initialRequest = { pageNo: 0, amount: 10 };
 
-  // 계속 쓰게 될 전역 변수
   let totalPage;
   let totalPost;
-
-  // 시작 페이지는 따로 오더를 내리는 수 밖에
+  let listAmount = 10;
+  let amountChange = false;
 
   $.ajax({
     url: "post",
@@ -21,13 +20,23 @@ $(function () {
     },
   });
 
-  function initiatePost(postData) {
-    totalPost = postData.total;
+  $("#list-amount").on("change", function () {
+    listAmount = $("#list-amount").find(":checked").val();
+    let postRequest = {
+      pageNo: 0,
+      amount: listAmount,
+    };
+    amountChange = true;
+    getPostData(postRequest, 0);
+  });
 
-    totalPage = Math.ceil(totalPost / 10);
+  function initiatePost(postData) {
+    totalPost = postData.posts.totalElements;
+    totalPage = postData.posts.totalPages;
+
     pagination(1);
     expressListOutline(0, totalPost);
-    expressPost(postData.posts);
+    expressPost(postData.posts.content);
   }
 
   function pagination(firstPage) {
@@ -71,8 +80,13 @@ $(function () {
       data: request,
       contentType: "application/json; charset=utf-8",
       success: function (response) {
+        totalPage = response.data.posts.totalPages;
+        if (amountChange) {
+          pagination(1);
+          amountChange = false;
+        }
         expressListOutline(selectedPage);
-        expressPost(response.data.posts);
+        expressPost(response.data.posts.content);
       },
       error: function (response) {
         console.log("error");
@@ -81,24 +95,22 @@ $(function () {
     });
   }
 
-  // 페이지네이션에서 특정 페이지를 직접 선택한 경우에 대한 ajax
   $(document).on("click", "#presentPage", function () {
-    let selectedPage = $(this).html() * 10 - 10;
-    // 0, 10, 20 순서로 찍히게 되어있다 - 각각 1, 2, 3 페이지에 해당
+    let selectedPage = $(this).html() * 1 - 1;
     let postRequest = {
       pageNo: selectedPage,
-      amount: 10,
+      amount: listAmount,
     };
 
     getPostData(postRequest, selectedPage);
   });
 
   $(document).on("click", "#post-list-btn-next", function () {
-    let selectedPage = ($(this).val() * 1 + 10) * 10 - 10;
-    if (selectedPage < totalPost) {
+    let selectedPage = $(this).val() * 1 + 9;
+    if (selectedPage < totalPage) {
       let postRequest = {
         pageNo: selectedPage,
-        amount: 10,
+        amount: listAmount,
       };
       pagination($(this).val() * 1 + 10);
       getPostData(postRequest, selectedPage);
@@ -106,11 +118,11 @@ $(function () {
   });
 
   $(document).on("click", "#post-list-btn-prev", function () {
-    let selectedPage = ($(this).val() * 1 - 10) * 10 - 10;
+    let selectedPage = $(this).val() * 1 - 11;
     if (selectedPage >= 0) {
       let postRequest = {
         pageNo: selectedPage,
-        amount: 10,
+        amount: listAmount,
       };
       pagination($(this).val() * 1 - 10);
       getPostData(postRequest, selectedPage);
@@ -118,13 +130,15 @@ $(function () {
   });
 
   function expressListOutline(selectedPage) {
-    if (selectedPage + 10 <= totalPost) {
+    if (selectedPage * listAmount * 1 + listAmount * 1 <= totalPost) {
       $("#post-list-outline").empty().append(`
-      Showing ${selectedPage + 1}-${selectedPage + 10} of ${totalPost}
+      Showing ${selectedPage * listAmount + 1}-${
+        selectedPage * listAmount * 1 + listAmount * 1
+      } of ${totalPost}
       `);
     } else {
       $("#post-list-outline").empty().append(`
-      Showing ${selectedPage + 1}-${totalPost} of ${totalPost}
+      Showing ${selectedPage * listAmount + 1}-${totalPost} of ${totalPost}
       `);
     }
   }

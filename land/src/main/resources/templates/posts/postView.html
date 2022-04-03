@@ -176,9 +176,9 @@
             <div class="form-group mb-3" id="post-title">
               <p class="text-2xl lh-base fw-bold">제목</p>
             </div>
-            <div class="card_hd_info_box d-flex justify-content-between align-items-center mt-2">
+            <div class="card_hd_info_box d-flex justify-content-between align-items-center mt-2" id="post-info">
               <p class="text-sm" style="color:rgba(0,0,0,0.7)">최고관리자</p>
-              <p class="text-sm d-fle align-items-center" >
+              <p class="text-sm d-fle align-items-center">
                 <i class="fa-solid fa-clock me-1" style="color:rgba(0,0,0,0.7)"></i>
                 <span id="created_time" style="color:rgba(0,0,0,0.7)">22-03-29 20:24</span>
               </p>
@@ -186,7 +186,10 @@
           </div>
           <div class="card-body py-4" style="min-height:450px;">
             <div class="form-group pt-4 pb-2" id="post-content">
-              <p class="1h-base">국회는 선전포고, 국군의 외국에의 파견 또는 외국군대의 대한민국 영역안에서의 주류에 대한 동의권을 가진다. 감사원은 세입·세출의 결산을 매년 검사하여 대통령과 차년도국회에 그 결과를 보고하여야 한다. 근로자는 근로조건의 향상을 위하여 자주적인 단결권·단체교섭권 및 단체행동권을 가진다. 국무총리는 국회의 동의를 얻어 대통령이 임명한다. 근로조건의 기준은 인간의 존엄성을 보장하도록 법률로 정한다. 헌법재판소의 조직과 운영 기타 필요한 사항은 법률로 정한다. 헌법재판소의 장은 국회의 동의를 얻어 재판관중에서 대통령이 임명한다. 헌법재판소 재판관의 임기는 6년으로 하며, 법률이 정하는 바에 의하여 연임할 수 있다.
+              <p class="1h-base">국회는 선전포고, 국군의 외국에의 파견 또는 외국군대의 대한민국 영역안에서의 주류에 대한 동의권을 가진다. 감사원은 세입·세출의 결산을 매년 검사하여
+                대통령과 차년도국회에 그 결과를 보고하여야 한다. 근로자는 근로조건의 향상을 위하여 자주적인 단결권·단체교섭권 및 단체행동권을 가진다. 국무총리는 국회의 동의를 얻어 대통령이 임명한다.
+                근로조건의 기준은 인간의 존엄성을 보장하도록 법률로 정한다. 헌법재판소의 조직과 운영 기타 필요한 사항은 법률로 정한다. 헌법재판소의 장은 국회의 동의를 얻어 재판관중에서 대통령이
+                임명한다. 헌법재판소 재판관의 임기는 6년으로 하며, 법률이 정하는 바에 의하여 연임할 수 있다.
               </p>
             </div>
           </div>
@@ -217,20 +220,21 @@
                 </a>
               </div>
             </div>
-            <ul class="comment_box">
+            <ul class="comment_box" id="post-comment">
               <li class="comment_item p-4 my-3">
-                <div cass="comment_hd">
+                <div class="comment_hd">
                   <p class="fw-bold" id="comment_id">강성엽</p>
                 </div>
                 <div class="comment_body mt-3 mb-2">
                   <p class="comment_content" id="comment_content">포스팅 잘 보고 갑니다</p>
                 </div>
                 <div class="comment_ft">
-                  <p class="comment_date text-xs fw-lighter" id="comment_date" style="color:rgba(0,0,0,0.5)">2022.2.29 20:41</p>
+                  <p class="comment_date text-xs fw-lighter" id="comment_date" style="color:rgba(0,0,0,0.5)">2022.2.29
+                    20:41</p>
                 </div>
               </li>
               <li class="comment_item p-4 my-3">
-                <div cass="comment_hd">
+                <div class="comment_hd">
                   <p class="fw-bold" id="comment_id">임승민</p>
                 </div>
                 <div class="comment_body mt-3 mb-2">
@@ -240,11 +244,12 @@
                   </p>
                 </div>
                 <div class="comment_ft">
-                  <p class="comment_date text-xs fw-lighter" id="comment_date" style="color:rgba(0,0,0,0.5)">2022.2.29 20:41</p>
+                  <p class="comment_date text-xs fw-lighter" id="comment_date" style="color:rgba(0,0,0,0.5)">2022.2.29
+                    20:41</p>
                 </div>
               </li>
               <li class="comment_item p-4 my-3">
-                <div cass="comment_hd">
+                <div class="comment_hd">
                   <p class="fw-bold" id="comment_id">이수은</p>
                 </div>
                 <div class="comment_body mt-3 mb-2">
@@ -253,10 +258,22 @@
                   </p>
                 </div>
                 <div class="comment_ft">
-                  <p class="comment_date text-xs fw-lighter" id="comment_date" style="color:rgba(0,0,0,0.5)">2022.2.29 20:41</p>
+                  <p class="comment_date text-xs fw-lighter" id="comment_date" style="color:rgba(0,0,0,0.5)">2022.2.29
+                    20:41</p>
                 </div>
               </li>
             </ul>
+            <div class="card-body" style="height:500px;">
+              <div class="form-group">
+                <form action="">
+                  <textarea class="form-control" id="write-comment" rows="5" style="min-height: 450px;"></textarea>
+                </form>
+              </div>
+            </div>
+            <button type="button" class="px-3 py-2 text-sm font-semibold leading-tight rounded-full"
+              id="comment-register">
+              댓글쓰기
+            </button>
           </div>
         </div>
       </div>
