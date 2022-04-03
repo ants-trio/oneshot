@@ -28,10 +28,14 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public Post findOne(Long postId) {
+	public Post findOneWithComment(Long postId) {
 		return postRepository.findDistinctById(postId).orElseThrow(NoSuchPostException::new);
 	}
 
+	@Override
+	public Post findOne(Long postId) {
+		return postRepository.findById(postId).orElseThrow(NoSuchPostException::new);
+	}
 
 	@Override
 	@Transactional

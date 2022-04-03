@@ -32,7 +32,7 @@ public class CommentServiceImpl implements CommentService {
 	@Transactional
 	public Long writeComment(String email, CommentDto commentDto) {
 		Member findMember = memberService.findOne(email);
-		Post findPost = postService.findOne(commentDto.getPostId());
+		Post findPost = postService.findOneWithComment(commentDto.getPostId());
 		Comment comment = new Comment.Builder().member(findMember)
 			.post(findPost)
 			.content(commentDto.getContent())

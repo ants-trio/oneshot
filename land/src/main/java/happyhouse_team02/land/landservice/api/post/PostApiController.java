@@ -53,7 +53,7 @@ public class PostApiController {
 
 	@GetMapping("/{postId}")
 	public SuccessResponseResult getPost(@LoginEmail String loginEmail, @PathVariable Long postId) {
-		Post post = postService.findOne(postId);
+		Post post = postService.findOneWithComment(postId);
 		PostResponseDto postDetailDto = new PostResponseDto(post);
 		postDetailDto.addRole(loginEmail);
 

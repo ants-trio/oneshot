@@ -12,6 +12,9 @@ import happyhouse_team02.land.landservice.domain.Post;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
 	@EntityGraph(attributePaths = {"member"})
+	Optional<Post> findById(Long id);
+
+	@EntityGraph(attributePaths = {"member"})
 	Page<Post> findAll(Pageable pageable);
 
 	@EntityGraph(attributePaths = {"member", "comments"})

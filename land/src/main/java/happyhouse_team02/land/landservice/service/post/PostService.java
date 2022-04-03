@@ -12,6 +12,11 @@ public interface PostService {
 	Page<Post> findPostPages(int pageNo, int amount);
 
 	/**
+	 * 게시글 하나를 댓글과 함께 조회합니다.
+	 */
+	Post findOneWithComment(Long postId);
+
+	/**
 	 * 게시글 하나를 조회합니다.
 	 */
 	Post findOne(Long postId);
