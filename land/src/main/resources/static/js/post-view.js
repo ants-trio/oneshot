@@ -8,6 +8,7 @@ $(function () {
     contentType: "application/json; charset=utf-8",
     success: function (response) {
       postDetail(response.data.postResponseDto);
+      expressComment(response.data.postResponseDto.comments);
       expressPostBtn(response.data.postResponseDto.role);
     },
     error: function () {
@@ -25,6 +26,25 @@ $(function () {
       </p>
     `);
     $("#post-content").empty().append(`<p class="1h-base">${postData.content}</p>`);
+  }
+
+  function expressComment(commentData) {
+    $("#post-comment").empty();
+    for (let i = 0; i < commentData.length; i++) {
+      $("#post-comment").append(`
+        <li class="comment_item p-4 my-3">
+          <div class="comment_hd">
+            <p class="fw-bold" id="comment_id">${commentData[i].writer}</p>
+          </div>
+          <div class="comment_body mt-3 mb-2">
+            <p class="comment_content" id="comment_content">${commentData[i].content}</p>
+          </div>
+            <div class="comment_ft">
+            <p class="comment_date text-xs fw-lighter" id="comment_date" style="color:rgba(0,0,0,0.5)">${commentData[i].createdDate}</p>
+          </div>
+        </li>
+      `);
+    }
   }
 
   function expressPostBtn(role) {
@@ -121,4 +141,41 @@ $(function () {
       },
     });
   });
+
+  $("#comment-register").on("click", function () {
+    let commentData = $("#write-comment").val();
+    if (commentData == null || commentData == "") {
+      alert("댓글 내용을 입력해주세요");
+    } else {
+      let commentRequest = {
+        content: commentData,
+      };
+      addComment(commentRequest);
+    }
+  });
+  function addComment(commentRequest) {
+    $.ajax({
+      url: "/post/" + postId + "/comment/new",
+      type: "POST",
+      data: JSON.stringify(commentRequest),
+      contentType: "application/json; charset=utf-8",
+      success: function (response) {
+        $.ajax({
+          url: "/post/" + postId,
+          type: "GET",
+          data: "",
+          contentType: "application/json; charset=utf-8",
+          success: function (response) {
+            expressComment(response.data.postResponseDto.comments);
+          },
+          error: function () {
+            console.log("error");
+          },
+        });
+      },
+      error: function () {
+        alert("댓글 작성에 실패했습니다.");
+      },
+    });
+  }
 });

@@ -220,9 +220,9 @@
                 </a>
               </div>
             </div>
-            <ul class="comment_box">
+            <ul class="comment_box" id="post-comment">
               <li class="comment_item p-4 my-3">
-                <div cass="comment_hd">
+                <div class="comment_hd">
                   <p class="fw-bold" id="comment_id">강성엽</p>
                 </div>
                 <div class="comment_body mt-3 mb-2">
@@ -234,7 +234,7 @@
                 </div>
               </li>
               <li class="comment_item p-4 my-3">
-                <div cass="comment_hd">
+                <div class="comment_hd">
                   <p class="fw-bold" id="comment_id">임승민</p>
                 </div>
                 <div class="comment_body mt-3 mb-2">
@@ -249,7 +249,7 @@
                 </div>
               </li>
               <li class="comment_item p-4 my-3">
-                <div cass="comment_hd">
+                <div class="comment_hd">
                   <p class="fw-bold" id="comment_id">이수은</p>
                 </div>
                 <div class="comment_body mt-3 mb-2">
@@ -263,6 +263,17 @@
                 </div>
               </li>
             </ul>
+            <div class="card-body" style="height:500px;">
+              <div class="form-group">
+                <form action="">
+                  <textarea class="form-control" id="write-comment" rows="5" style="min-height: 450px;"></textarea>
+                </form>
+              </div>
+            </div>
+            <button type="button" class="px-3 py-2 text-sm font-semibold leading-tight rounded-full"
+              id="comment-register">
+              댓글쓰기
+            </button>
           </div>
         </div>
       </div>
