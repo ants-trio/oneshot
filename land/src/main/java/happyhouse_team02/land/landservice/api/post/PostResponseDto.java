@@ -30,4 +30,11 @@ public class PostResponseDto {
 		createdDate = post.getCreatedDate();
 		comments = post.getComments().stream().map(CommentResponseDto::new).collect(toList());
 	}
+
+	public void addRole(String email) {
+		if (writer.equals(email)) {
+			role = Role.WRITER;
+		}
+		comments.forEach(comment -> comment.addRole(email));
+	}
 }

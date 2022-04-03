@@ -14,10 +14,16 @@ public class CommentResponseDto {
 	private LocalDateTime createdDate;
 	private Role role = Role.NORMAL;
 
-	public CommentResponseDto (Comment comment){
+	public CommentResponseDto(Comment comment) {
 		commentId = comment.getId();
 		writer = comment.getMember().getEmail();
 		content = comment.getContent();
 		createdDate = comment.getCreatedDate();
+	}
+
+	public void addRole(String email) {
+		if (writer.equals(email)) {
+			role = Role.WRITER;
+		}
 	}
 }
