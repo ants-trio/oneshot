@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.domain.Post;
 import happyhouse_team02.land.landservice.exception.NoSuchPostException;
-import happyhouse_team02.land.landservice.exception.UnauthorizedAccessException;
 import happyhouse_team02.land.landservice.repository.post.PostRepository;
 import happyhouse_team02.land.landservice.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +48,7 @@ public class PostServiceImpl implements PostService {
 	@Transactional
 	public void updatePost(String loginEmail, PostDto postDto) {
 		Post post = findOne(postDto.getId());
+		post.confirmAuthority(loginEmail);
 		post.updatePost(postDto.getTitle(), postDto.getContent());
 	}
 
@@ -56,13 +56,7 @@ public class PostServiceImpl implements PostService {
 	@Transactional
 	public void deletePost(String loginEmail, Long postId) {
 		Post post = findOne(postId);
-		validate(loginEmail, post);
+		post.confirmAuthority(loginEmail);
 		postRepository.delete(post);
-	}
-
-	private void validate(String loginEmail, Post post) {
-		if (!post.getMember().getEmail().equals(loginEmail)) {
-			throw new UnauthorizedAccessException();
-		}
 	}
 }

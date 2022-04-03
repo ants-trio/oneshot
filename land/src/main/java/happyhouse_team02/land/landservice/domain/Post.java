@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import happyhouse_team02.land.landservice.exception.UnauthorizedAccessException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -54,6 +55,12 @@ public class Post extends BaseEntity {
 	public void updatePost(String title, String content) {
 		this.title = title;
 		this.content = content;
+	}
+
+	public void confirmAuthority(String email) {
+		if (!member.getEmail().equals(email)) {
+			throw new UnauthorizedAccessException();
+		}
 	}
 
 	public boolean toggleLike() {

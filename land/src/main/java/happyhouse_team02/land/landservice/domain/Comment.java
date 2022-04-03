@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import happyhouse_team02.land.landservice.exception.UnauthorizedAccessException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -39,6 +40,16 @@ public class Comment extends BaseEntity {
 		post = builder.post;
 		content = builder.content;
 		post.getComments().add(this);
+	}
+
+	public void confirmAuthority(String email) {
+		if (!member.getEmail().equals(email)) {
+			throw new UnauthorizedAccessException();
+		}
+	}
+
+	public void updateComment(String content) {
+		this.content = content;
 	}
 
 	public static class Builder {
