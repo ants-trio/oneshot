@@ -167,6 +167,7 @@ $(function () {
           contentType: "application/json; charset=utf-8",
           success: function (response) {
             expressComment(response.data.postResponseDto.comments);
+            $("#write-comment").val("");
           },
           error: function () {
             console.log("error");
