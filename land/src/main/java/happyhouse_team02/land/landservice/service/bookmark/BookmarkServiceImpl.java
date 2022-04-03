@@ -39,7 +39,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 	@Override
 	public List<Bookmark> findBookmarks(String email) {
 		Member findMember = memberService.findOne(email);
-		return findMember.getBookmarks();
+		return bookmarkRepository.findAllByMember(findMember);
 	}
 
 
