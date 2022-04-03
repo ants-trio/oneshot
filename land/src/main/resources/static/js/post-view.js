@@ -29,10 +29,12 @@ $(function () {
   }
 
   function expressComment(commentData) {
+    console.log(commentData);
     $("#post-comment").empty();
     for (let i = 0; i < commentData.length; i++) {
       $("#post-comment").append(`
         <li class="comment_item p-4 my-3">
+          <div style="display: none">${commentData[i].commentId}</div>
           <div class="comment_hd">
             <p class="fw-bold" id="comment_id">${commentData[i].writer}</p>
           </div>
@@ -42,6 +44,22 @@ $(function () {
             <div class="comment_ft">
             <p class="comment_date text-xs fw-lighter" id="comment_date" style="color:rgba(0,0,0,0.5)">${commentData[i].createdDate}</p>
           </div>
+      `);
+      if (commentData[i].role == "WRITER") {
+        $("#post-comment").append(`
+          <button type="button"
+            class="px-3 py-2 text-sm font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
+            id="comment-modify">
+            수정하기
+          </button>
+          <button
+            class="flex items-center justify-between text-sm ms-2 px-3 py-2 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700"
+            aria-label="Delete" id="comment-delete">
+            삭제하기
+          </button>
+        `);
+      }
+      $("#post-comment").append(`
         </li>
       `);
     }
@@ -132,9 +150,10 @@ $(function () {
       data: "",
       contentType: "application/json; charset=utf-8",
       success: function (response) {
-        confirm("게시물을 삭제하시겠습니까?");
-        alert("글 삭제에 성공했습니다.");
-        location.href = "/posts";
+        if (confirm("게시물을 삭제하시겠습니까?")) {
+          alert("글 삭제에 성공했습니다.");
+          location.href = "/posts";
+        }
       },
       error: function () {
         alert("글 삭제에 실패했습니다.");
@@ -153,6 +172,11 @@ $(function () {
       addComment(commentRequest);
     }
   });
+
+  $(document).on("click", "#comment-modify", function () {});
+
+  $(document).on("click", "#comment-delete", function () {});
+
   function addComment(commentRequest) {
     $.ajax({
       url: "/post/" + postId + "/comment/new",
@@ -160,22 +184,26 @@ $(function () {
       data: JSON.stringify(commentRequest),
       contentType: "application/json; charset=utf-8",
       success: function (response) {
-        $.ajax({
-          url: "/post/" + postId,
-          type: "GET",
-          data: "",
-          contentType: "application/json; charset=utf-8",
-          success: function (response) {
-            expressComment(response.data.postResponseDto.comments);
-            $("#write-comment").val("");
-          },
-          error: function () {
-            console.log("error");
-          },
-        });
+        reloadComment();
+        $("#write-comment").val("");
       },
       error: function () {
         alert("댓글 작성에 실패했습니다.");
+      },
+    });
+  }
+
+  function reloadComment() {
+    $.ajax({
+      url: "/post/" + postId + "/comment",
+      type: "GET",
+      data: "",
+      contentType: "application/json; charset=utf-8",
+      success: function (response) {
+        expressComment(response.data.comments);
+      },
+      error: function () {
+        console.log("error");
       },
     });
   }
