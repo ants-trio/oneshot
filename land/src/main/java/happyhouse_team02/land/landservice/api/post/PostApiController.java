@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import happyhouse_team02.land.landservice.api.SuccessResponseResult;
 import happyhouse_team02.land.landservice.domain.Post;
-import happyhouse_team02.land.landservice.domain.Role;
 import happyhouse_team02.land.landservice.service.post.PostDto;
 import happyhouse_team02.land.landservice.service.post.PostService;
 import happyhouse_team02.land.landservice.web.argumentresolver.LoginEmail;
@@ -53,16 +52,17 @@ public class PostApiController {
 	}
 
 	@GetMapping("/{postId}")
-	public SuccessResponseResult getPost(@LoginEmail String loginEmail, @Validated @PathVariable Long postId) {
+	public SuccessResponseResult getPost(@LoginEmail String loginEmail, @PathVariable Long postId) {
 		Post post = postService.findOne(postId);
-		PostResponseDto postDetailDto = createPostDetailDto(loginEmail, post);
+		PostResponseDto postDetailDto = new PostResponseDto(post);
+		postDetailDto.addRole(loginEmail);
 
 		return new SuccessResponseResult(new GetPostResponse(postDetailDto));
 	}
 
 	@PatchMapping("/{postId}")
 	public SuccessResponseResult updatePost(@LoginEmail String loginEmail,
-											@Validated @PathVariable Long postId,
+											@PathVariable Long postId,
 											@Validated @RequestBody UpdatePostRequest request) {
 		PostDto postDto = new PostDto(postId, request.getTitle(), request.getContent());
 		postService.updatePost(loginEmail, postDto);
@@ -72,7 +72,7 @@ public class PostApiController {
 
 	@DeleteMapping("/{postId}")
 	public SuccessResponseResult deletePost(@LoginEmail String loginEmail,
-											@Validated @PathVariable Long postId) {
+											@PathVariable Long postId) {
 
 		postService.deletePost(loginEmail, postId);
 		return new SuccessResponseResult();
@@ -102,22 +102,6 @@ public class PostApiController {
 	@AllArgsConstructor
 	static class GetPostResponse {
 		private PostResponseDto postResponseDto;
-	}
-
-	private PostResponseDto createPostDetailDto(String email, Post post) {
-		PostResponseDto postResponseDto = new PostResponseDto(post);
-		addRole(email, postResponseDto);
-		return postResponseDto;
-	}
-
-	private void addRole(String email, PostResponseDto postResponseDto) {
-		if (postResponseDto.getWriter().equals(email)) {
-			postResponseDto.setRole(Role.WRITER);
-		}
-		postResponseDto.getComments()
-			.stream()
-			.filter(commentDto -> commentDto.getWriter().equals(email))
-			.forEach(commentDto -> commentDto.setRole(Role.WRITER));
 	}
 
 
