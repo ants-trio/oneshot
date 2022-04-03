@@ -13,6 +13,7 @@ $(function () {
     data: initialRequest,
     contentType: "application/json; charset=utf-8",
     success: function (response) {
+      console.log(response);
       initiatePost(response.data);
     },
     error: function (response) {
@@ -21,13 +22,21 @@ $(function () {
     },
   });
 
-  function initiatePost(postData) {
-    totalPost = postData.total;
+  $("#list-amount").on("change", function () {
+    let postRequest = {
+      pageNo: 0,
+      amount: $("#list-amount").find(":checked").val(),
+    };
+    getPostData(postRequest, 0);
+  });
 
-    totalPage = Math.ceil(totalPost / 10);
+  function initiatePost(postData) {
+    totalPost = postData.posts.totalElements;
+    totalPage = postData.posts.totalPages;
+
     pagination(1);
     expressListOutline(0, totalPost);
-    expressPost(postData.posts);
+    expressPost(postData.posts.content);
   }
 
   function pagination(firstPage) {
@@ -72,7 +81,7 @@ $(function () {
       contentType: "application/json; charset=utf-8",
       success: function (response) {
         expressListOutline(selectedPage);
-        expressPost(response.data.posts);
+        expressPost(response.data.posts.content);
       },
       error: function (response) {
         console.log("error");
