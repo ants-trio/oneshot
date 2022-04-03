@@ -7,8 +7,8 @@ $(function () {
     data: "",
     contentType: "application/json; charset=utf-8",
     success: function (response) {
-      postDetail(response.data.postDetailDto);
-      expressPostBtn(response.data.postDetailDto.role);
+      postDetail(response.data.postResponseDto);
+      expressPostBtn(response.data.postResponseDto.role);
     },
     error: function () {
       console.log("error");
