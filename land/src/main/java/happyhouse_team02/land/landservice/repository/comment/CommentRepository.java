@@ -9,6 +9,6 @@ import happyhouse_team02.land.landservice.domain.Comment;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-	@EntityGraph
+	@EntityGraph(attributePaths = {"member"})
 	List<Comment> findByPostId(Long id);
 }

@@ -1,9 +1,14 @@
 package happyhouse_team02.land.landservice.api.comment;
 
+import static java.util.stream.Collectors.*;
+
+import java.util.List;
+
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,10 +31,20 @@ public class CommentApiController {
 
 	private final CommentService commentService;
 
+	@GetMapping
+	public SuccessResponseResult getComments(@LoginEmail String loginEmail, @PathVariable Long postId) {
+
+		List<CommentResponseDto> comments = commentService.findComments(postId)
+			.stream()
+			.map(CommentResponseDto::new)
+			.collect(toList());
+		comments.forEach(comment -> comment.addRole(loginEmail));
+
+		return new SuccessResponseResult(new GetCommentsResponse(comments));
+	}
 
 	@PostMapping("/new")
-	public SuccessResponseResult writeComment(@LoginEmail String loginEmail,
-											  @PathVariable Long postId,
+	public SuccessResponseResult writeComment(@LoginEmail String loginEmail, @PathVariable Long postId,
 											  @Validated @RequestBody WriteCommentRequest request) {
 		CommentDto commentDto = new CommentDto(postId, request.getContent());
 		Long commentId = commentService.writeComment(loginEmail, commentDto);
@@ -40,22 +55,27 @@ public class CommentApiController {
 	@PatchMapping("/{commentId}")
 	public SuccessResponseResult updateComment(@LoginEmail String loginEmail,
 											   @PathVariable Long postId,
-											   @Validated @PathVariable Long commentId) {
+											   @PathVariable Long commentId,
+											   @Validated @RequestBody UpdateCommentRequest request) {
 
 		return new SuccessResponseResult();
 	}
 
 	@DeleteMapping("/{commentId}")
-	public SuccessResponseResult deleteComment(@LoginEmail String loginEmail,
-											   @Validated @PathVariable Long postId,
-											   @Validated @PathVariable Long commentId) {
+	public SuccessResponseResult deleteComment(@LoginEmail String loginEmail, @PathVariable Long postId,
+											   @PathVariable Long commentId) {
 
 		return new SuccessResponseResult();
 	}
 
 	@Data
-	static class WriteCommentRequest {
+	@AllArgsConstructor
+	static class GetCommentsResponse {
+		private List<CommentResponseDto> comments;
+	}
 
+	@Data
+	static class WriteCommentRequest {
 		@NotEmpty
 		private String content;
 	}
@@ -65,4 +85,11 @@ public class CommentApiController {
 	static class WriteCommentResponse {
 		private Long commentId;
 	}
+
+	@Data
+	static class UpdateCommentRequest {
+		@NotEmpty
+		private String content;
+	}
+
 }
