@@ -39,7 +39,6 @@ public class Comment extends BaseEntity {
 		member = builder.member;
 		post = builder.post;
 		content = builder.content;
-		post.getComments().add(this);
 	}
 
 	public void confirmAuthority(String email) {
