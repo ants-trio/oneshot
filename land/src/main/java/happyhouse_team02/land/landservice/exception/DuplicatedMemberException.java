@@ -4,7 +4,7 @@ import static happyhouse_team02.land.landservice.exception.ExceptionMessage.*;
 
 public class DuplicatedMemberException extends RuntimeException {
 	public DuplicatedMemberException() {
-		super(DUPLICATED_MEMBER_MASSAGE);
+		super(DUPLICATED_MEMBER_MESSAGE);
 	}
 
 	public DuplicatedMemberException(String message) {

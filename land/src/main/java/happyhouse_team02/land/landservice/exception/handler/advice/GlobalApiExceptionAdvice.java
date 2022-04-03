@@ -17,6 +17,7 @@ import happyhouse_team02.land.landservice.exception.DuplicatedBookmarkException;
 import happyhouse_team02.land.landservice.exception.DuplicatedMemberException;
 import happyhouse_team02.land.landservice.exception.NoLoginException;
 import happyhouse_team02.land.landservice.exception.NoSuchBookmarkException;
+import happyhouse_team02.land.landservice.exception.NoSuchCommentException;
 import happyhouse_team02.land.landservice.exception.NoSuchMemberException;
 import happyhouse_team02.land.landservice.exception.NoSuchPostException;
 import happyhouse_team02.land.landservice.exception.PasswordDoesNotMatchException;
@@ -130,6 +131,15 @@ public class GlobalApiExceptionAdvice {
 	@ExceptionHandler
 	public FailResponseResult noSuchPostExceptionHandler(NoSuchPostException e){
 		log.error("[noSuchPostExceptionHandler] ex", e);
+		return new FailResponseResult(FAIL, e.getMessage());
+	}
+
+	/**
+	 * CommentExceptionHandler
+	 */
+	@ExceptionHandler
+	public FailResponseResult noSuchCommentExceptionHandler(NoSuchCommentException e){
+		log.error("[noSuchCommentExceptionHandler] ex", e);
 		return new FailResponseResult(FAIL, e.getMessage());
 	}
 }

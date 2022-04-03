@@ -4,7 +4,7 @@ import static happyhouse_team02.land.landservice.exception.ExceptionMessage.*;
 
 public class PasswordDoesNotMatchException extends RuntimeException {
 	public PasswordDoesNotMatchException() {
-		super(PASSWORD_DOES_NOT_MATCH_MASSAGE);
+		super(PASSWORD_DOES_NOT_MATCH_MESSAGE);
 	}
 
 	public PasswordDoesNotMatchException(String message) {

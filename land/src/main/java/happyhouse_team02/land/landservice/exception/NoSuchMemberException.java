@@ -4,7 +4,7 @@ import static happyhouse_team02.land.landservice.exception.ExceptionMessage.*;
 
 public class NoSuchMemberException extends RuntimeException {
 	public NoSuchMemberException() {
-		super(NO_SUCH_MEMBER_MASSAGE);
+		super(NO_SUCH_MEMBER_MESSAGE);
 	}
 
 	public NoSuchMemberException(String message) {

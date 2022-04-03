@@ -4,7 +4,7 @@ import static happyhouse_team02.land.landservice.exception.ExceptionMessage.*;
 
 public class DuplicatedBookmarkException extends RuntimeException{
 	public DuplicatedBookmarkException() {
-		super(DUPLICATED_BOOKMARK_MASSAGE);
+		super(DUPLICATED_BOOKMARK_MESSAGE);
 	}
 
 	public DuplicatedBookmarkException(String message) {
