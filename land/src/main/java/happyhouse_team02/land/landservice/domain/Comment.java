@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class Comment extends BaseEntity{
+public class Comment extends BaseEntity {
 
 	@Id
 	@GeneratedValue
@@ -34,13 +34,35 @@ public class Comment extends BaseEntity{
 	@Column(name = "COMMENT_CONTENT")
 	private String content;
 
-	private Comment(Member member, Post post) {
-		this.member = member;
-		this.post = post;
+	private Comment(Builder builder) {
+		member = builder.member;
+		post = builder.post;
+		content = builder.content;
 		post.getComments().add(this);
 	}
 
-	public static Comment createComment(Member member, Post post){
-		return new Comment(member, post);
+	public static class Builder {
+		private Member member;
+		private Post post;
+		private String content;
+
+		public Builder member(Member member) {
+			this.member = member;
+			return this;
+		}
+
+		public Builder post(Post post) {
+			this.post = post;
+			return this;
+		}
+
+		public Builder content(String content) {
+			this.content = content;
+			return this;
+		}
+
+		public Comment build() {
+			return new Comment(this);
+		}
 	}
 }

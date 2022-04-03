@@ -1,4 +1,4 @@
-package happyhouse_team02.land.landservice.service.post;
+package happyhouse_team02.land.landservice.api.post;
 
 import java.time.LocalDateTime;
 
@@ -6,14 +6,14 @@ import happyhouse_team02.land.landservice.domain.Post;
 import lombok.Data;
 
 @Data
-public class PostSummaryDto {
+public class PostPageResponseDto {
 
 	private Long id;
 	private String title;
 	private String writer;
 	private LocalDateTime createdDate;
 
-	public PostSummaryDto(Post post) {
+	public PostPageResponseDto(Post post) {
 		id = post.getId();
 		title = post.getTitle();
 		writer = post.getMember().getEmail();

@@ -1,4 +1,6 @@
-package happyhouse_team02.land.landservice.api;
+package happyhouse_team02.land.landservice.api.bookmark;
+
+import static java.util.stream.Collectors.*;
 
 import java.util.List;
 
@@ -13,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import happyhouse_team02.land.landservice.service.bookmark.BookmarkService;
+import happyhouse_team02.land.landservice.api.SuccessResponseResult;
 import happyhouse_team02.land.landservice.service.bookmark.BookmarkDto;
+import happyhouse_team02.land.landservice.service.bookmark.BookmarkService;
 import happyhouse_team02.land.landservice.web.argumentresolver.LoginEmail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,7 +34,10 @@ public class BookmarkApiController {
 
 	@GetMapping
 	public SuccessResponseResult getBookmarks(@LoginEmail String loginEmail) {
-		List<BookmarkDto> bookmarks = bookmarkService.findBookmarks(loginEmail);
+		List<BookmarkResponseDto> bookmarks = bookmarkService.findBookmarks(loginEmail).stream()
+			.map(BookmarkResponseDto::new)
+			.collect(toList());
+
 		return new SuccessResponseResult(new GetBookmarkResponse(bookmarks));
 	}
 
@@ -56,7 +62,7 @@ public class BookmarkApiController {
 	@Data
 	@AllArgsConstructor
 	static class GetBookmarkResponse {
-		private List<BookmarkDto> bookmarks;
+		private List<BookmarkResponseDto> bookmarks;
 	}
 
 	@Data

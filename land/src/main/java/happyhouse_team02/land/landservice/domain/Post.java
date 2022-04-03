@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class Post extends BaseEntity{
+public class Post extends BaseEntity {
 
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
 	private final List<Comment> comments = new ArrayList<>();
@@ -49,6 +49,11 @@ public class Post extends BaseEntity{
 		title = builder.title;
 		content = builder.content;
 		member.getPosts().add(this);
+	}
+
+	public void updatePost(String title, String content) {
+		this.title = title;
+		this.content = content;
 	}
 
 	public boolean toggleLike() {
@@ -79,5 +84,4 @@ public class Post extends BaseEntity{
 			return new Post(this);
 		}
 	}
-	// TODO 테스트 필요
 }

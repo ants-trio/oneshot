@@ -1,9 +1,9 @@
 package happyhouse_team02.land.landservice.exception.handler;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @AllArgsConstructor
 public class FailResponseResult {
 	private String state;
