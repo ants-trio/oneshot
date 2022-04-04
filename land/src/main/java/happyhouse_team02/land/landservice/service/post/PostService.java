@@ -1,6 +1,7 @@
 package happyhouse_team02.land.landservice.service.post;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import happyhouse_team02.land.landservice.domain.Post;
 
@@ -9,7 +10,7 @@ public interface PostService {
 	/**
 	 * 게시글 리스트를 가져옵니다.
 	 */
-	Page<Post> findPostPages(int pageNo, int amount);
+	Page<Post> findPostPages(Pageable pageable);
 
 	/**
 	 * 게시글 하나를 댓글과 함께 조회합니다.
