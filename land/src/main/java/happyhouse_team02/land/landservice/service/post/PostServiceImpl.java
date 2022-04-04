@@ -1,8 +1,7 @@
 package happyhouse_team02.land.landservice.service.post;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,9 +21,8 @@ public class PostServiceImpl implements PostService {
 	private final PostRepository postRepository;
 
 	@Override
-	public Page<Post> findPostPages(int pageNo, int amount) {
-		PageRequest pageRequest = PageRequest.of(pageNo, amount, Sort.by(Sort.Direction.DESC, "createdDate"));
-		return postRepository.findAll(pageRequest);
+	public Page<Post> findPostPages(Pageable pageable) {
+		return postRepository.findAll(pageable);
 	}
 
 	@Override
