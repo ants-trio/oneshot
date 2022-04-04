@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class Member extends BaseEntity{
+public class Member extends BaseTimeEntity{
 
 	@Column(name = "MEMBER_POSTS")
 	@OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
