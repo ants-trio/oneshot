@@ -1,6 +1,5 @@
 $(function () {
   let postId = $("#view-post-id").html();
-
   $.ajax({
     url: "/post/" + postId,
     type: "GET",
@@ -12,7 +11,7 @@ $(function () {
       expressPostBtn(response.data.postResponseDto.role);
     },
     error: function () {
-      console.log("error");
+      console.log("게시물 로딩에 에러 발생");
     },
   });
 
@@ -29,24 +28,26 @@ $(function () {
   }
 
   function expressComment(commentData) {
-    console.log(commentData);
     $("#post-comment").empty();
     for (let i = 0; i < commentData.length; i++) {
       $("#post-comment").append(`
         <li class="comment_item p-4 my-3">
+        
           <div style="display: none">${commentData[i].commentId}</div>
           <div class="comment_hd">
-            <p class="fw-bold" id="comment_id">${commentData[i].writer}</p>
+            <p class="fw-bold" id="comment-id">${commentData[i].writer}</p>
           </div>
           <div class="comment_body mt-3 mb-2">
-            <p class="comment_content" id="comment_content">${commentData[i].content}</p>
+            <p class="comment_content" id="comment-content">${commentData[i].content}</p>
           </div>
             <div class="comment_ft">
-            <p class="comment_date text-xs fw-lighter" id="comment_date" style="color:rgba(0,0,0,0.5)">${commentData[i].createdDate}</p>
+            <p class="comment_date text-xs fw-lighter" id="comment-date" style="color:rgba(0,0,0,0.5)">${commentData[i].createdDate}</p>
           </div>
+        
       `);
       if (commentData[i].role == "WRITER") {
         $("#post-comment").append(`
+        
           <button type="button"
             class="px-3 py-2 text-sm font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
             id="comment-modify">
@@ -57,6 +58,7 @@ $(function () {
             aria-label="Delete" id="comment-delete">
             삭제하기
           </button>
+        
         `);
       }
       $("#post-comment").append(`
@@ -126,7 +128,6 @@ $(function () {
       title: $("#update-title").val(),
       content: $("#update-content").val(),
     };
-    console.log(updateRequest);
 
     $.ajax({
       url: "/post/" + postId,
@@ -173,7 +174,26 @@ $(function () {
     }
   });
 
-  $(document).on("click", "#comment-modify", function () {});
+  $(document).on("click", "#comment-modify", function () {
+    let prevComment = $(this).parent().find("#comment-content").text();
+    console.log(prevComment);
+    $($(this).parent().find("#comment-content")).empty().append(`
+    <form action="">
+      <textarea class="form-control" id="modify-comment" rows="5" style="min-height: 200px;">${prevComment}</textarea>
+    </form>
+    `);
+
+    console.log($(this).prev().children());
+    // $(this).parent().children()[2].remove();
+    // $(this).append(`
+    // <button type="button"
+    //   class="px-3 py-2 text-sm font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
+    //   id="comment-modify-complete">
+    //     수정완료
+    // </button>
+    // `);
+    // $(this).parent().children()[1].remove();
+  });
 
   $(document).on("click", "#comment-delete", function () {});
 
@@ -203,7 +223,7 @@ $(function () {
         expressComment(response.data.comments);
       },
       error: function () {
-        console.log("error");
+        console.log("댓글 로딩에 에러 발생");
       },
     });
   }
