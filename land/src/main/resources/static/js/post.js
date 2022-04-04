@@ -1,5 +1,5 @@
 $(function () {
-  let initialRequest = { pageNo: 0, amount: 10 };
+  let initialRequest = { page: 0, size: 10 };
 
   let totalPage;
   let totalPost;
@@ -23,8 +23,8 @@ $(function () {
   $("#list-amount").on("change", function () {
     listAmount = $("#list-amount").find(":checked").val();
     let postRequest = {
-      pageNo: 0,
-      amount: listAmount,
+      page: 0,
+      size: listAmount,
     };
     amountChange = true;
     getPostData(postRequest, 0);
@@ -98,8 +98,8 @@ $(function () {
   $(document).on("click", "#presentPage", function () {
     let selectedPage = $(this).html() * 1 - 1;
     let postRequest = {
-      pageNo: selectedPage,
-      amount: listAmount,
+      page: selectedPage,
+      size: listAmount,
     };
 
     getPostData(postRequest, selectedPage);
@@ -109,8 +109,8 @@ $(function () {
     let selectedPage = $(this).val() * 1 + 9;
     if (selectedPage < totalPage) {
       let postRequest = {
-        pageNo: selectedPage,
-        amount: listAmount,
+        page: selectedPage,
+        size: listAmount,
       };
       pagination($(this).val() * 1 + 10);
       getPostData(postRequest, selectedPage);
@@ -121,8 +121,8 @@ $(function () {
     let selectedPage = $(this).val() * 1 - 11;
     if (selectedPage >= 0) {
       let postRequest = {
-        pageNo: selectedPage,
-        amount: listAmount,
+        page: selectedPage,
+        size: listAmount,
       };
       pagination($(this).val() * 1 - 10);
       getPostData(postRequest, selectedPage);
