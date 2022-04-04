@@ -12484,7 +12484,46 @@ body {
   height: 98%;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
-  background-color: #9333EA;}
+  background-color: #9333EA;
+}
+.review_control_ul {
+  width: 70px;
+  top: 25px;
+  right: 0px;
+  background-color: #fff;
+  border:1px solid #aaa;
+  border-radius: 3px;
+  display: none;
+}
+.review_control_ul.clicked {
+  display: block;
+}
+
+.review_control_ul > li {
+  cursor: pointer;
+}
+.review_control_icon {
+  cursor: pointer;
+}
+.comment_write_box {
+  border:1px solid #ced4da;
+  border-radius: 3px;
+  margin-top: 60px;
+  margin-bottom: 25px;
+}
+.comment_write_box textarea {
+  border: none;
+}
+.comment_write_box textarea::placeholder {
+  color: #ced4da;
+}
+.comment_register_btn {
+  display: block;
+  width: 100px;
+  margin-left: auto;
+  border: 1px solid #ced4da;
+  line-height: 15.5px;
+}
 
 /*반응형작업*/
 @media (max-width:1024px) {
