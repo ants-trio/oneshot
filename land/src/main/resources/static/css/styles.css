@@ -12470,6 +12470,14 @@ body {
 .list_more_btn:hover{
   color: #374151 !important;
 }
+.list_amount_box {
+  margin-bottom: 7px;
+  padding: 0px;
+  text-align: right;
+}
+.list_amount_box select {
+  padding: 2px 5px;
+}
 
 /*게시판 - view */
 .list_more_btn:hover {color:#15803D}
