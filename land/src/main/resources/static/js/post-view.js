@@ -209,7 +209,7 @@ $(function () {
 
   $(document).on("click", "#comment-modify-complete", function () {
     let modifiedComment = $(this).parent().parent().find("#modify-comment").val();
-    let commentId = $(this).parent().parent().parent().find("#comment-id").text();
+    let commentId = $(this).parent().parent().find("#comment-id").text();
 
     let commentUpdateRequest = {
       content: modifiedComment,
