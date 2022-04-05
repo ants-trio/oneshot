@@ -30,40 +30,44 @@ $(function () {
   function expressComment(commentData) {
     $("#post-comment").empty();
     for (let i = 0; i < commentData.length; i++) {
-      $("#post-comment").append(`
-        <li class="comment_item p-4 my-3">
-        
-          <div style="display: none">${commentData[i].commentId}</div>
-          <div class="comment_hd">
-            <p class="fw-bold" id="comment-id">${commentData[i].writer}</p>
+      if (commentData[i].role == "WRITER") {
+        $("#post-comment").append(`
+        <div class="comment_item p-4 my-3">
+          <div style="display: none" id="comment-id">${commentData[i].commentId}</div>
+          <div class="comment_hd d-flex align-items-center justify-content-between">
+            <p class="fw-bold" id="comment-writer">${commentData[i].writer}</p>
+            <div class="review_control_wrap position-relative">
+              <i class="fa-solid fa-ellipsis-vertical review_control_icon"></i>
+              <ul class="position-absolute review_control_ul px-3 py-2 m-0">
+                <li class="text-center review_control_modify_btn w-100" id="comment-modify">수정</li>
+                <li class="text-center mt-2 review_control_delete_btn w-100" id="comment-delete">삭제</li>
+              </ul>
+            </div>
           </div>
           <div class="comment_body mt-3 mb-2">
             <p class="comment_content" id="comment-content">${commentData[i].content}</p>
           </div>
-            <div class="comment_ft">
+          <div class="comment_ft" id="comment-date-column">
             <p class="comment_date text-xs fw-lighter" id="comment-date" style="color:rgba(0,0,0,0.5)">${commentData[i].createdDate}</p>
           </div>
-        
-      `);
-      if (commentData[i].role == "WRITER") {
-        $("#post-comment").append(`
-        
-          <button type="button"
-            class="px-3 py-2 text-sm font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
-            id="comment-modify">
-            수정하기
-          </button>
-          <button
-            class="flex items-center justify-between text-sm ms-2 px-3 py-2 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700"
-            aria-label="Delete" id="comment-delete">
-            삭제하기
-          </button>
-        
+        </div>
         `);
-      }
-      $("#post-comment").append(`
-        </li>
+      } else {
+        $("#post-comment").append(`
+        <div class="comment_item p-4 my-3">
+          <div style="display: none" id="comment-id">${commentData[i].commentId}</div>
+          <div class="comment_hd">
+            <p class="fw-bold" id="comment-writer">${commentData[i].writer}</p>
+          </div>
+          <div class="comment_body mt-3 mb-2">
+            <p class="comment_content" id="comment-content">${commentData[i].content}</p>
+          </div>
+          <div class="comment_ft">
+            <p class="comment_date text-xs fw-lighter" id="comment-date" style="color:rgba(0,0,0,0.5)">${commentData[i].createdDate}</p>
+          </div>
+        </div>
       `);
+      }
     }
   }
 
@@ -92,6 +96,7 @@ $(function () {
     `);
   }
 
+  // 게시물 수정 기능
   $(document).on("click", "#post-modify", function () {
     let prevTitle = $("#post-title").text();
     let prevContent = $("#post-content").text();
@@ -144,6 +149,7 @@ $(function () {
     });
   });
 
+  // 게시물 삭제 기능
   $(document).on("click", "#post-delete", function () {
     $.ajax({
       url: "/post/" + postId,
@@ -162,6 +168,7 @@ $(function () {
     });
   });
 
+  // 댓글 등록 기능
   $("#comment-register").on("click", function () {
     let commentData = $("#write-comment").val();
     if (commentData == null || commentData == "") {
@@ -174,27 +181,55 @@ $(function () {
     }
   });
 
-  $(document).on("click", "#comment-modify", function () {
-    let prevComment = $(this).parent().find("#comment-content").text();
-    console.log(prevComment);
-    $($(this).parent().find("#comment-content")).empty().append(`
-    <form action="">
-      <textarea class="form-control" id="modify-comment" rows="5" style="min-height: 200px;">${prevComment}</textarea>
-    </form>
-    `);
-
-    console.log($(this).prev().children());
-    // $(this).parent().children()[2].remove();
-    // $(this).append(`
-    // <button type="button"
-    //   class="px-3 py-2 text-sm font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600"
-    //   id="comment-modify-complete">
-    //     수정완료
-    // </button>
-    // `);
-    // $(this).parent().children()[1].remove();
+  $(document).on("click", ".review_control_icon", function () {
+    $(this).siblings().toggleClass("clicked");
+  });
+  $(document).on("click", ".review_control_ul", function () {
+    $(this).removeClass("clicked");
   });
 
+  // 댓글 수정 기능
+  $(document).on("click", "#comment-modify", function () {
+    let prevComment = $(this).parent().parent().parent().parent().find("#comment-content").text();
+    $($(this).parent().parent().parent().parent().find("#comment-content"))
+      .empty()
+      .append(
+        `<form action=""><textarea class="form-control" id="modify-comment" rows="3" style="min-height: 100px;">${prevComment}</textarea></form>`
+      );
+
+    $($(this).parent().parent().parent().parent().find("#comment-date-column")).empty().append(`
+      <button type="button"
+        class="px-3 py-2 mt-3 text-sm font-semibold leading-tight rounded-full comment_register_btn"
+        id="comment-modify-complete">
+        수정완료
+      </button>
+    `);
+    $(this).parent().parent().parent().remove();
+  });
+
+  $(document).on("click", "#comment-modify-complete", function () {
+    let modifiedComment = $(this).parent().parent().find("#modify-comment").val();
+    let commentId = $(this).parent().parent().parent().find("#comment-id").text();
+
+    let commentUpdateRequest = {
+      content: modifiedComment,
+    };
+
+    $.ajax({
+      url: "/post/" + postId + "/comment/" + commentId,
+      type: "PATCH",
+      data: JSON.stringify(commentUpdateRequest),
+      contentType: "application/json; charset=utf-8",
+      success: function (response) {
+        reloadComment();
+      },
+      error: function () {
+        alert("댓글 수정에 실패했습니다.");
+      },
+    });
+  });
+
+  // 댓글 삭제 기능
   $(document).on("click", "#comment-delete", function () {});
 
   function addComment(commentRequest) {
@@ -203,7 +238,7 @@ $(function () {
       type: "POST",
       data: JSON.stringify(commentRequest),
       contentType: "application/json; charset=utf-8",
-      success: function (response) {
+      success: function () {
         reloadComment();
         $("#write-comment").val("");
       },

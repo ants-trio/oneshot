@@ -194,7 +194,7 @@
             </div>
           </div>
           <div class="card-footer px-3 py-3" style="background-color: #fff;">
-            <div class="d-flex justify-content-end align-items-center mb-3">
+            <div class="d-flex justify-content-end align-items-center mb-6">
               <div class="d-flex justify-content-end align-items-center" id="post-admin-btn">
                 <!-- <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
@@ -222,8 +222,16 @@
             </div>
             <div class="comment_box" id="post-comment">
               <div class="comment_item p-4 my-3">
-                <div class="comment_hd">
+                <div class="comment_hd d-flex align-items-center justify-content-between">
                   <p class="fw-bold" id="comment_id">강성엽</p>
+                  <div class="review_control_wrap position-relative">
+                    <i class="fa-solid fa-ellipsis-vertical review_control_icon"></i>
+                    <ul class="position-absolute review_control_ul px-3 py-2 m-0">
+                      <li class="text-center review_control_modify_btn w-100" id="review_control_modify_btn">수정</li>
+                      <li class="text-center mt-2 review_control_delete_btn w-100" id="review_control_delete_btn">삭제
+                      </li>
+                    </ul>
+                  </div>
                 </div>
                 <div class="comment_body mt-3 mb-2">
                   <p class="comment_content" id="comment_content">포스팅 잘 보고 갑니다</p>
@@ -234,8 +242,16 @@
                 </div>
               </div>
               <div class="comment_item p-4 my-3">
-                <div class="comment_hd">
+                <div class="comment_hd d-flex align-items-center justify-content-between">
                   <p class="fw-bold" id="comment_id">임승민</p>
+                  <div class="review_control_wrap position-relative">
+                    <i class="fa-solid fa-ellipsis-vertical review_control_icon"></i>
+                    <ul class="position-absolute review_control_ul px-3 py-2 m-0">
+                      <li class="text-center review_control_modify_btn w-100" id="review_control_modify_btn">수정</li>
+                      <li class="text-center mt-2 review_control_delete_btn w-100" id="review_control_delete_btn">삭제
+                      </li>
+                    </ul>
+                  </div>
                 </div>
                 <div class="comment_body mt-3 mb-2">
                   <p class="comment_content" id="comment_content">
@@ -248,9 +264,17 @@
                     20:41</p>
                 </div>
               </div>
-              <div class="comment_item p-4 my-3">
-                <div class="comment_hd">
+              <div class="comment_item p-4 my-3 mb-6">
+                <div class="comment_hd d-flex align-items-center justify-content-between">
                   <p class="fw-bold" id="comment_id">이수은</p>
+                  <div class="review_control_wrap position-relative">
+                    <i class="fa-solid fa-ellipsis-vertical review_control_icon"></i>
+                    <ul class="position-absolute review_control_ul px-3 py-2 m-0">
+                      <li class="text-center review_control_modify_btn w-100" id="review_control_modify_btn">수정</li>
+                      <li class="text-center mt-2 review_control_delete_btn w-100" id="review_control_delete_btn">삭제
+                      </li>
+                    </ul>
+                  </div>
                 </div>
                 <div class="comment_body mt-3 mb-2">
                   <p class="comment_content" id="comment_content">
@@ -263,25 +287,27 @@
                 </div>
               </div>
             </div>
-            <div class="card-body" style="height:500px;">
+            <div class="card-body comment_write_box pt-4 pb-3">
               <div class="form-group">
                 <form action="">
-                  <textarea class="form-control" id="write-comment" rows="5" style="min-height: 450px;"></textarea>
+                  <textarea class="form-control" id="write-comment" rows="3" style="min-height: 100px;"
+                    placeholder="더욱 훈훈한 커뮤니티가 되기 위해 댓글 에티켓을 지켜주시면 감사하겠습니다."></textarea>
                 </form>
               </div>
+              <button type="button"
+                class="px-3 py-2 mt-3 text-sm font-semibold leading-tight rounded-full comment_register_btn"
+                id="comment-register">
+                댓글쓰기
+              </button>
             </div>
-            <button type="button" class="px-3 py-2 text-sm font-semibold leading-tight rounded-full"
-              id="comment-register">
-              댓글쓰기
-            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"></script>
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
