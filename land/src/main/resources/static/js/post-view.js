@@ -181,6 +181,7 @@ $(function () {
     }
   });
 
+  // 댓글 관리 기능 visualize
   $(document).on("click", ".review_control_icon", function () {
     $(this).siblings().toggleClass("clicked");
   });
@@ -207,6 +208,7 @@ $(function () {
     $(this).parent().parent().parent().remove();
   });
 
+  // 댓글 수정 완료
   $(document).on("click", "#comment-modify-complete", function () {
     let modifiedComment = $(this).parent().parent().find("#modify-comment").val();
     let commentId = $(this).parent().parent().find("#comment-id").text();
@@ -230,7 +232,23 @@ $(function () {
   });
 
   // 댓글 삭제 기능
-  $(document).on("click", "#comment-delete", function () {});
+  $(document).on("click", "#comment-delete", function () {
+    let commentId = $(this).parent().parent().parent().parent().find("#comment-id").text();
+    $.ajax({
+      url: "/post/" + postId + "/comment/" + commentId,
+      type: "DELETE",
+      data: "",
+      contentType: "application/json; charset=utf-8",
+      success: function (response) {
+        if (confirm("댓글을 삭제하시겠습니까?")) {
+          reloadComment();
+        }
+      },
+      error: function () {
+        alert("댓글 삭제에 실패했습니다.");
+      },
+    });
+  });
 
   function addComment(commentRequest) {
     $.ajax({
