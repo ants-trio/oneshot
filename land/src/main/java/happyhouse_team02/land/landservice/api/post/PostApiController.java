@@ -2,6 +2,8 @@ package happyhouse_team02.land.landservice.api.post;
 
 import static org.springframework.data.domain.Sort.Direction.*;
 
+import java.util.List;
+
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.data.domain.Page;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import happyhouse_team02.land.landservice.api.SuccessResponseResult;
+import happyhouse_team02.land.landservice.domain.Comment;
 import happyhouse_team02.land.landservice.domain.Post;
+import happyhouse_team02.land.landservice.service.comment.CommentService;
 import happyhouse_team02.land.landservice.service.post.PostDto;
 import happyhouse_team02.land.landservice.service.post.PostService;
 import happyhouse_team02.land.landservice.web.argumentresolver.LoginEmail;
@@ -34,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PostApiController {
 
 	private final PostService postService;
-
+	private final CommentService commentService;
 
 	@GetMapping
 	public SuccessResponseResult getPosts(@PageableDefault(sort = "createdDate", direction = DESC) Pageable pageable) {
@@ -55,8 +59,10 @@ public class PostApiController {
 
 	@GetMapping("/{postId}")
 	public SuccessResponseResult getPost(@LoginEmail String loginEmail, @PathVariable Long postId) {
-		Post post = postService.findOneWithComment(postId);
-		PostResponseDto postDetailDto = new PostResponseDto(post);
+		Post post = postService.findOne(postId);
+		List<Comment> comments = commentService.findComments(postId);
+
+		PostResponseDto postDetailDto = new PostResponseDto(post, comments);
 		postDetailDto.addRole(loginEmail);
 
 		return new SuccessResponseResult(new GetPostResponse(postDetailDto));

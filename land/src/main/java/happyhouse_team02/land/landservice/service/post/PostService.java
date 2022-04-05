@@ -14,6 +14,7 @@ public interface PostService {
 
 	/**
 	 * 게시글 하나를 댓글과 함께 조회합니다.
+	 * TODO 쿼리 수정이 필요. 댓글을 모두 조회하면서 댓글의 Member까지 페치조인 해야함.
 	 */
 	Post findOneWithComment(Long postId);
 

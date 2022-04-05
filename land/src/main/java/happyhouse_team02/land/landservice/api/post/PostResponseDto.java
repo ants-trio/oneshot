@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import happyhouse_team02.land.landservice.api.comment.CommentResponseDto;
+import happyhouse_team02.land.landservice.domain.Comment;
 import happyhouse_team02.land.landservice.domain.Post;
 import happyhouse_team02.land.landservice.domain.Role;
 import lombok.AllArgsConstructor;
@@ -22,13 +23,13 @@ public class PostResponseDto {
 	private List<CommentResponseDto> comments;
 	private Role role = Role.NORMAL;
 
-	public PostResponseDto(Post post) {
+	public PostResponseDto(Post post, List<Comment> comments) {
 		writer = post.getMember().getEmail();
 		id = post.getId();
 		title = post.getTitle();
 		content = post.getContent();
 		createdDate = post.getCreatedDate();
-		comments = post.getComments().stream().map(CommentResponseDto::new).collect(toList());
+		this.comments = comments.stream().map(CommentResponseDto::new).collect(toList());
 	}
 
 	public void addRole(String email) {
