@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import happyhouse_team02.land.landservice.api.SuccessResponseResult;
 import happyhouse_team02.land.landservice.service.comment.CommentDto;
 import happyhouse_team02.land.landservice.service.comment.CommentService;
-import happyhouse_team02.land.landservice.web.argumentresolver.LoginEmail;
+import happyhouse_team02.land.landservice.web.util.argumentresolver.LoginEmail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

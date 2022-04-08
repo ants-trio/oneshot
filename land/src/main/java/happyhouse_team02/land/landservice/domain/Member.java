@@ -53,10 +53,6 @@ public class Member extends BaseTimeEntity{
 		return getPassword().equals(password);
 	}
 
-	public void deleteBookmark(Bookmark bookmark){
-		this.bookmarks.remove(bookmark);
-	}
-
 	@Override
 	public String toString() {
 		return "Member{" + "name='" + this.getEmail() + '\'' + '}';

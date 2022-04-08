@@ -27,3 +27,5 @@ logging.level:
 server.servlet.session:
   tracking-modes: cookie
   timeout: 1800
+
+# file.dir=/Users/

@@ -1,6 +1,6 @@
 package happyhouse_team02.land.landservice.util;
 
-import static happyhouse_team02.land.landservice.web.session.SessionConst.*;
+import static happyhouse_team02.land.landservice.web.util.session.SessionConst.*;
 
 import java.util.Optional;
 
