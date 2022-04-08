@@ -1,6 +1,6 @@
-package happyhouse_team02.land.landservice.web.interceptor;
+package happyhouse_team02.land.landservice.web.util.interceptor;
 
-import static happyhouse_team02.land.landservice.web.session.SessionConst.*;
+import static happyhouse_team02.land.landservice.web.util.session.SessionConst.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

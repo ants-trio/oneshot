@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import happyhouse_team02.land.landservice.service.member.MemberService;
+import happyhouse_team02.land.landservice.web.login.old.LoginValidator;
+import happyhouse_team02.land.landservice.web.util.strategy.ValidatorContext;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -31,8 +33,8 @@ public class LoginController {
 						BindingResult bindingResult,
 						@RequestParam(defaultValue = "/") String redirectURL,
 						HttpServletRequest request) {
-
-		loginValidator.validate(form, bindingResult);
+		ValidatorContext validatorContext = new ValidatorContext(new LoginStrategy(memberService));
+		validatorContext.validate(form, bindingResult);
 
 		if (bindingResult.hasErrors()) {
 			return "member/login";

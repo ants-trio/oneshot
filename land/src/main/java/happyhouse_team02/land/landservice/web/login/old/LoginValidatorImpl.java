@@ -1,10 +1,11 @@
-package happyhouse_team02.land.landservice.web.login;
+package happyhouse_team02.land.landservice.web.login.old;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.service.member.MemberService;
+import happyhouse_team02.land.landservice.web.login.LoginForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
