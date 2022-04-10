@@ -1,5 +1,7 @@
 package happyhouse_team02.land.landservice.web.login;
 
+import static happyhouse_team02.land.landservice.web.util.strategy.Strategy.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -32,7 +34,7 @@ public class LoginController {
 						BindingResult bindingResult,
 						@RequestParam(defaultValue = "/") String redirectURL,
 						HttpServletRequest request) {
-		validatorContext.validate(form, bindingResult, "loginStrategy");
+		validatorContext.validate(form, bindingResult, LOGIN_STRATEGY);
 		if (bindingResult.hasErrors()) {
 			return "member/login";
 		}
