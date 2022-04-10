@@ -32,8 +32,7 @@ public class LoginController {
 						BindingResult bindingResult,
 						@RequestParam(defaultValue = "/") String redirectURL,
 						HttpServletRequest request) {
-		validatorContext.validate(form, bindingResult);
-
+		validatorContext.validate(form, bindingResult, "loginStrategy");
 		if (bindingResult.hasErrors()) {
 			return "member/login";
 		}

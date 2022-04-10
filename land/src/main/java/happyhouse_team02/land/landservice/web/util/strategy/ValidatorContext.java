@@ -1,25 +1,23 @@
 package happyhouse_team02.land.landservice.web.util.strategy;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 
+import lombok.RequiredArgsConstructor;
+
 @Component
+@RequiredArgsConstructor
 public class ValidatorContext {
 
-	private ValidatorStrategy validatorStrategy;
+	private final Map<String, ValidatorStrategy> validatorStrategy;
 
-	private ValidatorContext() {
-	}
-
-	public ValidatorContext(ValidatorStrategy validatorStrategy) {
-		this.validatorStrategy = validatorStrategy;
-	}
-
-	public void validate(Object form, BindingResult bindingResult) {
+	public void validate(Object form, BindingResult bindingResult, String strategy) {
 		if (bindingResult.hasErrors()) {
 			return;
 		}
-		validatorStrategy.call(form, bindingResult);
+		validatorStrategy.get(strategy).call(form, bindingResult);
 	}
 
 }
