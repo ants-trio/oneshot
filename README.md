@@ -289,6 +289,68 @@ Member member = new Member.Builder()
 
 그러면 파라미터마다 어떤 값을 넣어야 할지 명확하여 실수할 여지도 줄어들고, 파라미터가 늘어나도 확장성도 늘어납니다.
 
+
+
+**전략 패턴**
+
+뷰를 호출하는 컨트롤러에서 어떤 `form`의 입력을 받는다면, 무조건 다음과 같은 코드로 시작할 수 밖에 없습니다.
+
+```java
+if (bindingResult.hasErrors()) { // 타입 검증 체크
+  return "{form을 호출한 html}";
+}
+// 논리적인 검증을 하는 코드
+if (bindingResult.hasErrors()) { // 논리 검증 체크
+  return "{form을 호출한 html}";
+}
+```
+
+그리고 이는 중복된 코드입니다. 이 중복 코드를 어떻게 하면 제거할 수 있을까 고민을 했습니다. 내부적으로 숨기기 위해 전략패턴을 사용합니다.
+
+```java
+@Component
+@RequiredArgsConstructor
+public class ValidatorContext {
+
+	private final Map<String, ValidatorStrategy> validatorStrategy;
+
+	public void validate(Object form, BindingResult bindingResult, String strategy) {
+		if (bindingResult.hasErrors()) {
+			return;
+		}
+		validatorStrategy.get(strategy).call(form, bindingResult);
+	}
+}
+```
+
+context가 먼저 타입오류가 있는지 체크하고 있으면 검사를 종료합니다. 만약 없다면 끼워맞춘 전략을 찾아서 그를 호출해줍니다. 전략이 여러개일 수 있고 DI를 스프링에 맡기고 싶어, List가 아닌 Map을 이용하였습니다.
+
+그 호출된 전략은 다음과 같이 검사를 이어서 진행합니다.
+
+```java
+@Override
+public void call(Object form, BindingResult bindingResult) {
+  if (form instanceof LoginForm) {
+    validateEmailAndPassword((LoginForm)form, bindingResult);
+    return;
+  }
+  throw new IllegalArgumentException();
+}
+```
+
+그리고 전략 패턴을 사용하여 중복을 이용하는 코드는 다음과 같이 줄어듭니다.
+
+```java
+validatorContext.validate(form, bindingResult, LOGIN_STRATEGY);
+if (bindingResult.hasErrors()) {
+  return "member/login";
+}
+```
+
+return문은 1번으로 줄어들었고, 검사는 내부적으로 진행됩니다. 넘겨주는 매개 변수가 3개인 것은 조금 아쉬운 부분이지만 그래도 깔끔하게 정리되었고 중복은 사라졌으므로 더 나은 코드가 된 것은 맞다고 생각합니다.
+
+
+
 **객체와 메서드는 한가지 책임**
 
 클래스도, 메서드도 한가지 책임을 담당하도록 최대한 설계하였습니다. 아직 리팩터링해야할 부분이 너무 많지만 그 중 일부만 예를 들어 보이겠습니다.
@@ -482,7 +544,7 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
 
 때문에 입력은 DTO로 받지만, 반환은 엔티티로 변경하였습니다. 이렇게하면서 여러 장점이 생깁니다.
 
-- 새로운 DTO로 입력을 받게 되어도, 오버로딩해서 같은 진행할 수 있다.
+- 새로운 DTO로 입력을 받게 되어도, 오버로딩을 이용해서 같은 진행할 수 있다.
 - 서비스는 이제 컨트롤러에 의존하지 않는다.
 - 엔티티를 받은 객체는 다시 자기가 용도에 맞게 가공해서 가져다 쓰면 된다. 그리고 이게 오히려 객체지향적인 관점에서도 맞다. 그리고 이렇게 해야 확장성이 풍부해진다.
 - 만약 MemberService라면 MemberRepository를 의존하겠지만 다른 어떤 Service가 Member에 대해 궁금하다해도 MemberRepository에 직접 접근하는 것이 아니라 MemberService를 통해 수행하면 중복코드도 말끔하게 사라지며, 의존도 깔끔해진다.
@@ -528,6 +590,20 @@ Service를 의존하더라도 결국, 데이터를 가져온다는 것은 query�
 #### 결론적으로..
 
 초반에는 안전을 위해서였지만, 객체지향적, 성능등 여러 이슈로 서비스에서 검증을 수행합니다. 대신 서비스의 시작지점에서 검증을 수행한다면 위의 문제를 해결할 수 있습니다. 넘어온 데이터를 바로바로 검증하고 시작한다면 다시 안전하게 사용이 가능하며 커넥션도 한번의 연결로 문제를 해결할 수 있습니다. 때문에 구조를 변경하였습니다.
+
+
+
+#### 학습을 위해
+
+HTTP API설계의 부분에서 더 이상 검증기는 존재하지 않습니다. 문제 파악이나 문제 해결 로직 역시 Service객체에 들어가도 큰 문제가 없을 것이라 판단하여 검증기를 없앴습니다. 다만 뷰를 호출하는 부분에서의 검증기는 남아있습니다. 이 역시 없앨까 고민했지만, 없애지 않은 이유가 2가지 있습니다.
+
+1. 학습을 위해
+
+구조를 고민하여 변경하는 과정의 일부도 학습의 일부라서 지우지 않았습니다.
+
+2. 무조건 적인 bindingResult
+
+들어온 잘못된 값(타입이 잘못된 기본적인 에러) bindingResult으로 넣어 뷰에 넘겨주어야 하는 로직이 필수적입니다. 따라서 이 부분이 모두 중복될 수 밖에 없습니다. 중복은 보기 좋지 않아 여기서 검증과정을 거칩니다. binding검사도 하고, 논리적인 검증도 합니다. 이를 검증기에 활용하여 진행합니다. 검증기에서 내부적으로 검사를 모두 실시한 후 뷰를 호출합니다. 여기서 클린한 코드를 유지하기 위해 전략 패턴을 이용하였습니다.
 
 
 
