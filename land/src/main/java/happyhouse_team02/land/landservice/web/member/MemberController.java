@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.service.member.MemberService;
+import happyhouse_team02.land.landservice.web.member.old.MemberValidator;
 import lombok.RequiredArgsConstructor;
 
 @Controller

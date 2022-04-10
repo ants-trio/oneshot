@@ -7,23 +7,18 @@ import org.springframework.validation.BindingResult;
 
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.repository.MemberRepository;
+import happyhouse_team02.land.landservice.web.util.strategy.ValidatorStrategy;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Component
 @RequiredArgsConstructor
-public class MemberValidatorImpl implements MemberValidator {
+public class MemberStrategy implements ValidatorStrategy {
 
 	private final MemberRepository memberRepository;
 
 	@Override
-	public void validate(MemberRegisterForm registerForm, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			return;
-		}
-		validateDuplicatedEmail(registerForm, bindingResult);
-
+	public void call(Object form, BindingResult bindingResult) {
+		validateDuplicatedEmail((MemberRegisterForm) form, bindingResult);
 	}
 
 	private void validateDuplicatedEmail(MemberRegisterForm registerForm, BindingResult bindingResult) {

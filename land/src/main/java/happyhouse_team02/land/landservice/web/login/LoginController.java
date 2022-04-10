@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import happyhouse_team02.land.landservice.service.member.MemberService;
-import happyhouse_team02.land.landservice.web.login.old.LoginValidator;
 import happyhouse_team02.land.landservice.web.util.strategy.ValidatorContext;
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class LoginController {
 
 	private final MemberService memberService;
-	private final LoginValidator loginValidator;
+	private final ValidatorContext validatorContext;
 
 	@GetMapping("/login")
 	public String loginForm(@ModelAttribute("loginForm") LoginForm form) {
@@ -33,7 +32,6 @@ public class LoginController {
 						BindingResult bindingResult,
 						@RequestParam(defaultValue = "/") String redirectURL,
 						HttpServletRequest request) {
-		ValidatorContext validatorContext = new ValidatorContext(new LoginStrategy(memberService));
 		validatorContext.validate(form, bindingResult);
 
 		if (bindingResult.hasErrors()) {
