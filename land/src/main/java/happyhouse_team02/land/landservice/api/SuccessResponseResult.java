@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SuccessResponseResult<T> {
+public class SuccessResponseResult {
 	private final String state = "SUCCESS";
-	private T data;
+	private Object data;
 }
