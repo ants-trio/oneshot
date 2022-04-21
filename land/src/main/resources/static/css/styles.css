@@ -12477,6 +12477,8 @@ body {
 }
 .list_amount_box select {
   padding: 2px 5px;
+    color: #6b7280 !important;
+    background: #F9FAFB !important;
 }
 
 /*게시판 - view */
