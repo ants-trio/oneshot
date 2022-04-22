@@ -12534,11 +12534,39 @@ body {
   border: 1px solid #ced4da;
   line-height: 15.5px;
 }
-
+.post_write_file_btn {
+  margin-top:12px;
+}
+.post_write_file_btn.btn1 {
+  margin-top:15px;
+}
+.insert {
+  display: block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.insert .file-list {
+  overflow: auto;
+  border: 1px solid #ced4da;
+  border-radius: 2.5px;
+  padding: 10px;
+  margin-top: 10px;
+}
+.insert .file-list .filebox p {
+  font-size: 14px;
+  margin-top: 0;
+  display: inline-block;
+}
+.insert .file-list .filebox .delete i{
+  color: #7E3AF2;
+  margin-left: 5px;
+}
 /*회원가입완료 페이지*/
 .member_joined_icon i{
   font-size: 60px;
   color:#7e3af2;
+  margin-bottom:22.5px;
 }
 .member_joined_container h1 {
   font-size: 29px;
@@ -12547,6 +12575,7 @@ body {
 .member_joined_mention_box p {
   color: #555;
   line-height:1.75;
+  margin: 0;
 }
 .member_joined_hr {
   display:block;
