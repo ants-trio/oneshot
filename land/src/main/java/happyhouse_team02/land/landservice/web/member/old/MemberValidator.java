@@ -1,6 +1,8 @@
-package happyhouse_team02.land.landservice.web.member;
+package happyhouse_team02.land.landservice.web.member.old;
 
 import org.springframework.validation.BindingResult;
+
+import happyhouse_team02.land.landservice.web.member.MemberRegisterForm;
 
 public interface MemberValidator {
 

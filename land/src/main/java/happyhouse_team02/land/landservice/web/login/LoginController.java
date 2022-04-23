@@ -1,5 +1,7 @@
 package happyhouse_team02.land.landservice.web.login;
 
+import static happyhouse_team02.land.landservice.web.util.strategy.Strategy.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import happyhouse_team02.land.landservice.service.member.MemberService;
+import happyhouse_team02.land.landservice.web.util.strategy.ValidatorContext;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -19,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class LoginController {
 
 	private final MemberService memberService;
-	private final LoginValidator loginValidator;
+	private final ValidatorContext validatorContext;
 
 	@GetMapping("/login")
 	public String loginForm(@ModelAttribute("loginForm") LoginForm form) {
@@ -31,9 +34,7 @@ public class LoginController {
 						BindingResult bindingResult,
 						@RequestParam(defaultValue = "/") String redirectURL,
 						HttpServletRequest request) {
-
-		loginValidator.validate(form, bindingResult);
-
+		validatorContext.validate(form, bindingResult, LOGIN_STRATEGY);
 		if (bindingResult.hasErrors()) {
 			return "member/login";
 		}

@@ -1,5 +1,7 @@
 package happyhouse_team02.land.landservice.web.member;
 
+import static happyhouse_team02.land.landservice.web.util.strategy.Strategy.*;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import happyhouse_team02.land.landservice.domain.Member;
 import happyhouse_team02.land.landservice.service.member.MemberService;
+import happyhouse_team02.land.landservice.web.util.strategy.ValidatorContext;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -19,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 
 	private final MemberService memberService;
-	private final MemberValidator memberValidator;
+	private final ValidatorContext validatorContext;
 
 	@GetMapping
 	public String login() {
@@ -34,7 +37,7 @@ public class MemberController {
 
 	@PostMapping("/new")
 	public String create(@Validated @ModelAttribute MemberRegisterForm form, BindingResult bindingResult) {
-		memberValidator.validate(form, bindingResult);
+		validatorContext.validate(form, bindingResult, MEMBER_STRATEGY);
 
 		if (bindingResult.hasErrors()) {
 			return "member/register";

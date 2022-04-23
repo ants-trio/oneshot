@@ -1,6 +1,8 @@
-package happyhouse_team02.land.landservice.web.login;
+package happyhouse_team02.land.landservice.web.login.old;
 
 import org.springframework.validation.BindingResult;
+
+import happyhouse_team02.land.landservice.web.login.LoginForm;
 
 public interface LoginValidator {
 

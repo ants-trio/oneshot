@@ -1,4 +1,4 @@
-package happyhouse_team02.land.landservice.web.argumentresolver;
+package happyhouse_team02.land.landservice.web.util.argumentresolver;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

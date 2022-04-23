@@ -7,8 +7,8 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import happyhouse_team02.land.landservice.web.argumentresolver.LoginMemberArgumentResolver;
-import happyhouse_team02.land.landservice.web.interceptor.LoginCheckInterceptor;
+import happyhouse_team02.land.landservice.web.util.argumentresolver.LoginMemberArgumentResolver;
+import happyhouse_team02.land.landservice.web.util.interceptor.LoginCheckInterceptor;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
