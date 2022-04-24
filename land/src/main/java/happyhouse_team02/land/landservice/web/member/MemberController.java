@@ -37,6 +37,7 @@ public class MemberController {
 
 	@PostMapping("/new")
 	public String create(@Validated @ModelAttribute MemberRegisterForm form, BindingResult bindingResult) {
+
 		validatorContext.validate(form, bindingResult, MEMBER_STRATEGY);
 
 		if (bindingResult.hasErrors()) {
