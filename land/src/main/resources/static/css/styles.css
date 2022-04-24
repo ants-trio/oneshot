@@ -12534,6 +12534,35 @@ body {
   border: 1px solid #ced4da;
   line-height: 15.5px;
 }
+*:focus { outline: 0; }
+textarea:focus, input:focus{
+  outline: none !important;
+}
+.comment_add_plus {
+  cursor: pointer;
+  margin-left:10px;
+  font-size:14px;
+}
+.recomment_write_container {
+  margin-top: 20px;
+  margin-left: 35px;
+}
+.recomment_view_container {
+  margin-left: 35px;
+}
+.recomment_item_content .form-control {
+  border:none;
+  padding: 8px 5px 5px 9px;
+}
+.recomment_item_content .form-control::placeholder {
+  color: #B7B7B7;
+}
+.recomment_item_content {
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 0.3rem;
+}
+
 .post_write_file_btn {
   margin-top:12px;
 }
