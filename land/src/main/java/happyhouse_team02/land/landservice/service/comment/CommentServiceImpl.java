@@ -1,6 +1,7 @@
 package happyhouse_team02.land.landservice.service.comment;
 
 import static happyhouse_team02.land.landservice.domain.CommentRole.*;
+import static java.util.stream.Collectors.*;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class CommentServiceImpl implements CommentService {
 		Member findMember = memberService.findOne(email);
 		Post findPost = postService.findOne(commentDto.getPostId());
 		Comment comment = new Comment.Builder().member(findMember)
+			.role(PARENT)
 			.post(findPost)
 			.content(commentDto.getContent())
 			.build();
@@ -67,7 +69,8 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> findComments(Long postId) {
-		return commentRepository.findByPostIdOrderByCreatedDate(postId);
+		List<Comment> comments = commentRepository.findByPostIdOrderByCreatedDate(postId);
+		return comments.stream().filter(comment -> comment.getRole() == PARENT).collect(toList());
 	}
 
 	@Override

@@ -50,7 +50,7 @@ public class Comment extends BaseEntity {
 	private String content;
 
 	@Enumerated(value = EnumType.STRING)
-	private CommentRole role = PARENT;
+	private CommentRole role;
 
 	private Comment(Builder builder) {
 		member = builder.member;

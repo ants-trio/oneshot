@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import happyhouse_team02.land.landservice.domain.Comment;
-import happyhouse_team02.land.landservice.domain.Role;
+import happyhouse_team02.land.landservice.domain.CommentRole;
 import lombok.Data;
 
 @Data
@@ -14,9 +14,9 @@ public class CommentResponseDto {
 	private Long commentId;
 	private String writer;
 	private String content;
-	private boolean parent = true;
+	private CommentRole role;
 	private LocalDateTime createdDate;
-	private Role role = Role.NORMAL;
+	private Boolean isWriter = false;
 	private List<CommentResponseDto> comments;
 
 	public CommentResponseDto(Comment comment) {
@@ -24,18 +24,16 @@ public class CommentResponseDto {
 		writer = comment.getMember().getEmail();
 		content = comment.getContent();
 		createdDate = comment.getCreatedDate();
+		role = comment.getRole();
 		comments = comment.getChildren().stream()
 			.map(CommentResponseDto::new)
 			.collect(toList());
-
-		if(comment.getParent() != null){
-			parent = false;
-		}
+		comments.forEach(c -> c.addRole(writer));
 	}
 
 	public void addRole(String email) {
 		if (writer.equals(email)) {
-			role = Role.WRITER;
+			isWriter = true;
 		}
 	}
 }

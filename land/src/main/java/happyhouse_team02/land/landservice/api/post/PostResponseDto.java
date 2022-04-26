@@ -8,7 +8,6 @@ import java.util.List;
 import happyhouse_team02.land.landservice.api.comment.CommentResponseDto;
 import happyhouse_team02.land.landservice.domain.Comment;
 import happyhouse_team02.land.landservice.domain.Post;
-import happyhouse_team02.land.landservice.domain.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -21,7 +20,7 @@ public class PostResponseDto {
 	private String content;
 	private LocalDateTime createdDate;
 	private List<CommentResponseDto> comments;
-	private Role role = Role.NORMAL;
+	private Boolean isWriter = false;
 
 	public PostResponseDto(Post post, List<Comment> comments) {
 		writer = post.getMember().getEmail();
@@ -34,7 +33,7 @@ public class PostResponseDto {
 
 	public void addRole(String email) {
 		if (writer.equals(email)) {
-			role = Role.WRITER;
+			isWriter = true;
 		}
 		comments.forEach(comment -> comment.addRole(email));
 	}
