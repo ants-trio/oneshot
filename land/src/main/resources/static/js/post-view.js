@@ -47,7 +47,7 @@ $(function () {
           <div class="comment_body mt-3 mb-2">
             <p class="comment_content" id="comment-content">${commentData[i].content}</p>
           </div>
-          <div class="comment_ft" id="comment-date-column">
+          <div class="comment_ft d-flex flex-wrap align-items-center" id="comment-date-column">
             <p class="comment_date text-xs fw-lighter" id="comment-date" style="color:rgba(0,0,0,0.5)">${commentData[i].createdDate}</p>
           </div>
         </div>
@@ -170,6 +170,8 @@ $(function () {
 
   // 댓글 등록 기능
   $("#comment-register").on("click", function () {
+    console.log("????");
+
     let commentData = $("#write-comment").val();
     if (commentData == null || commentData == "") {
       alert("댓글 내용을 입력해주세요");
