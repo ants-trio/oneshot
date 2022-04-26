@@ -71,6 +71,16 @@ public class CommentApiController {
 		return new SuccessResponseResult();
 	}
 
+	@PostMapping("/{commentId}/new")
+	public SuccessResponseResult addComment(@LoginEmail String loginEmail,
+											@PathVariable Long postId,
+											@PathVariable Long commentId,
+											@Validated @RequestBody WriteCommentRequest request){
+		CommentDto commentDto = new CommentDto(postId, commentId, request.getContent());
+		Long comment = commentService.addComment(loginEmail, commentDto);
+		return new SuccessResponseResult(new AddCommentResponse(comment));
+	}
+
 	@Data
 	@AllArgsConstructor
 	static class GetCommentsResponse {
@@ -93,6 +103,12 @@ public class CommentApiController {
 	static class UpdateCommentRequest {
 		@NotEmpty
 		private String content;
+	}
+
+	@Data
+	@AllArgsConstructor
+	static class AddCommentResponse {
+		private Long commentId;
 	}
 
 }

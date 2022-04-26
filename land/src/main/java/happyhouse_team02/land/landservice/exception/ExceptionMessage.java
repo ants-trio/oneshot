@@ -12,6 +12,11 @@ public interface ExceptionMessage {
 	String GLOBAL_MESSAGE = "[ERROR] 내부 오류";
 
 	/**
+	 * 잘못된 접근 메시지
+	 */
+	String ILLEGAL_MESSAGE = "[ERROR] 잘못된 접근입니다.";
+
+	/**
 	 *  권한이 없는 경우
 	 */
 	String UNAUTHORIZED_ACCESS_MESSAGE = "[ERROR] 접근 권한이 없습니다.";
