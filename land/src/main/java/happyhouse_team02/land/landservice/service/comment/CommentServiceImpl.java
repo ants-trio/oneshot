@@ -1,5 +1,7 @@
 package happyhouse_team02.land.landservice.service.comment;
 
+import static happyhouse_team02.land.landservice.domain.CommentRole.*;
+
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -13,7 +15,9 @@ import happyhouse_team02.land.landservice.repository.CommentRepository;
 import happyhouse_team02.land.landservice.service.member.MemberService;
 import happyhouse_team02.land.landservice.service.post.PostService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -41,6 +45,26 @@ public class CommentServiceImpl implements CommentService {
 		return commentRepository.save(comment).getId();
 	}
 
+
+	@Override
+	@Transactional
+	public Long addComment(String email, CommentDto commentDto) {
+		Member findMember = memberService.findOne(email);
+		Comment findComment = findOne(commentDto.getCommentId());
+		Comment comment = new Comment.Builder().member(findMember)
+			.post(findComment.getPost())
+			.content(commentDto.getContent())
+			.role(CHILDREN)
+			.build();
+		log.info("comment={}", comment.getId());
+		log.info("findComment={}", findComment.getId());
+		commentRepository.save(comment);
+		log.info("comment={}", comment.getId());
+
+		findComment.addComment(comment);
+		return comment.getId();
+	}
+
 	@Override
 	public List<Comment> findComments(Long postId) {
 		return commentRepository.findByPostIdOrderByCreatedDate(postId);
@@ -50,7 +74,7 @@ public class CommentServiceImpl implements CommentService {
 	@Transactional
 	public void updateComment(String email, CommentDto commentDto) {
 		Comment comment = findOne(commentDto.getCommentId());
-		comment.confirmAuthority(email);
+		comment.isPossibleUpdate(email);
 		comment.updateComment(commentDto.getContent());
 	}
 
@@ -58,8 +82,11 @@ public class CommentServiceImpl implements CommentService {
 	@Transactional
 	public void deleteComment(String email, Long commentId) {
 		Comment comment = findOne(commentId);
-		comment.confirmAuthority(email);
-		commentRepository.delete(comment);
+		if (comment.isPossibleDelete(email)){
+			commentRepository.delete(comment);
+			return;
+		}
+		comment.updateComment("삭제된 댓글입니다.");
 	}
 
 }

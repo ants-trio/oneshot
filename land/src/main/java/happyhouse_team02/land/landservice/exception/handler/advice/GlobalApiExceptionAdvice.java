@@ -39,6 +39,13 @@ public class GlobalApiExceptionAdvice {
 
 	@ExceptionHandler
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public FailResponseResult illegalStateExceptionHandler(IllegalStateException e) {
+		log.error("[illegalStateExceptionHandler] ex", e);
+		return new FailResponseResult(FAIL, ILLEGAL_MESSAGE);
+	}
+
+	@ExceptionHandler
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public FailResponseResult notValidExceptionHandler(JsonProcessingException e) {
 		log.error("[notValidExceptionHandler] ex", e);
 		return new FailResponseResult(FAIL, "[ERROR] 잘못된 입력입니다.");

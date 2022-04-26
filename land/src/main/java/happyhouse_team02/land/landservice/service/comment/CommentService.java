@@ -17,6 +17,11 @@ public interface CommentService {
 	Long writeComment(String email, CommentDto commentDto);
 
 	/**
+	 * 특정 댓글의 대댓글을 작성합니다.
+	 */
+	Long addComment(String email, CommentDto commentDto);
+
+	/**
 	 * 특정 게시글의 댓글들을 조회합니다.
 	 */
 	List<Comment> findComments(Long postId);

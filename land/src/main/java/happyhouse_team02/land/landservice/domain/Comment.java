@@ -1,14 +1,21 @@
 package happyhouse_team02.land.landservice.domain;
 
+import static happyhouse_team02.land.landservice.domain.CommentRole.*;
 import static javax.persistence.FetchType.*;
 import static lombok.AccessLevel.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import happyhouse_team02.land.landservice.exception.UnauthorizedAccessException;
 import lombok.Getter;
@@ -18,6 +25,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 public class Comment extends BaseEntity {
+
+	@ManyToOne(fetch = LAZY)
+	@JoinColumn(name = "PARENT_ID")
+	private Comment parent;
+
+	@OneToMany(mappedBy = "parent", orphanRemoval = true)
+	private final List<Comment> children = new ArrayList<>();
 
 	@Id
 	@GeneratedValue
@@ -35,13 +49,25 @@ public class Comment extends BaseEntity {
 	@Column(name = "COMMENT_CONTENT")
 	private String content;
 
+	@Enumerated(value = EnumType.STRING)
+	private CommentRole role = PARENT;
+
 	private Comment(Builder builder) {
 		member = builder.member;
 		post = builder.post;
 		content = builder.content;
+		role = builder.role;
 	}
 
-	public void confirmAuthority(String email) {
+	public void addComment(Comment comment) {
+		if (role == CHILDREN) {
+			throw new IllegalStateException();
+		}
+		children.add(comment);
+		comment.parent = this;
+	}
+
+	public void isPossibleUpdate(String email) {
 		if (!member.getEmail().equals(email)) {
 			throw new UnauthorizedAccessException();
 		}
@@ -51,10 +77,16 @@ public class Comment extends BaseEntity {
 		this.content = content;
 	}
 
+	public boolean isPossibleDelete(String email) {
+		isPossibleUpdate(email);
+		return children.isEmpty();
+	}
+
 	public static class Builder {
 		private Member member;
 		private Post post;
 		private String content;
+		private CommentRole role;
 
 		public Builder member(Member member) {
 			this.member = member;
@@ -68,6 +100,11 @@ public class Comment extends BaseEntity {
 
 		public Builder content(String content) {
 			this.content = content;
+			return this;
+		}
+
+		public Builder role(CommentRole role) {
+			this.role = role;
 			return this;
 		}
 

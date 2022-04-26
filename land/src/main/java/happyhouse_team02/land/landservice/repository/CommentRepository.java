@@ -10,9 +10,9 @@ import happyhouse_team02.land.landservice.domain.Comment;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-	@EntityGraph(attributePaths = {"member"})
+	@EntityGraph(attributePaths = {"member", "post", "parent"})
 	Optional<Comment> findById(Long id);
 
-	@EntityGraph(attributePaths = {"member"})
+	@EntityGraph(attributePaths = {"member", "children"})
 	List<Comment> findByPostIdOrderByCreatedDate(Long postId);
 }
