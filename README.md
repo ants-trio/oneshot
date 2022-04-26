@@ -31,7 +31,7 @@
 
 **[임승민](https://github.com/winmini)**
 
-- Java, Spring Framework, JPA, H2  
+- Java, Spring Framework, JPA, MySQL  
 
 
 
